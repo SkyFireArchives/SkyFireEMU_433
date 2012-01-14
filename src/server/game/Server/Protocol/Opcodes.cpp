@@ -1282,6 +1282,8 @@ void InitOpcodes()
     DEFINE_OPCODE_HANDLER(CMSG_LOG_DISCONNECT,                          STATUS_NEVER,    PROCESS_INPLACE,       &WorldSession::Handle_EarlyProccess            );
     DEFINE_OPCODE_HANDLER(SMSG_VERIFY_CONNECTIVITY,                     STATUS_NEVER,    PROCESS_INPLACE,       &WorldSession::Handle_ServerSide               );
     DEFINE_OPCODE_HANDLER(CMSG_VERIFY_CONNECTIVITY_RESPONSE,            STATUS_NEVER,    PROCESS_INPLACE,       &WorldSession::Handle_EarlyProccess            );
+    DEFINE_OPCODE_HANDLER(CMSG_RANDOMIZE_CHAR_NAME,                     STATUS_AUTHED,   PROCESS_THREADUNSAFE,  &WorldSession::HandleRandomizeCharNameOpcode   );
+    DEFINE_OPCODE_HANDLER(SMSG_RANDOMIZE_CHAR_NAME,                     STATUS_AUTHED,   PROCESS_THREADUNSAFE,  &WorldSession::Handle_ServerSide               );
 
 #undef DEFINE_OPCODE_HANDLER
 };
