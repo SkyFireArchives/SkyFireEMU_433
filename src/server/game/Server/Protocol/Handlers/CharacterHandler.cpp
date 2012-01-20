@@ -219,7 +219,7 @@ void WorldSession::HandleCharEnum(QueryResult result)
 {
     WorldPacket data(SMSG_CHAR_ENUM, 270);                  // we guess size
 
-    data.writeBits(result ? (*result).GetRowCount() : 0 , 17);
+    data.WriteBits(result ? (*result).GetRowCount() : 0 , 17);
 
     std::vector<charEnumInfo> charInfoList;
     charInfoList.resize(result ? (*result).GetRowCount() : 0);
@@ -275,45 +275,45 @@ void WorldSession::HandleCharEnum(QueryResult result)
                 {
                     // guidlow[0]
                 case 10:
-                    data.writeBit(Guid0 ? 1 : 0);
+                    data.WriteBit(Guid0 ? 1 : 0);
                     break;
                     // guidlow[1]
                 case 12:
-                    data.writeBit(Guid1 ? 1 : 0);
+                    data.WriteBit(Guid1 ? 1 : 0);
                     break;
                     // guidlow[2]
                 case 1:
-                    data.writeBit(Guid2 ? 1 : 0);
+                    data.WriteBit(Guid2 ? 1 : 0);
                     break;
                     // guidlow[3]
                 case 11:
-                    data.writeBit(Guid3 ? 1 : 0);
+                    data.WriteBit(Guid3 ? 1 : 0);
                     break;
                 case 8:
-                    data.writeBits(charInfoList[counter].nameLenghts, 7);
+                    data.WriteBits(charInfoList[counter].nameLenghts, 7);
                     break;
                 case 13:
-                    data.writeBit(charInfoList[counter].firstLogin ? 1 : 0);
+                    data.WriteBit(charInfoList[counter].firstLogin ? 1 : 0);
                     break;
                 default:
-                    data.writeBit(0);
+                    data.WriteBit(0);
                     break;
                 }
             }
 
             counter++;
         }
-        data.writeBits(0x0, 23); // unk counter 4.3
-        data.writeBit(1);
+        data.WriteBits(0x0, 23); // unk counter 4.3
+        data.WriteBit(1);
 
-        data.flushBits();
+        data.FlushBits();
         data.append(buffer);
     }
     else
     {
-        data.writeBits(0x0, 23);
-        data.writeBit(1);
-        data.flushBits();
+        data.WriteBits(0x0, 23);
+        data.WriteBit(1);
+        data.FlushBits();
     }
 
     SendPacket(&data);

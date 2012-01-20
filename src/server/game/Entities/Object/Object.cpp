@@ -286,23 +286,23 @@ void Object::DestroyForPlayer(Player* target, bool anim) const
 
 void Object::_BuildMovementUpdate(ByteBuffer * data, uint16 flags) const
 {
-    data->writeBit(flags & UPDATEFLAG_HAS_TARGET);
-    data->writeBit(false);
-    data->writeBit(flags & UPDATEFLAG_VEHICLE);
-    data->writeBit(false);
-    data->writeBit(false);
-    data->writeBit(false);
-    data->writeBit(flags & UPDATEFLAG_TRANSPORT);
-    data->writeBit(false); // position transport pour dynamicobject/GO
+    data->WriteBit(flags & UPDATEFLAG_HAS_TARGET);
+    data->WriteBit(false);
+    data->WriteBit(flags & UPDATEFLAG_VEHICLE);
+    data->WriteBit(false);
+    data->WriteBit(false);
+    data->WriteBit(false);
+    data->WriteBit(flags & UPDATEFLAG_TRANSPORT);
+    data->WriteBit(false); // position transport pour dynamicobject/GO
 
-    data->writeBit(false); // unk field
-    data->writeBit(false); // unk field
+    data->WriteBit(false); // unk field
+    data->WriteBit(false); // unk field
 
-    data->writeBit(false); // Packed GameObject Rotation
-    data->writeBit(flags & UPDATEFLAG_LIVING);
-    data->writeBit((flags & UPDATEFLAG_LIVING) == 0);
-    data->writeBits(0, 24); // unk counter
-    data->writeBit(GetTypeId() == TYPEID_PLAYER ? true : false);
+    data->WriteBit(false); // Packed GameObject Rotation
+    data->WriteBit(flags & UPDATEFLAG_LIVING);
+    data->WriteBit((flags & UPDATEFLAG_LIVING) == 0);
+    data->WriteBits(0, 24); // unk counter
+    data->WriteBit(GetTypeId() == TYPEID_PLAYER ? true : false);
 
 
     if (flags & UPDATEFLAG_LIVING)
@@ -310,40 +310,40 @@ void Object::_BuildMovementUpdate(ByteBuffer * data, uint16 flags) const
         const Player* player = ToPlayer();
         const Unit* unit = ToUnit();
 
-        data->writeBit(ToUnit()->GetUnitMovementFlags() & MOVEMENTFLAG_ONTRANSPORT);
+        data->WriteBit(ToUnit()->GetUnitMovementFlags() & MOVEMENTFLAG_ONTRANSPORT);
         if(ToUnit()->GetUnitMovementFlags() & MOVEMENTFLAG_ONTRANSPORT)
         {
-            data->writeBit(unit->GetTransGUIDIndex(2));
-            data->writeBit(unit->GetTransGUIDIndex(7));
-            data->writeBit(unit->GetTransGUIDIndex(5));
-            data->writeBit(false); // HaveTransportTime3
-            data->writeBit(unit->GetTransGUIDIndex(3));
-            data->writeBit(unit->GetTransGUIDIndex(0));
-            data->writeBit(unit->GetTransGUIDIndex(4));
-            data->writeBit(unit->GetTransGUIDIndex(1));
-            data->writeBit(ToUnit()->GetExtraUnitMovementFlags() & MOVEMENTFLAG2_INTERPOLATED_MOVEMENT);
-            data->writeBit(unit->GetTransGUIDIndex(6));
+            data->WriteBit(unit->GetTransGUIDIndex(2));
+            data->WriteBit(unit->GetTransGUIDIndex(7));
+            data->WriteBit(unit->GetTransGUIDIndex(5));
+            data->WriteBit(false); // HaveTransportTime3
+            data->WriteBit(unit->GetTransGUIDIndex(3));
+            data->WriteBit(unit->GetTransGUIDIndex(0));
+            data->WriteBit(unit->GetTransGUIDIndex(4));
+            data->WriteBit(unit->GetTransGUIDIndex(1));
+            data->WriteBit(ToUnit()->GetExtraUnitMovementFlags() & MOVEMENTFLAG2_INTERPOLATED_MOVEMENT);
+            data->WriteBit(unit->GetTransGUIDIndex(6));
         }
 
-        data->writeBit(player && player->isInFlight()); // unknow field
-        data->writeBit(GetGUIDIndex(7));
-        data->writeBit(GetGUIDIndex(6));
-        data->writeBit(GetGUIDIndex(5));
-        data->writeBit(GetGUIDIndex(2));
-        data->writeBit(GetGUIDIndex(4));
-        data->writeBit(!(unit->GetUnitMovementFlags() != 0));
-        data->writeBit(GetGUIDIndex(1));
-        data->writeBit(false); // unknow field
-        data->writeBit(false); // timestamp, inverse
-        data->writeBit(!unit->GetMovementInfo().flags2); // m_movementInfo.flags2, inversé
+        data->WriteBit(player && player->isInFlight()); // unknow field
+        data->WriteBit(GetGUIDIndex(7));
+        data->WriteBit(GetGUIDIndex(6));
+        data->WriteBit(GetGUIDIndex(5));
+        data->WriteBit(GetGUIDIndex(2));
+        data->WriteBit(GetGUIDIndex(4));
+        data->WriteBit(!(unit->GetUnitMovementFlags() != 0));
+        data->WriteBit(GetGUIDIndex(1));
+        data->WriteBit(false); // unknow field
+        data->WriteBit(false); // timestamp, inverse
+        data->WriteBit(!unit->GetMovementInfo().flags2); // m_movementInfo.flags2, inversé
 
         if(player && player->isInFlight())
         {
-            data->writeBit(true); // HaveSpline
-            data->writeBit(false); // field F8
-            data->writeBits(SPLINEFLAG_GLIDE, 25);
-            data->writeBits(SPLINEMODE_LINEAR, 2);
-            data->writeBit(false); // field 100
+            data->WriteBit(true); // HaveSpline
+            data->WriteBit(false); // field F8
+            data->WriteBits(SPLINEFLAG_GLIDE, 25);
+            data->WriteBits(SPLINEMODE_LINEAR, 2);
+            data->WriteBit(false); // field 100
 
             FlightPathMovementGenerator *fmg =
                 (FlightPathMovementGenerator*)(player->GetMotionMaster()->top());
@@ -355,53 +355,53 @@ void Object::_BuildMovementUpdate(ByteBuffer * data, uint16 flags) const
             uint32 inflighttime = uint32(path.GetPassedLength(fmg->GetCurrentNode(), x, y, z) * 32);
             uint32 traveltime = uint32(path.GetTotalLength() * 32);
 
-            data->writeBits(path.size(), 22);
-            data->writeBits(SPLINETYPE_NORMAL, 2);
+            data->WriteBits(path.size(), 22);
+            data->WriteBits(SPLINETYPE_NORMAL, 2);
         }
 
-        data->writeBit(GetGUIDIndex(3));
+        data->WriteBit(GetGUIDIndex(3));
 
         if(unit->GetUnitMovementFlags() != 0)
-            data->writeBits(ToUnit()->GetUnitMovementFlags(), 30);
+            data->WriteBits(ToUnit()->GetUnitMovementFlags(), 30);
 
         bool swimming = ((ToUnit()->GetUnitMovementFlags() & (MOVEMENTFLAG_SWIMMING | MOVEMENTFLAG_FLYING))
             || (ToUnit()->GetExtraUnitMovementFlags() & MOVEMENTFLAG2_ALWAYS_ALLOW_PITCHING));
         bool interPolatedTurning = ToUnit()->GetExtraUnitMovementFlags() & MOVEMENTFLAG2_INTERPOLATED_TURNING;
         bool jumping = ToUnit()->GetUnitMovementFlags() & MOVEMENTFLAG_FALLING;
 
-        data->writeBit(!swimming); // inversé
-        data->writeBit(interPolatedTurning);
+        data->WriteBit(!swimming); // inversé
+        data->WriteBit(interPolatedTurning);
 
         if(unit->GetMovementInfo().flags2)
-            data->writeBits(ToUnit()->GetExtraUnitMovementFlags(), 12);
+            data->WriteBits(ToUnit()->GetExtraUnitMovementFlags(), 12);
 
-        data->writeBit(GetGUIDIndex(0));
-        data->writeBit(false); // HaveOrientation, inversé
+        data->WriteBit(GetGUIDIndex(0));
+        data->WriteBit(false); // HaveOrientation, inversé
 
         if(interPolatedTurning)
-            data->writeBit(jumping);
+            data->WriteBit(jumping);
 
-        data->writeBit(true); // HaveSplineElevation, inversé
+        data->WriteBit(true); // HaveSplineElevation, inversé
     }
 
     if(flags & UPDATEFLAG_HAS_TARGET)
     {
         if (Unit *victim = ToUnit()->getVictim())
         {
-            data->writeBit(victim->GetGUIDIndex(3));
-            data->writeBit(victim->GetGUIDIndex(4));
-            data->writeBit(victim->GetGUIDIndex(6));
-            data->writeBit(victim->GetGUIDIndex(0));
-            data->writeBit(victim->GetGUIDIndex(1));
-            data->writeBit(victim->GetGUIDIndex(7));
-            data->writeBit(victim->GetGUIDIndex(5));
-            data->writeBit(victim->GetGUIDIndex(2));
+            data->WriteBit(victim->GetGUIDIndex(3));
+            data->WriteBit(victim->GetGUIDIndex(4));
+            data->WriteBit(victim->GetGUIDIndex(6));
+            data->WriteBit(victim->GetGUIDIndex(0));
+            data->WriteBit(victim->GetGUIDIndex(1));
+            data->WriteBit(victim->GetGUIDIndex(7));
+            data->WriteBit(victim->GetGUIDIndex(5));
+            data->WriteBit(victim->GetGUIDIndex(2));
         }
         else
-            data->writeBits(0, 8);
+            data->WriteBits(0, 8);
     }
 
-   data->flushBits();
+   data->FlushBits();
 
    if((flags & UPDATEFLAG_LIVING) == 0)
    {

@@ -39,16 +39,16 @@ uint8 BitStream::ReadBit()
     return b;
 }
 
-void BitStream::writeBit(uint32 bit)
+void BitStream::WriteBit(uint32 bit)
 {
     _data.push_back(bit ? uint8(1) : uint8(0));
     ++_wpos;
 }
 
-template <typename T> void BitStream::writeBits(T value, size_t bits)
+template <typename T> void BitStream::WriteBits(T value, size_t bits)
 {
     for (int32 i = bits-1; i >= 0; --i)
-        writeBit((value >> i) & 1);
+        WriteBit((value >> i) & 1);
 }
 
 bool BitStream::Empty()
@@ -63,7 +63,7 @@ void BitStream::Reverse()
     Clear();
 
     for(uint32 i = len; i > 0; --i)
-        writeBit(b[i-1]);
+        WriteBit(b[i-1]);
 }
 
 void BitStream::Print()
@@ -75,7 +75,7 @@ void BitStream::Print()
     for (uint32 i = 0; i < GetLength(); ++i)
         ss << uint32(GetBit(i)) << " ";
 
-    sLog->outDebug(LOG_FILTER_NETWORKIO, ss.str().c_str());
+    sLog->outDebug(LOG_FILTER_NETWORKIO, "%s", ss.str().c_str());
 }
 
 ByteBuffer::ByteBuffer(size_t res, bool init): _rpos(0), _wpos(0), _bitpos(8), _curbitval(0)
