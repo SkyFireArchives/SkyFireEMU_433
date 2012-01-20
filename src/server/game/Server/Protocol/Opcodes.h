@@ -1369,6 +1369,7 @@ enum Opcodes
     SMSG_VOID_TRANSFER_RESULT                        = 0x02CA8, // 4.3.0 15050
     CMSG_QUERY_VOID_STORAGE                          = 0x03431, // 4.3.0 15050
     CMSG_SWAP_VOID_ITEM                              = 0x03291, // 4.3.0 15050
+    CMSG_OBJECT_UPDATE_FAILURE                       = 0x07233, // 4.3.0 15050
     NUM_MSG_TYPES                                    = 0x10544  // last unknown opcode + 1.
 };
 

@@ -914,6 +914,7 @@ class WorldSession
         void HandleEquipmentSetUse(WorldPacket& recv_data);
         void HandleWorldStateUITimerUpdate(WorldPacket& recv_data);
         void HandleReadyForAccountDataTimes(WorldPacket& recv_data);
+        void HandleObjectUpdateFail(WorldPacket& recv_data);
         void HandleQueryQuestsCompleted(WorldPacket& recv_data);
         void HandleQuestPOIQuery(WorldPacket& recv_data);
         void HandleEjectPassenger(WorldPacket& data);
