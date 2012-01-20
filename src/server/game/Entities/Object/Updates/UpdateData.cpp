@@ -100,7 +100,7 @@ void UpdateData::Clear()
     m_map = 0;
 }
 
-void HandleObjectUpdateFail(WorldPacket& recvPacket)
+void WorldSession::HandleObjectUpdateFail(WorldPacket& recvPacket)
 {
     uint64 GUID;
     BitStream stream = recvPacket.ReadBitStream(8);
