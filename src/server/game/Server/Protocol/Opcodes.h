@@ -1338,7 +1338,7 @@ enum Opcodes
     SMSG_REFORGE_OPEN_FROM_GOSSIP                    = 0x10535, //
     SMSG_UNKNOWN_GOLD                                = 0x10536, // gives gold to the player
     SMSG_REQUEST_WAR_GAME_RESPONSE                   = 0x10537, //
-    SMSG_SERVER_MESSAGE_BOX                          = 0x10538, // Server msgbox-like 
+    SMSG_SERVER_MESSAGE_BOX                          = 0x10538, // Server msgbox-like
     SMSG_TALENT_ERROR                                = 0x10539, //
     SMSG_SEND_ERROR_MESSAGE                          = 0x1053A, // this has its own enum u8+u32+u32 special
     CMSG_GET_GUILD_ACHIEVEMENT_MEMBERS               = 0x1053B, //

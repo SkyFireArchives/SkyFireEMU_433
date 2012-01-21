@@ -480,7 +480,7 @@ struct AchievementCriteriaEntry
             uint32  unused;                                 // 3
             uint32  killCount;                              // 4
         } honorable_kill;
-        
+
         // ACHIEVEMENT_CRITERIA_TYPE_REACH_GUILD_LEVEL    = 125
         struct
         {

@@ -2263,7 +2263,7 @@ bool AchievementMgr::CanUpdateCriteria(AchievementCriteriaEntry const* criteria,
 {
     if (achievement->flags & ACHIEVEMENT_FLAG_GUILD_ACHIEVEMENT)
         return false;
-        
+
     if (DisableMgr::IsDisabledFor(DISABLE_TYPE_ACHIEVEMENT_CRITERIA, criteria->ID, NULL))
         return false;
 

@@ -68,7 +68,7 @@ void GuildAchievementMgr::Reset()
 void GuildAchievementMgr::ResetAchievementCriteria(AchievementCriteriaTypes type, uint32 miscvalue1, uint32 miscvalue2, bool evenIfCriteriaComplete)
 {
     AchievementCriteriaEntryList const& achievementCriteriaList = sAchievementMgr->GetAchievementCriteriaByType(type);
-    
+
     for (AchievementCriteriaEntryList::const_iterator i = achievementCriteriaList.begin(); i != achievementCriteriaList.end(); ++i)
     {
         AchievementCriteriaEntry const *achievementCriteria = (*i);
@@ -76,14 +76,14 @@ void GuildAchievementMgr::ResetAchievementCriteria(AchievementCriteriaTypes type
         AchievementEntry const *achievement = sAchievementStore.LookupEntry(achievementCriteria->referredAchievement);
         if (!achievement)
             continue;
-        
+
         if (!(achievement->flags & ACHIEVEMENT_FLAG_GUILD_ACHIEVEMENT))
             continue;
-            
+
         // don't update already completed criteria if not forced or achievement already complete
         if ((IsCompletedCriteria(achievementCriteria, achievement) && !evenIfCriteriaComplete) || HasAchieved(achievement->ID))
             continue;
-            
+
         for (uint8 j = 0; j < MAX_CRITERIA_REQUIREMENTS; ++j)
         {
             if (achievementCriteria->additionalRequirements[j].additionalRequirement_type == miscvalue1 &&
@@ -119,15 +119,15 @@ void GuildAchievementMgr::SendAchievementEarned(AchievementEntry const* achievem
 {
     if (achievement->flags & ACHIEVEMENT_FLAG_HIDDEN)
         return;
-    
+
     if (!(achievement->flags & ACHIEVEMENT_FLAG_GUILD_ACHIEVEMENT))
         return;
-        
+
     /*Trinity::AchievementChatBuilder say_builder(*GetPlayer(), CHAT_MSG_GUILD_ACHIEVEMENT, LANG_ACHIEVEMENT_EARNED, achievement->ID);
     Trinity::LocalizedPacketDo<Trinity::AchievementChatBuilder> say_do(say_builder);
     m_guild->BroadcastWorker(say_do, GetPlayer());*/
     sLog->outString("Guild %u earned achievement %u", m_guild->GetId(), achievement->ID);
-    
+
     // ToDo: Check structure
     WorldPacket data(SMSG_GUILD_ACHIEVEMENT_EARNED, 8+4+8);
     data << uint32(achievement->ID);
@@ -173,13 +173,13 @@ void GuildAchievementMgr::UpdateAchievementCriteria(AchievementCriteriaTypes typ
         AchievementEntry const *achievement = sAchievementStore.LookupEntry(achievementCriteria->referredAchievement);
         if (!achievement)
             continue;
-            
+
         if (!(achievement->flags & ACHIEVEMENT_FLAG_GUILD_ACHIEVEMENT))
             continue;
 
         if (!CanUpdateCriteria(achievementCriteria, achievement, player))
             continue;
-        
+
         sLog->outString("Updating criteria for guild achievement %u", achievement->ID);
         switch (type)
         {
@@ -225,15 +225,15 @@ bool GuildAchievementMgr::IsCompletedCriteria(AchievementCriteriaEntry const* ac
 {
     if (!(achievement->flags & ACHIEVEMENT_FLAG_GUILD_ACHIEVEMENT))
         return false;
-            
+
     // counter can never complete
     if (achievement->flags & ACHIEVEMENT_FLAG_COUNTER)
         return false;
-        
+
     CriteriaProgress const* progress = GetCriteriaProgress(achievementCriteria);
     if (!progress)
         return false;
-        
+
     switch (achievementCriteria->requiredType)
     {
         case ACHIEVEMENT_CRITERIA_TYPE_REACH_GUILD_LEVEL:
@@ -256,7 +256,7 @@ void GuildAchievementMgr::CompletedCriteriaFor(AchievementEntry const* achieveme
 {
     if (!(achievement->flags & ACHIEVEMENT_FLAG_GUILD_ACHIEVEMENT))
         return;
-        
+
     // counter can never complete
     if (achievement->flags & ACHIEVEMENT_FLAG_COUNTER)
         return;
@@ -273,11 +273,11 @@ bool GuildAchievementMgr::IsCompletedAchievement(AchievementEntry const* entry)
 {
     if (!(entry->flags & ACHIEVEMENT_FLAG_GUILD_ACHIEVEMENT))
         return false;
-        
+
     // counter can never complete
     if (entry->flags & ACHIEVEMENT_FLAG_COUNTER)
         return false;
-        
+
     // for achievement with referenced achievement criterias get from referenced and counter from self
     uint32 achievmentForTestId = entry->refAchievement ? entry->refAchievement : entry->ID;
     uint32 achievmentForTestCount = entry->count;
@@ -350,7 +350,7 @@ void GuildAchievementMgr::SetCriteriaProgress(AchievementCriteriaEntry const* en
     TimedAchievementMap::iterator timedIter = m_timedAchievements.find(entry->ID);
     if (entry->timeLimit && timedIter == m_timedAchievements.end())
         return;
-        
+
     CriteriaProgress* progress = GetCriteriaProgress(entry);
     if (!progress)
     {
@@ -381,7 +381,7 @@ void GuildAchievementMgr::SetCriteriaProgress(AchievementCriteriaEntry const* en
                 newValue = progress->counter < changeValue ? changeValue : progress->counter;
                 break;
             default:
-                break;        
+                break;
         }
 
         // not update (not mark as changed) if counter will have same value
@@ -452,15 +452,15 @@ void GuildAchievementMgr::CompletedAchievement(AchievementEntry const* achieveme
 {
     if (!(achievement->flags & ACHIEVEMENT_FLAG_GUILD_ACHIEVEMENT))
         return;
-        
+
     if (achievement->flags & ACHIEVEMENT_FLAG_COUNTER || HasAchieved(achievement->ID))
         return;
-    
+
     SendAchievementEarned(achievement);
     CompletedAchievementData& ca =  m_completedAchievements[achievement->ID];
     ca.date = time(NULL);
     ca.changed = true;
-    
+
     UpdateAchievementCriteria(ACHIEVEMENT_CRITERIA_TYPE_COMPLETE_ACHIEVEMENT, NULL);
 }
 
@@ -480,7 +480,7 @@ bool GuildAchievementMgr::CanUpdateCriteria(AchievementCriteriaEntry const* crit
 {
     if (DisableMgr::IsDisabledFor(DISABLE_TYPE_ACHIEVEMENT_CRITERIA, criteria->ID, NULL))
         return false;
-        
+
     if (!(achievement->flags & ACHIEVEMENT_FLAG_GUILD_ACHIEVEMENT))
         return false;
 

@@ -246,7 +246,7 @@ void WorldSession::HandleCharEnum(QueryResult result)
             guidsVect.push_back(std::make_pair(GuidLow, GuildGuid));
 
             sLog->outDetail("Loading char guid %u from account %u.", GuidLow, GetAccountId());
- 
+
             if (!Player::BuildEnumData(result, &buffer))
             {
                 sLog->outError("Building enum data for SMSG_CHAR_ENUM has failed, aborting");
@@ -854,7 +854,7 @@ void WorldSession::HandleCharDeleteOpcode(WorldPacket & recv_data)
     uint64 guid = 0;
 
     sLog->outStaticDebug("WORLD: Received Player Delete Message");
-    
+
     recv_data >> guid;
 
     // can't delete loaded character
@@ -1015,13 +1015,13 @@ void WorldSession::HandlePlayerLogin(LoginQueryHolder * holder)
     data << uint8(0);                                       // enable(1)/disable(0) voice chat interface in client
     data << uint32(0);                                      // mail related*/
 
-    // 4.3 struct 
-    data << uint32(0x29); 
-    data << uint8(0x02); 
-    data << uint8(0x1C); 
-    data << uint8(0x02); 
-    data << uint16(0x00); 
-    data << uint8(0xA0); 
+    // 4.3 struct
+    data << uint32(0x29);
+    data << uint8(0x02);
+    data << uint8(0x1C);
+    data << uint8(0x02);
+    data << uint16(0x00);
+    data << uint8(0xA0);
 
     SendPacket(&data);
 

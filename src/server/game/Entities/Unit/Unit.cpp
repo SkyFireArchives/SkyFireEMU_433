@@ -16251,17 +16251,16 @@ uint64 Unit::GetTransGUID() const
     return 0;
 }
 
-uint8 Unit::GetTransGUIDIndex(uint8 index) const 
-{ 
-    uint64 guid = 0; 
-    if (GetVehicle()) 
-        guid = GetVehicle()->GetBase()->GetGUID(); 
-    else if (GetTransport()) 
-        guid = GetTransport()->GetGUID(); 
- 
-    return ((uint8*)&guid)[index]; 
-} 
+uint8 Unit::GetTransGUIDIndex(uint8 index) const
+{
+    uint64 guid = 0;
+    if (GetVehicle())
+        guid = GetVehicle()->GetBase()->GetGUID();
+    else if (GetTransport())
+        guid = GetTransport()->GetGUID();
 
+    return ((uint8*)&guid)[index];
+}
 
 bool Unit::IsInPartyWith(Unit const* unit) const
 {

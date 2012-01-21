@@ -239,11 +239,11 @@ struct CompletedAchievementData
 typedef UNORDERED_MAP<uint32, CriteriaProgress> CriteriaProgressMap;
 typedef UNORDERED_MAP<uint32, CompletedAchievementData> CompletedAchievementMap;
 
-enum ProgressType 
-{ 
-    PROGRESS_SET, 
-    PROGRESS_ACCUMULATE, 
-    PROGRESS_HIGHEST 
+enum ProgressType
+{
+    PROGRESS_SET,
+    PROGRESS_ACCUMULATE,
+    PROGRESS_HIGHEST
 };
 
 class Unit;

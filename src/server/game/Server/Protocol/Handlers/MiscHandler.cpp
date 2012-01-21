@@ -1827,5 +1827,5 @@ void WorldSession::HandleSendCemetryList(WorldPacket& recvPacket)
     sLog->outDebug(LOG_FILTER_NETWORKIO, "WORLD: Recvd CMSG_REQUEST_CEMETERY_LIST Message");
 
     WorldPacket data(SMSG_REQUEST_CEMETERY_LIST_RESPONSE, 4);
-    data << uint32();       // AreaPOISortedWorldState? (NYI?) 
+    data << uint32();       // AreaPOISortedWorldState? (NYI?)
 }

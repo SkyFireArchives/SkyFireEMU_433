@@ -31,7 +31,6 @@
 #include "SharedDefines.h"
 #include "ObjectMgr.h"
 
-
 //#include "AchievementMgrBase.h"
 #include "AchievementMgr.h"
 #include "GuildAchievementMgr.h"

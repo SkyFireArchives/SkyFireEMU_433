@@ -12536,10 +12536,10 @@ Item* Player::StoreItem(ItemPosCountVec const& dest, Item* pItem, bool update)
         lastItem = _StoreItem(pos, pItem, count, true, update);
     }
     GetAchievementMgr().UpdateAchievementCriteria(ACHIEVEMENT_CRITERIA_TYPE_OWN_ITEM, entry);
-    
+
     if(Guild* guild = sGuildMgr->GetGuildById(GetGuildId()))
         guild->GetAchievementMgr().UpdateAchievementCriteria(ACHIEVEMENT_CRITERIA_TYPE_OWN_ITEM, this, entry, 1);
-        
+
     return lastItem;
 }
 
@@ -22108,10 +22108,10 @@ void Player::SendInitialPacketsBeforeAddToMap()
 
 void Player::SendInitialPacketsAfterAddToMap()
 {
-    WorldPacket Datas(SMSG_UPDATE_ACCOUNT_DATA_COMPLETE); 
-    Datas << uint32(0x07); 
-    Datas << uint32(0x00); 
-    GetSession()->SendPacket(&Datas); 
+    WorldPacket Datas(SMSG_UPDATE_ACCOUNT_DATA_COMPLETE);
+    Datas << uint32(0x07);
+    Datas << uint32(0x00);
+    GetSession()->SendPacket(&Datas);
     UpdateVisibilityForPlayer();
 
     // update zone

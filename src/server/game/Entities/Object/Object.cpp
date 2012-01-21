@@ -304,7 +304,6 @@ void Object::_BuildMovementUpdate(ByteBuffer * data, uint16 flags) const
     data->WriteBits(0, 24); // unk counter
     data->WriteBit(GetTypeId() == TYPEID_PLAYER ? true : false);
 
-
     if (flags & UPDATEFLAG_LIVING)
     {
         const Player* player = ToPlayer();
@@ -460,7 +459,7 @@ void Object::_BuildMovementUpdate(ByteBuffer * data, uint16 flags) const
             const Unit* unit = ToUnit();
             if(unit->GetTransGUIDIndex(4))
                 *data << uint8(unit->GetTransGUIDIndex(4) ^ 1);
-            
+
             *data << ToUnit()->GetTransOffsetZ();
 
             if(unit->GetTransGUIDIndex(7))
@@ -518,10 +517,9 @@ void Object::_BuildMovementUpdate(ByteBuffer * data, uint16 flags) const
         *data << (float)ToUnit()->GetMovementInfo().j_zspeed;
     }
 
-
             if(GetGUIDIndex(7))
                 *data << uint8(GetGUIDIndex(7) ^ 1);
-            
+
             *data << ToUnit()->GetSpeed(MOVE_RUN_BACK);
 
             if(GetGUIDIndex(0))
@@ -577,8 +575,6 @@ void Object::_BuildMovementUpdate(ByteBuffer * data, uint16 flags) const
                 *data << uint8(0);
         }
     }
-
-
 
         /*const Unit* self = ToUnit();
         self->BuildMovementPacket(data);
@@ -726,7 +722,6 @@ void Object::_BuildMovementUpdate(ByteBuffer * data, uint16 flags) const
     // 0x800
     if (flags & UPDATEFLAG_UNK2)
         *data << uint16(0) << uint16(0) << uint16(0); //unk
-
 
     // 0x1000
     if (flags & UPDATEFLAG_UNK3)
