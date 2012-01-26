@@ -432,7 +432,7 @@ enum Opcodes
     SMSG_QUESTUPDATE_FAILED                          = 0x00,
     SMSG_QUESTUPDATE_FAILEDTIMER                     = 0x00,
     SMSG_QUESTUPDATE_COMPLETE                        = 0x00,
-    SMSG_QUESTUPDATE_ADD_KILL                        = 0x00,
+    SMSG_QUESTUPDATE_ADD_KILL                        = 0x02082, // 4.3.0 15050
     SMSG_QUESTUPDATE_ADD_ITEM                        = 0x00,
     CMSG_QUEST_CONFIRM_ACCEPT                        = 0x00,
     SMSG_QUEST_CONFIRM_ACCEPT                        = 0x00,
@@ -455,7 +455,7 @@ enum Opcodes
     SMSG_ACTIVATETAXIREPLY                           = 0x00,
     SMSG_NEW_TAXI_PATH                               = 0x00,
     CMSG_TRAINER_LIST                                = 0x00,
-    SMSG_TRAINER_LIST                                = 0x00,
+    SMSG_TRAINER_LIST                                = 0x04C80, // 4.3.0 15050
     CMSG_TRAINER_BUY_SPELL                           = 0x00,
     SMSG_TRAINER_BUY_RESULT                          = 0x00,
     CMSG_BINDER_ACTIVATE                             = 0x00,
@@ -604,7 +604,7 @@ enum Opcodes
     SMSG_DEBUGAURAPROC                               = 0x00,
     SMSG_PERIODICAURALOG                             = 0x03486, // 4.3.0 15050
     SMSG_SPELLDAMAGESHIELD                           = 0x00,
-    SMSG_SPELLNONMELEEDAMAGELOG                      = 0x00,
+    SMSG_SPELLNONMELEEDAMAGELOG                      = 0x07224, // 4.3.0 15050
     CMSG_LEARN_TALENT                                = 0x00,
     SMSG_RESURRECT_FAILED                            = 0x00,
     CMSG_TOGGLE_PVP                                  = 0x00,
