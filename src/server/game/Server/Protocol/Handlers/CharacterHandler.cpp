@@ -2119,3 +2119,31 @@ void WorldSession::HandleCharFactionOrRaceChange(WorldPacket& recv_data)
     data << uint8(race);
     SendPacket(&data);
 }
+
+void WorldSession::HandleRandomizeCharNameOpcode(WorldPacket& recvData)
+{
+    uint8 gender, race;
+
+    recvData >> gender;
+    recvData >> race;
+
+    if (!(1 << race - 1) & RACEMASK_ALL_PLAYABLE)
+    {
+        sLog->outError("Invalid race sent by accountId: %u", GetAccountId());
+        return;
+    }
+
+    if (!Player::IsValidGender(gender))
+    {
+        sLog->outError("Invalid gender sent by accountId: %u", GetAccountId());
+        return;
+    }
+
+    std::string name("SkyFire"); // *GetRandomCharacterName(race, gender);
+    uint8 length = name.size() * 2 + 1;
+
+    WorldPacket data(SMSG_RANDOMIZE_CHAR_NAME, 10);
+    data << uint8(length);
+    data << name;
+    SendPacket(&data);
+}
