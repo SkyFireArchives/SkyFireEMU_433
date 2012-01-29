@@ -111,9 +111,6 @@ void ExtractMapsFromMpq(uint32 build)
     printf("\n");
     delete [] areas;
     delete [] map_ids;
-    //printf("Map not extracted : %u\n", not_found.size());
-    //for (int i = 0; i < not_found.size(); i++)
-    //    printf("    %s\n", not_found[i].c_str());
 }
 
 // Map file format data
@@ -243,7 +240,7 @@ bool ConvertADT(char *filename, char *filename2, int cell_y, int cell_x, uint32 
     map.buildMagic = build;
 
     // Get area flags data
-    for (int i=0;i<ADT_CELLS_PER_GRID;i++)
+    for (int i = 0; i < ADT_CELLS_PER_GRID; i++)
     {
         for (int j=0;j<ADT_CELLS_PER_GRID;j++)
         {
@@ -269,7 +266,7 @@ bool ConvertADT(char *filename, char *filename2, int cell_y, int cell_x, uint32 
     //============================================
     bool fullAreaData = false;
     uint32 areaflag = area_flags[0][0];
-    for (int y=0;y<ADT_CELLS_PER_GRID;y++)
+    for (int y = 0; y < ADT_CELLS_PER_GRID; y++)
     {
         for (int x=0;x<ADT_CELLS_PER_GRID;x++)
         {
@@ -301,9 +298,9 @@ bool ConvertADT(char *filename, char *filename2, int cell_y, int cell_x, uint32 
     //
     // Get Height map from grid
     //
-    for (int i=0;i<ADT_CELLS_PER_GRID;i++)
+    for (int i = 0; i < ADT_CELLS_PER_GRID; i++)
     {
-        for (int j=0;j<ADT_CELLS_PER_GRID;j++)
+        for (int j = 0; j < ADT_CELLS_PER_GRID; j++)
         {
             adt_MCNK * cell = adt.getMCNK(i, j);
             if (!cell)
@@ -325,16 +322,16 @@ bool ConvertADT(char *filename, char *filename2, int cell_y, int cell_x, uint32 
             // . . . . . . . .
 
             // Set map height as grid height
-            for (int y=0; y <= ADT_CELL_SIZE; y++)
+            for (int y = 0; y <= ADT_CELL_SIZE; y++)
             {
-                int cy = i*ADT_CELL_SIZE + y;
-                for (int x=0; x <= ADT_CELL_SIZE; x++)
+                int cy = i * ADT_CELL_SIZE + y;
+                for (int x = 0; x <= ADT_CELL_SIZE; x++)
                 {
                     int cx = j*ADT_CELL_SIZE + x;
                     V9[cy][cx]=cell->ypos;
                 }
             }
-            for (int y=0; y < ADT_CELL_SIZE; y++)
+            for (int y = 0; y < ADT_CELL_SIZE; y++)
             {
                 int cy = i*ADT_CELL_SIZE + y;
                 for (int x=0; x < ADT_CELL_SIZE; x++)
@@ -348,7 +345,7 @@ bool ConvertADT(char *filename, char *filename2, int cell_y, int cell_x, uint32 
             if (!v)
                 continue;
             // get V9 height map
-            for (int y=0; y <= ADT_CELL_SIZE; y++)
+            for (int y = 0; y <= ADT_CELL_SIZE; y++)
             {
                 int cy = i*ADT_CELL_SIZE + y;
                 for (int x=0; x <= ADT_CELL_SIZE; x++)
@@ -358,10 +355,10 @@ bool ConvertADT(char *filename, char *filename2, int cell_y, int cell_x, uint32 
                 }
             }
             // get V8 height map
-            for (int y=0; y < ADT_CELL_SIZE; y++)
+            for (int y = 0; y < ADT_CELL_SIZE; y++)
             {
                 int cy = i*ADT_CELL_SIZE + y;
-                for (int x=0; x < ADT_CELL_SIZE; x++)
+                for (int x = 0; x < ADT_CELL_SIZE; x++)
                 {
                     int cx = j*ADT_CELL_SIZE + x;
                     V8[cy][cx]+=v->height_map[y*(ADT_CELL_SIZE*2+1)+ADT_CELL_SIZE+1+x];
@@ -374,18 +371,18 @@ bool ConvertADT(char *filename, char *filename2, int cell_y, int cell_x, uint32 
     //============================================
     float maxHeight = -20000;
     float minHeight =  20000;
-    for (int y=0; y<ADT_GRID_SIZE; y++)
+    for (int y = 0; y < ADT_GRID_SIZE; y++)
     {
-        for (int x=0;x<ADT_GRID_SIZE;x++)
+        for (int x = 0; x < ADT_GRID_SIZE; x++)
         {
             float h = V8[y][x];
             if (maxHeight < h) maxHeight = h;
             if (minHeight > h) minHeight = h;
         }
     }
-    for (int y=0; y<=ADT_GRID_SIZE; y++)
+    for (int y = 0; y <= ADT_GRID_SIZE; y++)
     {
-        for (int x=0;x<=ADT_GRID_SIZE;x++)
+        for (int x = 0; x <= ADT_GRID_SIZE; x++)
         {
             float h = V9[y][x];
             if (maxHeight < h) maxHeight = h;

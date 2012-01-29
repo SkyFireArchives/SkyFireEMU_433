@@ -48,7 +48,8 @@ enum LiquidType
 //
 class adt_MCVT
 {
-    union{
+    union
+    {
         uint32 fcc;
         char   fcc_txt[4];
     };
@@ -64,7 +65,8 @@ public:
 //
 class adt_MCLQ
 {
-    union{
+    union
+    {
         uint32 fcc;
         char   fcc_txt[4];
     };
@@ -72,7 +74,8 @@ class adt_MCLQ
 public:
     float height1;
     float height2;
-    struct liquid_data{
+    struct liquid_data
+    {
         uint32 light;
         float  height;
     } liquid[ADT_CELL_SIZE+1][ADT_CELL_SIZE+1];
@@ -93,7 +96,8 @@ public:
 //
 class adt_MCNK
 {
-    union{
+    union
+    {
         uint32 fcc;
         char   fcc_txt[4];
     };
@@ -207,7 +211,8 @@ public:
     };
     uint32 size;
 
-    struct adt_LIQUID{
+    struct adt_LIQUID
+    {
         uint32 offsData1;
         uint32 used;
         uint32 offsData2;

@@ -23,13 +23,12 @@
 
 void GetMPQFileName(char* filename, int rev, const char* input_path, const char* locale = NULL )
 {
-    
     if (rev >= 13914)
     {
         if (locale != NULL)
             sprintf(filename, "%s/Data/%s/wow-update-%s-%i.MPQ", input_path, locale, locale, rev);
         else
-            sprintf(filename, "%s/Data/wow-update-base-%i.MPQ", input_path, rev);      
+            sprintf(filename, "%s/Data/wow-update-base-%i.MPQ", input_path, rev);
         return;
     }
 
@@ -54,7 +53,7 @@ void LoadLocaleMPQFiles(int const locale)
         bool result;
         if (patchRev[i] >= 13914)
         {
-            GetMPQFileName(filename, patchRev[i], input_path, langs[locale]);    
+            GetMPQFileName(filename, patchRev[i], input_path, langs[locale]);
             result = SFileOpenPatchArchive(localeMPQ[0], filename, NULL, MPQ_OPEN_READ_ONLY);
         }
         else
@@ -71,7 +70,7 @@ void LoadLocaleMPQFiles(int const locale)
     if (!SFileIsPatchedArchive(localeMPQ[0]))
         assert(false && "An error occured");
 
-    //Others
+    // Others
     for (int i = 0; i < PATCH_REV_COUNT; ++i)
     {
         GetMPQFileName(filename, patchRev[i], input_path, langs[locale]);
@@ -87,7 +86,7 @@ void LoadLocaleMPQFiles(int const locale)
             bool result;
             if (patchRev[j] >= 13914)
             {
-                GetMPQFileName(filename, patchRev[j], input_path, langs[locale]);    
+                GetMPQFileName(filename, patchRev[j], input_path, langs[locale]);   
                 result = SFileOpenPatchArchive(localeMPQ[i+1], filename, NULL, MPQ_OPEN_READ_ONLY);
             }
             else
@@ -110,7 +109,7 @@ void LoadMapMPQFiles()
 {
     char filename[512];
 
-    //Locale-xxXX.MPQ
+    // Locale-xxXX.MPQ
     sprintf(filename, "%s/Data/world.MPQ", input_path);
     printf("Loading %s\n", filename);
     if (!SFileOpenArchive(filename, 0, MPQ_OPEN_READ_ONLY, &WorldMPQ))
@@ -171,8 +170,8 @@ void LoadMapMPQFiles()
 int ExtractFileToHardDrive(HANDLE &MPQ_handle, const char * szArchivedFile, const char * szFileName)
 {
     HANDLE hFile  = NULL;          // Archived file handle
-    TFileStream* handle = NULL;          // Disk file handle
-    int    nError = ERROR_SUCCESS; // Result value
+    TFileStream* handle = NULL;    // Disk file handle
+    int nError = ERROR_SUCCESS;    // Result value
 
     if (nError == ERROR_SUCCESS)
     {
