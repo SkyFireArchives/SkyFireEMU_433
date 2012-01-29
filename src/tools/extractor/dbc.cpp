@@ -49,7 +49,7 @@ void ExtractDBCFiles(int locale, bool basicLocale)
 			   pFileEntry->szFileName != NULL)
             {
                 std::string name = pFileEntry->szFileName;
-                if (i != 0 && i < 7 )
+                if (i != 0 && i < 15)
                 {
                     if (name.find(langs[locale]) == 0)
                         name = name.substr(strlen(langs[locale]) + 1);
