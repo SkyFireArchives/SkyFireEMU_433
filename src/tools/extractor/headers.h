@@ -42,11 +42,11 @@
 #include "typedefs.h"
 
 static int const patchRev[] = {13164, 13205, 13287, 13329, 13596, 13623, 13914, 14007, 14333, 14480, 14545, 14946, 15005, 15050};
-#define PATCH_REV_COUNT 14
-#define CLIENT_BUILD 15050
+#define PATCH_REV_COUNT ((sizeof(patchRev)/sizeof(*patchRev))
+#define CLIENT_BUILD patchRev[PATCH_REV_COUNT-1]
 
 static const char* const langs[] = {"enGB", "enUS", "deDE", "esES", "frFR", "koKR", "zhCN", "zhTW", "enCN", "enTW", "esMX", "ruRU" };
-#define LANG_COUNT 12
+#define LANG_COUNT (sizeof(langs)/sizeof(*langs))
 static const char* input_path = ".";
 
 typedef struct
