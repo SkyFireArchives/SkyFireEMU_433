@@ -124,9 +124,9 @@ void LoadMapMPQFiles()
         char ext[7] = "";
         sprintf(ext, "-%i", patchRev[i]);
 
-        sprintf(filename,"%s/Data/wow-update%s%s.MPQ", input_path, i < 14 ? "" : "-base", ext);
+        sprintf(filename,"%s/Data/wow-update%s%s.MPQ", input_path, i < PATCH_REV_COUNT ? "" : "-base", ext);
         printf("    -%i\n", patchRev[i]);
-        if (!SFileOpenPatchArchive(WorldMPQ, filename, i < 14 ? "base" : NULL, MPQ_OPEN_READ_ONLY))
+        if (!SFileOpenPatchArchive(WorldMPQ, filename, i < PATCH_REV_COUNT ? "base" : NULL, MPQ_OPEN_READ_ONLY))
         {
             printf("%i\n", GetLastError());
             assert(false && "Load of MPQ patch failed");
@@ -157,9 +157,9 @@ void LoadMapMPQFiles()
             char ext[7] = "";
             sprintf(ext, "-%i", patchRev[i]);
 
-            sprintf(filename,"%s/Data/wow-update%s%s.MPQ", input_path, i < 14 ? "" : "-base", ext);
+            sprintf(filename,"%s/Data/wow-update%s%s.MPQ", input_path, i < PATCH_REV_COUNT ? "" : "-base", ext);
             printf("    -%i\n", patchRev[i]);
-            if (!SFileOpenPatchArchive(ExpansionsMPQ[j], filename, i < 14 ? "base" : NULL, MPQ_OPEN_READ_ONLY))
+            if (!SFileOpenPatchArchive(ExpansionsMPQ[j], filename, i < PATCH_REV_COUNT ? "base" : NULL, MPQ_OPEN_READ_ONLY))
             {
                 printf("%i\n", GetLastError());
                 assert(false && "Load of MPQ patch failed");
