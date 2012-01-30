@@ -970,9 +970,11 @@ void WorldSession::HandlePlayerLogin(LoginQueryHolder* holder)
     LoadAccountData(holder->GetPreparedResult(PLAYER_LOGIN_QUERY_LOADACCOUNTDATA), PER_CHARACTER_CACHE_MASK);
     SendAccountDataTimes(PER_CHARACTER_CACHE_MASK);
 
-    data.Initialize(SMSG_FEATURE_SYSTEM_STATUS, 2);         // added in 2.2.0
-    data << uint8(2);                                       // unknown value
-    data << uint8(0);                                       // enable(1)/disable(0) voice chat interface in client
+    data.Initialize(SMSG_FEATURE_SYSTEM_STATUS, 10);        // added in 2.2.0
+    data << uint32(0);   // Unknown
+    data << uint8(2);    // Unknown
+    data << uint32(0);   // Mail related?
+    data << uint8(160);  // Unknown, always 0xA0?
     SendPacket(&data);
 
     // Send MOTD
@@ -1059,8 +1061,9 @@ void WorldSession::HandlePlayerLogin(LoginQueryHolder* holder)
         }
     }
 
-    data.Initialize(SMSG_LEARNED_DANCE_MOVES, 8);
-    data << uint64(0);
+    data.Initialize(SMSG_LEARNED_DANCE_MOVES, 4 + 4);
+    data << uint32(0); // Dance Move Id
+    data << uint32(0); // unk
     SendPacket(&data);
 
     pCurrChar->SendInitialPacketsBeforeAddToMap();
