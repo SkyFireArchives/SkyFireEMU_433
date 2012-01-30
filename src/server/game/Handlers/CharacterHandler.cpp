@@ -2124,8 +2124,8 @@ void WorldSession::HandleRandomizeCharNameOpcode(WorldPacket& recvData)
 {
     uint8 gender, race;
 
-    recvData >> gender;
     recvData >> race;
+    recvData >> gender;
 
     if (!(1 << race - 1) & RACEMASK_ALL_PLAYABLE)
     {
