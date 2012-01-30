@@ -2139,10 +2139,10 @@ void WorldSession::HandleRandomizeCharNameOpcode(WorldPacket& recvData)
         return;
     }
 
-    std::string name("SkyFire"); // *GetRandomCharacterName(race, gender);
+    std::string name = *GetRandomCharacterName(race, gender);
     uint8 length = name.size() * 2 + 1;
 
-    WorldPacket data(SMSG_RANDOMIZE_CHAR_NAME, 10);
+    WorldPacket data(SMSG_RANDOMIZE_CHAR_NAME, 1 + name.size());
     data << uint8(length);
     data << name;
     SendPacket(&data);
