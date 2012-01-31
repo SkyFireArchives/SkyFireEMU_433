@@ -1061,9 +1061,8 @@ void WorldSession::HandlePlayerLogin(LoginQueryHolder* holder)
         }
     }
 
-    data.Initialize(SMSG_LEARNED_DANCE_MOVES, 4 + 4);
-    data << uint32(0); // Dance Move Id
-    data << uint32(0); // unk
+    data.Initialize(SMSG_LEARNED_DANCE_MOVES, 8);
+    data << uint64(0);
     SendPacket(&data);
 
     pCurrChar->SendInitialPacketsBeforeAddToMap();
