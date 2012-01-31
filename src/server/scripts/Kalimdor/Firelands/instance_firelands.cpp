@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License along
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
- 
+
 /* Script complete: 2% */
 
 #include "ObjectMgr.h"
@@ -147,7 +147,6 @@ public:
 				uiShannoxSpear = creature->GetGUID();
 				break;
 			}
-
 		}
 
 		void OnGameObjectCreate(GameObject* gameObject)
@@ -190,7 +189,7 @@ public:
 			switch (type)
 			{
 			case DATA_BETHTILAC:
-				HandleGameObject(uiBethilacDoor, state != IN_PROGRESS);			
+				HandleGameObject(uiBethilacDoor, state != IN_PROGRESS);
 				break;
 			case DATA_RHYOLITH:
 				break;
@@ -204,7 +203,6 @@ public:
 				break;
 			case DATA_RAGNAROS:
 				break;
-
 			}
 
 			return true;
@@ -221,12 +219,10 @@ public:
 			default:
 				break;
 			}
-
 		}
 
 		void SetData64(uint32 /*type*/, uint64 /*data*/)
 		{
-
 		}
 
 		uint64 GetData64(uint32 data)
@@ -306,9 +302,7 @@ public:
 
 		void Update(uint32 diff)
 		{
-
 		}
-
 	};
 
 	InstanceScript* GetInstanceScript(InstanceMap* map) const
