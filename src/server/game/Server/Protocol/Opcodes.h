@@ -49,7 +49,7 @@ enum Opcodes
     CMSG_CHAR_ENUM                                   = 0x04B06, // 4.3.0 15050
     CMSG_CHAR_DELETE                                 = 0x038A4, // 4.3.0 15050
     SMSG_CHAR_CREATE                                 = 0x02A82, // 4.3.0 15050
-    SMSG_CHAR_ENUM                                   = 0x004AC, // 4.3.0 15050
+    SMSG_CHAR_ENUM                                   = 0x00CF5, // 4.3.2 15211
     SMSG_CHAR_DELETE                                 = 0x02A02, // 4.3.0 15050
     CMSG_WORLD_LOGIN                                 = 0x00,
     CMSG_PLAYER_LOGIN                                = 0x00326, // 4.3.0 15050
@@ -275,7 +275,7 @@ enum Opcodes
     SMSG_TRIGGER_CINEMATIC                           = 0x00E04, // 4.3.0 15050
     CMSG_NEXT_CINEMATIC_CAMERA                       = 0x01684, // 4.3.0 15050
     CMSG_COMPLETE_CINEMATIC                          = 0x06682, // 4.3.0 15050
-    SMSG_TUTORIAL_FLAGS                              = 0x06E20, // 4.3.0 15050
+    SMSG_TUTORIAL_FLAGS                              = 0x04D8F, // 4.3.2 15211
     CMSG_TUTORIAL_FLAG                               = 0x03E84, // 4.3.0 15050
     CMSG_TUTORIAL_CLEAR                              = 0x01AA6, // 4.3.0 15050
     CMSG_TUTORIAL_RESET                              = 0x07C82, // 4.3.0 15050
@@ -513,9 +513,9 @@ enum Opcodes
     MSG_GM_SUMMON                                    = 0x00,
     SMSG_ITEM_TIME_UPDATE                            = 0x03C82, // 4.3.0 15050
     SMSG_ITEM_ENCHANT_TIME_UPDATE                    = 0x03626, // 4.3.0 15050
-    SMSG_AUTH_CHALLENGE                              = 0x01723, // 4.3.0 15050
+    SMSG_AUTH_CHALLENGE                              = 0x00129, // 4.3.2 15211
     CMSG_AUTH_SESSION                                = 0x01100, // 4.3.0 15050
-    SMSG_AUTH_RESPONSE                               = 0x01406, // 4.3.0 15050
+    SMSG_AUTH_RESPONSE                               = 0x00E54, // 4.3.2 15211
     MSG_GM_SHOWLABEL                                 = 0x00,
     CMSG_PET_CAST_SPELL                              = 0x00,
     MSG_SAVE_GUILD_EMBLEM                            = 0x00,
@@ -766,7 +766,7 @@ enum Opcodes
     SMSG_BATTLEGROUND_PLAYER_JOINED                  = 0x00,
     SMSG_BATTLEGROUND_PLAYER_LEFT                    = 0x00,
     CMSG_BATTLEMASTER_JOIN                           = 0x00,
-    SMSG_ADDON_INFO                                  = 0x004A0, // 4.3.0 15050
+    SMSG_ADDON_INFO                                  = 0x06D8D, // 4.3.2 15211
     CMSG_PET_UNLEARN                                 = 0x00,
     SMSG_PET_UNLEARN_CONFIRM                         = 0x00,
     SMSG_PARTY_MEMBER_STATS_FULL                     = 0x00,
@@ -1284,7 +1284,7 @@ enum Opcodes
     CMSG_SET_ALLOW_LOW_LEVEL_RAID2                   = 0x00,
     SMSG_CAMERA_SHAKE                                = 0x00,
     SMSG_UPDATE_ITEM_ENCHANTMENTS                    = 0x078A4, // 4.3.0 15050
-    SMSG_REDIRECT_CLIENT                             = 0x00703, // 4.3.0 15050
+    SMSG_REDIRECT_CLIENT                             = 0x01329, // 4.3.2 15211
     CMSG_REDIRECTION_FAILED                          = 0x00,
     SMSG_UNKNOWN_1295                                = 0x00,
     CMSG_UNKNOWN_1296                                = 0x05108, // 4.3.0 15050, //Unknown opcode Name
