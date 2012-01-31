@@ -70,6 +70,16 @@ set(scripts_STAT_SRCS
   Kalimdor/LostCityOfTheTolvir/boss_lockmaw.cpp
   Kalimdor/LostCityOfTheTolvir/boss_high_prophet_barim.cpp  
   
+  #Kalimdor/Firelands/boss_ragnaros.cpp
+  #Kalimdor/Firelands/boss_shannox.cpp
+  #Kalimdor/Firelands/firelands.h
+  #Kalimdor/Firelands/instance_firelands.cpp
+  #Kalimdor/Firelands/boss_rhyolith.cpp
+  #Kalimdor/Firelands/boss_bethtilac.cpp
+  #Kalimdor/Firelands/boss_majordomus.cpp    
+  #Kalimdor/Firelands/boss_alysrazar.cpp
+  #Kalimdor/Firelands/boss_baloroc_the_doorkeeper.cpp 
+  
   Kalimdor/HallsOfOrigination/instance_halls_of_origination.cpp
   Kalimdor/HallsOfOrigination/halls_of_origination.h
   Kalimdor/HallsOfOrigination/boss_temple_guardian_anhuur.cpp

@@ -341,7 +341,14 @@ void AddSC_boss_mal_ganis();
 void AddSC_boss_meathook();
 void AddSC_culling_of_stratholme();
 void AddSC_instance_culling_of_stratholme();
-//void AddSC_npc_pusillin();                   //Dire maul
+//void AddSC_boss_ragnaros_cata();             //Firelands
+//void AddSC_boss_alysrazar();
+//void AddSC_boss_baloroc_the_doorkeeper();
+//void AddSC_boss_beth'tilac();
+//void AddSC_boss_majordomus();
+//void AddSC_boss_rhyolith();
+//void AddSC_boss_shannox();
+//void AddSC_instance_firelands();   
 void AddSC_instance_halls_of_origination();  //Halls of Origination
 void AddSC_boss_temple_guardian_anhuur();
 void AddSC_boss_ptah();
@@ -1033,7 +1040,14 @@ void AddKalimdorScripts()
     AddSC_boss_meathook();
     AddSC_culling_of_stratholme();
     AddSC_instance_culling_of_stratholme();
-    //AddSC_npc_pusillin();                   //Dire maul
+    //AddSC_boss_ragnaros_cata();             //Firelands
+    //AddSC_boss_alysrazar();
+    //AddSC_boss_baloroc_the_doorkeeper();
+    //AddSC_boss_beth'tilac();
+    //AddSC_boss_majordomus();
+    //AddSC_boss_rhyolith();
+    //AddSC_boss_shannox();
+    //AddSC_instance_firelands();   
     AddSC_instance_halls_of_origination();    //Halls of Origination
     AddSC_boss_temple_guardian_anhuur();
     AddSC_boss_ptah();
