@@ -2122,14 +2122,14 @@ void WorldSession::HandleCharFactionOrRaceChange(WorldPacket& recv_data)
     SendPacket(&data);
 }
 
-void WorldSession::HandleRandomizeCharNameOpcode(WorldPacket& recvData)
+void WorldSession::HandleRandomizeCharNameOpcode(WorldPacket& recv_data)
 {
     uint8 gender, race;
 
-    recvData >> race;
-    recvData >> gender;
+    recv_data >> gender;
+    recv_data >> race;
 
-    if (!(1 << race - 1) & RACEMASK_ALL_PLAYABLE)
+    if (!(1 << race-1) & RACEMASK_ALL_PLAYABLE)
     {
         sLog->outError("Invalid race sent by accountId: %u", GetAccountId());
         return;
@@ -2148,4 +2148,11 @@ void WorldSession::HandleRandomizeCharNameOpcode(WorldPacket& recvData)
     data << uint8(length);
     data << name;
     SendPacket(&data);
+    /*
+    ///- Old 4.3.0 data (my own packet data, saved for comparisons).  ;)
+    WorldPacket data(SMSG_RANDOMIZE_CHAR_NAME, 10);
+    data << uint8(128);    // unk1
+    data << *GetRandomCharacterName(race, gender);
+    SendPacket(&data);
+    */
 }
