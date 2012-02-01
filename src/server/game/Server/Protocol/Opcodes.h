@@ -153,23 +153,23 @@ enum Opcodes
     SMSG_GUILD_XP_UPDATE                             = 0x00,
     SMSG_GUILD_COMMAND_RESULT                        = 0x00,
     SMSG_GUILD_CRITERIA_DATA                         = 0x00,
-    CMSG_MESSAGECHAT_SAY                             = 0x00, /* old 0x0136E */
-    CMSG_MESSAGECHAT_YELL                            = 0x00, /* old 0x0034C */
-    CMSG_MESSAGECHAT_CHANNEL                         = 0x00, /* old 0x0152C */
-    CMSG_MESSAGECHAT_WHISPER                         = 0x00, /* old 0x0030E */
-    CMSG_MESSAGECHAT_GUILD                           = 0x00, /* old 0x0110E */
-    CMSG_MESSAGECHAT_OFFICER                         = 0x00, /* old 0x0154E */
-    CMSG_MESSAGECHAT_AFK                             = 0x00, /* old 0x0134C */
-    CMSG_MESSAGECHAT_DND                             = 0x00, /* old 0x0072C */
-    CMSG_MESSAGECHAT_EMOTE                           = 0x00, /* old 0x04886 */
-    CMSG_MESSAGECHAT_PARTY                           = 0x00, /* old 0x0130E */
-    CMSG_MESSAGECHAT_PARTY_LEADER                    = 0x00,
-    CMSG_MESSAGECHAT_RAID                            = 0x00, /* old 0x0154C */
-    CMSG_MESSAGECHAT_RAID_LEADER                     = 0x00,
-    CMSG_MESSAGECHAT_BATTLEGROUND                    = 0x00, /* old 0x0130C */
-    CMSG_MESSAGECHAT_BATTLEGROUND_LEADER             = 0x00,
-    CMSG_MESSAGECHAT_RAID_WARNING                    = 0x00, /* old 0x0136C */
-    SMSG_MESSAGECHAT                                 = 0x00, /* old 0x03884 */
+    CMSG_MESSAGECHAT_SAY                             = 0x10003, /* old 0x0136E */
+    CMSG_MESSAGECHAT_YELL                            = 0x10004, /* old 0x0034C */
+    CMSG_MESSAGECHAT_CHANNEL                         = 0x10005, /* old 0x0152C */
+    CMSG_MESSAGECHAT_WHISPER                         = 0x10006, /* old 0x0030E */
+    CMSG_MESSAGECHAT_GUILD                           = 0x10007, /* old 0x0110E */
+    CMSG_MESSAGECHAT_OFFICER                         = 0x10008, /* old 0x0154E */
+    CMSG_MESSAGECHAT_AFK                             = 0x10009, /* old 0x0134C */
+    CMSG_MESSAGECHAT_DND                             = 0x1000A, /* old 0x0072C */
+    CMSG_MESSAGECHAT_EMOTE                           = 0x1000B, /* old 0x04886 */
+    CMSG_MESSAGECHAT_PARTY                           = 0x1000C, /* old 0x0130E */
+    CMSG_MESSAGECHAT_PARTY_LEADER                    = 0x1000D,
+    CMSG_MESSAGECHAT_RAID                            = 0x1000E, /* old 0x0154C */
+    CMSG_MESSAGECHAT_RAID_LEADER                     = 0x10011,
+    CMSG_MESSAGECHAT_BATTLEGROUND                    = 0x10012, /* old 0x0130C */
+    CMSG_MESSAGECHAT_BATTLEGROUND_LEADER             = 0x10013,
+    CMSG_MESSAGECHAT_RAID_WARNING                    = 0x10014, /* old 0x0136C */
+    SMSG_MESSAGECHAT                                 = 0x1000, /* old 0x03884 */
     CMSG_JOIN_CHANNEL                                = 0x00, /* old 0x0074C */
     CMSG_LEAVE_CHANNEL                               = 0x00, /* old 0x0070E */
     SMSG_CHANNEL_NOTIFY                              = 0x00, /* old 0x07A26 */
@@ -1051,7 +1051,7 @@ enum Opcodes
     SMSG_SPELL_CHANCE_RESIST_PUSHBACK                = 0x00,
     CMSG_IGNORE_DIMINISHING_RETURNS_CHEAT            = 0x00,
     SMSG_IGNORE_DIMINISHING_RETURNS_CHEAT            = 0x00,
-    CMSG_KEEP_ALIVE                                  = 0x00, /* old 0x066A0 */
+    CMSG_KEEP_ALIVE                                  = 0x10000, /* old 0x066A0 */
     SMSG_RAID_READY_CHECK_ERROR                      = 0x00,
     CMSG_OPT_OUT_OF_LOOT                             = 0x00,
     MSG_QUERY_GUILD_BANK_TEXT                        = 0x00,
@@ -1347,7 +1347,7 @@ enum Opcodes
     CMSG_GET_GUILD_MEMBER_RECIPES                    = 0x00,
     CMSG_QUERY_GUILD_MEMBERS_FOR_RECIPE              = 0x00,
     CMSG_GUILD_NEWS_SET_STICKY                       = 0x00,
-    CMSG_LOG_DISCONNECT                              = 0x00, /* old 0x00108 */
+    CMSG_LOG_DISCONNECT                              = 0x10001, /* old 0x00108 */
     CMSG_VIOLENCE_LEVEL                              = 0x00, /* old 0x07291 */
     //SMSG_CUF_PROFILES_LOAD                           = 0x02428 */
     SMSG_PLAYER_MOVE                                 = 0x00, /* old 0x04418 */
@@ -1369,7 +1369,7 @@ enum Opcodes
     CMSG_SWAP_VOID_ITEM                              = 0x00, /* old 0x03291 */
     CMSG_OBJECT_UPDATE_FAILURE                       = 0x00, /* old 0x07233 */
     SMSG_VERIFY_CONNECTIVITY                         = 0x00, /* old 0x04F57 */
-    CMSG_VERIFY_CONNECTIVITY_RESPONSE                = 0x00, /* old 0x04C52 */
+    CMSG_VERIFY_CONNECTIVITY_RESPONSE                = 0x10002, /* old 0x04C52 */
 };
 
 extern void InitOpcodeTable();
