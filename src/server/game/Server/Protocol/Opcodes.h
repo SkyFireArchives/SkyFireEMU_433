@@ -46,7 +46,7 @@ enum Opcodes
     SMSG_GODMODE                                     = 0x00, /* old 0x02AA0 */
     SMSG_DESTRUCTIBLE_BUILDING_DAMAGE                = 0x00, /* old 0x00E24 */
     CMSG_CHAR_CREATE                                 = 0x00, /* old 0x02A86 */
-    CMSG_CHAR_ENUM                                   = 0x00, /* old 0x04B06 */
+    CMSG_CHAR_ENUM                                   = 0x04051, // 4.3.2 15211
     CMSG_CHAR_DELETE                                 = 0x00, /* old 0x038A4 */
     SMSG_CHAR_CREATE                                 = 0x00, /* old 0x02A82 */
     SMSG_CHAR_ENUM                                   = 0x00CF5, // 4.3.2 15211
@@ -1275,7 +1275,7 @@ enum Opcodes
     CMSG_CHAR_RACE_CHANGE                            = 0x00,
     SMSG_TALENTS_INVOLUNTARILY_RESET                 = 0x00,
     SMSG_LOOT_SLOT_CHANGED                           = 0x00,
-    CMSG_READY_FOR_ACCOUNT_DATA_TIMES                = 0x00, /* old 0x01E80 */
+    CMSG_READY_FOR_ACCOUNT_DATA_TIMES                = 0x0452B, // 4.3.2 15211
     CMSG_QUERY_QUESTS_COMPLETED                      = 0x00,
     SMSG_QUERY_QUESTS_COMPLETED_RESPONSE             = 0x00,
     CMSG_GM_REPORT_LAG                               = 0x00, /* old 0x06CA6 */
