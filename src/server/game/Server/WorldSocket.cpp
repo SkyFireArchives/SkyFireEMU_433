@@ -771,13 +771,13 @@ int WorldSocket::ProcessIncoming (WorldPacket* new_pct)
 int WorldSocket::HandleSendAuthSession() 
 { 
     WorldPacket packet(SMSG_AUTH_CHALLENGE, 37);
+    packet << uint8(1);
+    packet << uint32(0);
     packet << uint32(0);
     packet << uint32(0);
     packet << uint32(0);
     packet << uint32(0);
     packet << m_Seed;
-    packet << uint8(1);
-    packet << uint32(0);
     packet << uint32(0);
     packet << uint32(0);
     packet << uint32(0);
