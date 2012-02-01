@@ -514,7 +514,7 @@ enum Opcodes
     SMSG_ITEM_TIME_UPDATE                            = 0x00, /* old 0x03C82 */
     SMSG_ITEM_ENCHANT_TIME_UPDATE                    = 0x00, /* old 0x03626 */
     SMSG_AUTH_CHALLENGE                              = 0x00129, // 4.3.2 15211
-    CMSG_AUTH_SESSION                                = 0x00, /* old 0x01100 */
+    CMSG_AUTH_SESSION                                = 0x04042, // 4.3.2 15211
     SMSG_AUTH_RESPONSE                               = 0x00E54, // 4.3.2 15211
     MSG_GM_SHOWLABEL                                 = 0x00,
     CMSG_PET_CAST_SPELL                              = 0x00,
@@ -542,7 +542,7 @@ enum Opcodes
     SMSG_GMTICKET_CREATE                             = 0x00, /* old 0x06CA4 */
     CMSG_GMTICKET_UPDATETEXT                         = 0x00, /* old 0x032A0 */
     SMSG_GMTICKET_UPDATETEXT                         = 0x00, /* old 0x01C84 */
-    SMSG_ACCOUNT_DATA_TIMES                          = 0x00, /* old 0x00C80 */
+    SMSG_ACCOUNT_DATA_TIMES                          = 0x0058B, // 4.3.2 15211
     CMSG_REQUEST_ACCOUNT_DATA                        = 0x00, /* old 0x04002 */
     CMSG_UPDATE_ACCOUNT_DATA                         = 0x00, /* old 0x002A0 */
     SMSG_UPDATE_ACCOUNT_DATA                         = 0x00, /* old 0x01EA3 */
@@ -1289,7 +1289,7 @@ enum Opcodes
     SMSG_UNKNOWN_1295                                = 0x00,
     CMSG_UNKNOWN_1296                                = 0x00, /* old 0x05108, //Unknown opcode Name */
     SMSG_FORCE_SEND_QUEUED_PACKETS                   = 0x00, /* old 0x01322 */
-    CMSG_REDIRECTION_AUTH_PROOF                      = 0x00, /* old 0x04108 */
+    CMSG_REDIRECTION_AUTH_PROOF                      = 0x0004A, // 4.3.2 15211
     SMSG_COMBAT_LOG_MULTIPLE                         = 0x00,
     SMSG_LFG_OPEN_FROM_GOSSIP                        = 0x00,
     SMSG_UNKNOWN_1302                                = 0x00,
