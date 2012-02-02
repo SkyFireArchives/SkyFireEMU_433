@@ -24,87 +24,77 @@
 void LoadLocaleMPQFiles(int const locale)
 {
     char filename[512];
-	
-    //Locale-xxXX.MPQ
-    sprintf(filename,"%s/Data/%s/locale-%s.MPQ", input_path, langs[locale], langs[locale]);
+    
+    // Locale-xxXX.MPQ
+    sprintf(filename, "%s/Data/%s/locale-%s.MPQ", input_path, langs[locale], langs[locale]);
     printf("Loading %s\n", filename);
-    if(!SFileOpenArchive(filename, 0, MPQ_OPEN_READ_ONLY, &localeMPQ[0]))
+    if (!SFileOpenArchive(filename, 0, MPQ_OPEN_READ_ONLY, &localeMPQ[0]))
     {
         printf("%i\n", GetLastError());
         assert(false && "\nLoad of MPQ failed");
     }
-	
-
-    //if(!SFileIsPatchedArchive(localeMPQ[0]))
-    //    assert(false && "An error occured");
-	
-
 }
 
 void LoadMapMPQFiles()
 {
     char filename[512];
-	
-    //Locale-xxXX.MPQ
-    sprintf(filename,"%s/Data/world2.MPQ", input_path);
+    
+    // Locale-xxXX.MPQ
+    sprintf(filename, "%s/Data/world2.MPQ", input_path);
     printf("Loading %s\n", filename);
-    if(!SFileOpenArchive(filename, 0, MPQ_OPEN_READ_ONLY, &WorldMPQ))
+    if (!SFileOpenArchive(filename, 0, MPQ_OPEN_READ_ONLY, &WorldMPQ))
     {
         printf("%i\n", GetLastError());
         assert(false && "\nLoad of MPQ failed");
     }
-	
-
-    
-    
 }
 
 int ExtractFileToHardDrive(HANDLE &MPQ_handle, const char * szArchivedFile, const char * szFileName)
 {
     HANDLE hFile  = NULL;          // Archived file handle
-    TFileStream* handle = NULL;          // Disk file handle
+    TFileStream* handle = NULL;    // Disk file handle
     int    nError = ERROR_SUCCESS; // Result value
     
-    if(nError == ERROR_SUCCESS)            
+    if (nError == ERROR_SUCCESS)            
     {
-        if(!SFileOpenFileEx(MPQ_handle, szArchivedFile, SFILE_OPEN_PATCHED_FILE, &hFile))
+        if (!SFileOpenFileEx(MPQ_handle, szArchivedFile, SFILE_OPEN_PATCHED_FILE, &hFile))
             nError = GetLastError();
     }
-	
+    
     // Create the target file
-    if(nError == ERROR_SUCCESS)
+    if (nError == ERROR_SUCCESS)
     {
-		handle = FileStream_CreateFile(szFileName);
-        if(handle == NULL)
+        handle = FileStream_CreateFile(szFileName);
+        if (handle == NULL)
             nError = GetLastError();
     }
-	
+    
     // Read the file from the archive
-    if(nError == ERROR_SUCCESS)
+    if (nError == ERROR_SUCCESS)
     {
         // Get the size of the full patched file
         DWORD dwFileSize = SFileGetFileSize(hFile, NULL);
-        if(dwFileSize != 0)
+        if (dwFileSize != 0)
         {
             // Allocate space for the full file
             BYTE * pbFullFile = new BYTE[dwFileSize];
-            if(!SFileReadFile(hFile, pbFullFile, dwFileSize))
-			{           
-				nError = GetLastError();
-				printf("Failed to read full patched file data \"%s\"\n", szFileName);
-				assert(false);
-			}
-			FileStream_Write(handle, NULL, pbFullFile, dwFileSize);
-			delete [] pbFullFile;
+            if (!SFileReadFile(hFile, pbFullFile, dwFileSize))
+            {           
+                nError = GetLastError();
+                printf("Failed to read full patched file data \"%s\"\n", szFileName);
+                assert(false);
+            }
+            FileStream_Write(handle, NULL, pbFullFile, dwFileSize);
+            delete [] pbFullFile;
         }
     }
-	
+    
     // Cleanup and exit
-    if(handle != NULL)
+    if (handle != NULL)
         FileStream_Close(handle);
-    if(hFile != NULL)
+    if (hFile != NULL)
         SFileCloseFile(hFile);
-	
+    
     return nError;
 }
 
@@ -114,33 +104,33 @@ char* ExtractFileToMemory(HANDLE &MPQ_handle, const char * szArchivedFile, int &
     int    nError = ERROR_SUCCESS; // Result value
     char * pbFullFile = NULL;
     
-    if(nError == ERROR_SUCCESS)            
+    if (nError == ERROR_SUCCESS)            
     {
-        if(!SFileOpenFileEx(MPQ_handle, szArchivedFile, SFILE_OPEN_PATCHED_FILE, &hFile))
+        if (!SFileOpenFileEx(MPQ_handle, szArchivedFile, SFILE_OPEN_PATCHED_FILE, &hFile))
             nError = GetLastError();
     }
-	
+    
     // Read the file from the archive
-    if(nError == ERROR_SUCCESS)
+    if (nError == ERROR_SUCCESS)
     {
         // Get the size of the full patched file
         size = SFileGetFileSize(hFile, NULL);
-        if(size != 0)
+        if (size != 0)
         {
             // Allocate space for the full file
             pbFullFile = new char[size];
-            if(!SFileReadFile(hFile, pbFullFile, size))
-			{           
-				nError = GetLastError();
-				printf("Failed to read full patched file data \"%s\"\n", szArchivedFile);
-				assert(false);
-			}
+            if (!SFileReadFile(hFile, pbFullFile, size))
+            {           
+                nError = GetLastError();
+                printf("Failed to read full patched file data \"%s\"\n", szArchivedFile);
+                assert(false);
+            }
         }
     }
-	
+    
     // Cleanup and exit
-    if(nError == ERROR_SUCCESS && hFile != NULL)
+    if (nError == ERROR_SUCCESS && hFile != NULL)
         SFileCloseFile(hFile);
-	
+    
     return pbFullFile;
 }
