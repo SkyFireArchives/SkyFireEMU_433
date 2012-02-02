@@ -87,10 +87,10 @@ enum Opcodes
     SMSG_PAGE_TEXT_QUERY_RESPONSE                    = 0x00, /* old 0x07C84 */
     CMSG_QUEST_QUERY                                 = 0x00, /* old 0x00C26 */
     SMSG_QUEST_QUERY_RESPONSE                        = 0x00, /* old 0x03880 */
-    CMSG_GAMEOBJECT_QUERY                            = 0x00, /* old 0x06A00 */
-    SMSG_GAMEOBJECT_QUERY_RESPONSE                   = 0x00, /* old 0x04CA6 */
-    CMSG_CREATURE_QUERY                              = 0x00, /* old 0x05EA0 */
-    SMSG_CREATURE_QUERY_RESPONSE                     = 0x00, /* old 0x05086 */
+    CMSG_GAMEOBJECT_QUERY                            = 0x04523, // 4.3.2 15211
+    SMSG_GAMEOBJECT_QUERY_RESPONSE                   = 0x0253D, // 4.3.2 15211
+    CMSG_CREATURE_QUERY                              = 0x02591, // 4.3.2 15211
+    SMSG_CREATURE_QUERY_RESPONSE                     = 0x025FB, // 4.3.2 15211
     CMSG_WHO                                         = 0x00, /* old 0x03226 */
     SMSG_WHO                                         = 0x00, /* old 0x06006 */
     CMSG_WHOIS                                       = 0x00, /* old 0x04480 */
@@ -153,8 +153,8 @@ enum Opcodes
     SMSG_GUILD_XP_UPDATE                             = 0x00,
     SMSG_GUILD_COMMAND_RESULT                        = 0x00,
     SMSG_GUILD_CRITERIA_DATA                         = 0x00,
-    CMSG_MESSAGECHAT_SAY                             = 0x10003, /* old 0x0136E */
-    CMSG_MESSAGECHAT_YELL                            = 0x10004, /* old 0x0034C */
+    CMSG_MESSAGECHAT_SAY                             = 0x022E0, // 4.3.2 15211
+    CMSG_MESSAGECHAT_YELL                            = 0x02260, // 4.3.2 15211
     CMSG_MESSAGECHAT_CHANNEL                         = 0x10005, /* old 0x0152C */
     CMSG_MESSAGECHAT_WHISPER                         = 0x10006, /* old 0x0030E */
     CMSG_MESSAGECHAT_GUILD                           = 0x10007, /* old 0x0110E */
@@ -169,7 +169,7 @@ enum Opcodes
     CMSG_MESSAGECHAT_BATTLEGROUND                    = 0x10012, /* old 0x0130C */
     CMSG_MESSAGECHAT_BATTLEGROUND_LEADER             = 0x10013,
     CMSG_MESSAGECHAT_RAID_WARNING                    = 0x10014, /* old 0x0136C */
-    SMSG_MESSAGECHAT                                 = 0x1000, /* old 0x03884 */
+    SMSG_MESSAGECHAT                                 = 0x00529, // 4.3.2 15211
     CMSG_JOIN_CHANNEL                                = 0x00, /* old 0x0074C */
     CMSG_LEAVE_CHANNEL                               = 0x00, /* old 0x0070E */
     SMSG_CHANNEL_NOTIFY                              = 0x00, /* old 0x07A26 */
@@ -640,8 +640,8 @@ enum Opcodes
     CMSG_STABLE_REVIVE_PET                           = 0x00,
     CMSG_STABLE_CHANGE_SLOT                          = 0x00,
     MSG_QUEST_PUSH_RESULT                            = 0x00,
-    SMSG_PLAY_MUSIC                                  = 0x00,
-    SMSG_PLAY_OBJECT_SOUND                           = 0x00,
+    SMSG_PLAY_MUSIC                                  = 0x0256D, // 4.3.2 15211
+    SMSG_PLAY_OBJECT_SOUND                           = 0x0451F, // 4.3.2 15211
     CMSG_REQUEST_PET_INFO                            = 0x00,
     CMSG_FAR_SIGHT                                   = 0x00,
     SMSG_SPELLDISPELLOG                              = 0x00,
@@ -730,7 +730,7 @@ enum Opcodes
     CMSG_MOVE_FEATHER_FALL_ACK                       = 0x00, /* old 0x03223 */
     CMSG_MOVE_WATER_WALK_ACK                         = 0x00, /* old 0x07411 */
     CMSG_MOVE_NOT_ACTIVE_MOVER                       = 0x00, /* old 0x070A3 */
-    SMSG_PLAY_SOUND                                  = 0x00, /* old 0x05C84 */
+    SMSG_PLAY_SOUND                                  = 0x02DE5, // 4.3.2 15211
     CMSG_BATTLEFIELD_STATUS                          = 0x00, /* old 0x07093 */
     SMSG_BATTLEFIELD_STATUS1                         = 0x00, /* old 0x004B8 */
     SMSG_BATTLEFIELD_STATUS2                         = 0x00, /* old 0x06628 */
@@ -1156,7 +1156,7 @@ enum Opcodes
     CMSG_DISMISS_CONTROLLED_VEHICLE                  = 0x00,
     CMSG_COMPLETE_ACHIEVEMENT_CHEAT                  = 0x00,
     SMSG_COMPRESSED_RESPOND_INSPECT_ACHIEVEMENTS     = 0x00,
-    SMSG_COMPRESSED_ACHIEVEMENT_DATA                 = 0x00,
+    SMSG_COMPRESSED_ACHIEVEMENT_DATA                 = 0x05C3B, // 4.3.2 15211
     SMSG_QUESTUPDATE_ADD_PVP_KILL                    = 0x00,
     CMSG_SET_CRITERIA_CHEAT                          = 0x00,
     SMSG_CALENDAR_UPDATE_INVITE_LIST3                = 0x00,
@@ -1172,7 +1172,7 @@ enum Opcodes
     CMSG_PET_LEARN_TALENT                            = 0x00,
     CMSG_PET_UNLEARN_TALENTS                         = 0x00,
     SMSG_SET_PHASE_SHIFT                             = 0x00, /* old 0x04428 */
-    SMSG_ALL_ACHIEVEMENT_DATA                        = 0x00, /* old 0x0069A */
+    SMSG_ALL_ACHIEVEMENT_DATA                        = 0x0E6EC, // 4.3.2 15211
     CMSG_FORCE_SAY_CHEAT                             = 0x00,
     SMSG_HEALTH_UPDATE                               = 0x00, /* old 0x03C02 */
     SMSG_POWER_UPDATE                                = 0x00, /* old 0x068A6 */
@@ -1217,7 +1217,7 @@ enum Opcodes
     CMSG_PLAYER_VEHICLE_ENTER                        = 0x00,
     CMSG_EJECT_PASSENGER                             = 0x00,
     SMSG_PET_GUIDS                                   = 0x00,
-    SMSG_CLIENTCACHE_VERSION                         = 0x00, /* old 0x06882 */
+    SMSG_CLIENTCACHE_VERSION                         = 0x0453D, // 4.3.2 15211
     SMSG_ITEM_REFUND_INFO_RESPONSE                   = 0x00, /* old 0x066AE */
     CMSG_ITEM_REFUND_INFO                            = 0x00, /* old 0x06EA4 */
     CMSG_ITEM_REFUND                                 = 0x00, /* old 0x04EA2 */
@@ -1324,7 +1324,7 @@ enum Opcodes
     CMSG_GROUP_SET_ROLES                             = 0x00,
     SMSG_UNKNOWN_65508                               = 0x00,
     SMSG_GUILD_ACHIEVEMENT_EARNED                    = 0x00,
-    SMSG_GUILD_ACHIEVEMENT_DATA                      = 0x00,
+    SMSG_GUILD_ACHIEVEMENT_DATA                      = 0x0A67E, // 4.3.2 15211
     CMSG_UI_TIME_REQUEST                             = 0x00,
     SMSG_UI_TIME                                     = 0x00,
     CMSG_RETURN_TO_GRAVEYARD                         = 0x00, /* old 0x06603 */
