@@ -927,7 +927,7 @@ enum Opcodes
     SMSG_FLIGHT_SPLINE_SYNC                          = 0x00, /* old 0x01C06 */
     CMSG_SET_TAXI_BENCHMARK_MODE                     = 0x00,
     SMSG_REALM_SPLIT                                 = 0x00, /* old 0x01820 */
-    CMSG_REALM_SPLIT                                 = 0x00, /* old 0x01680 */
+    CMSG_REALM_SPLIT                                 = 0x00DB7, // 4.3.2 15211
     CMSG_MOVE_CHNG_TRANSPORT                         = 0x00,
     MSG_PARTY_ASSIGNMENT                             = 0x00,
     SMSG_OFFER_PETITION_ERROR                        = 0x00,
@@ -1156,7 +1156,7 @@ enum Opcodes
     CMSG_DISMISS_CONTROLLED_VEHICLE                  = 0x00,
     CMSG_COMPLETE_ACHIEVEMENT_CHEAT                  = 0x00,
     SMSG_COMPRESSED_RESPOND_INSPECT_ACHIEVEMENTS     = 0x00,
-    SMSG_COMPRESSED_ACHIEVEMENT_DATA                 = 0x05C3B, // 4.3.2 15211
+    SMSG_COMPRESSED_ACHIEVEMENT_DATA                 = 0x00,
     SMSG_QUESTUPDATE_ADD_PVP_KILL                    = 0x00,
     CMSG_SET_CRITERIA_CHEAT                          = 0x00,
     SMSG_CALENDAR_UPDATE_INVITE_LIST3                = 0x00,
@@ -1172,7 +1172,7 @@ enum Opcodes
     CMSG_PET_LEARN_TALENT                            = 0x00,
     CMSG_PET_UNLEARN_TALENTS                         = 0x00,
     SMSG_SET_PHASE_SHIFT                             = 0x00, /* old 0x04428 */
-    SMSG_ALL_ACHIEVEMENT_DATA                        = 0x0E6EC, // 4.3.2 15211
+    SMSG_ALL_ACHIEVEMENT_DATA                        = 0x00,
     CMSG_FORCE_SAY_CHEAT                             = 0x00,
     SMSG_HEALTH_UPDATE                               = 0x00, /* old 0x03C02 */
     SMSG_POWER_UPDATE                                = 0x00, /* old 0x068A6 */
@@ -1324,7 +1324,7 @@ enum Opcodes
     CMSG_GROUP_SET_ROLES                             = 0x00,
     SMSG_UNKNOWN_65508                               = 0x00,
     SMSG_GUILD_ACHIEVEMENT_EARNED                    = 0x00,
-    SMSG_GUILD_ACHIEVEMENT_DATA                      = 0x0A67E, // 4.3.2 15211
+    SMSG_GUILD_ACHIEVEMENT_DATA                      = 0x00,
     CMSG_UI_TIME_REQUEST                             = 0x00,
     SMSG_UI_TIME                                     = 0x00,
     CMSG_RETURN_TO_GRAVEYARD                         = 0x00, /* old 0x06603 */
