@@ -756,7 +756,7 @@ enum Opcodes
     CMSG_AREA_SPIRIT_HEALER_QUEUE                    = 0x00, /* old 0x07826 */
     SMSG_AREA_SPIRIT_HEALER_TIME                     = 0x00, /* old 0x02A22 */
     CMSG_GM_UNTEACH                                  = 0x00,
-    SMSG_WARDEN_DATA                                 = 0x00CF0, // 4.3.2 15211 */
+    SMSG_WARDEN_DATA                                 = 0x00CF0, // 4.3.2 15211
     CMSG_WARDEN_DATA                                 = 0x00, /* old 0x00108 */
     SMSG_GROUP_JOINED_BATTLEGROUND                   = 0x00, /* old 0x0469A */
     CMSG_BATTLEGROUND_PLAYER_POSITIONS               = 0x00,
@@ -1347,7 +1347,7 @@ enum Opcodes
     CMSG_GET_GUILD_MEMBER_RECIPES                    = 0x00,
     CMSG_QUERY_GUILD_MEMBERS_FOR_RECIPE              = 0x00,
     CMSG_GUILD_NEWS_SET_STICKY                       = 0x00,
-    CMSG_LOG_DISCONNECT                              = 0x04019, /* old 0x00108 */
+    CMSG_LOG_DISCONNECT                              = 0x04019, // 4.3.2 15211
     CMSG_VIOLENCE_LEVEL                              = 0x00, /* old 0x07291 */
     //SMSG_CUF_PROFILES_LOAD                           = 0x02428 */
     SMSG_PLAYER_MOVE                                 = 0x00, /* old 0x04418 */
