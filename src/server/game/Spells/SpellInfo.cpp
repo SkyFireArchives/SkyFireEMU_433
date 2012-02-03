@@ -576,6 +576,9 @@ int32 SpellEffectInfo::CalcValue(Unit const* caster, int32 const* bp, Unit const
     int32 basePoints = bp ? *bp : BasePoints;
     int32 randomPoints = int32(DieSides);
 
+    if (!_spellInfo)
+        return 0;
+
     float maxPoints = 0.00f;
     float comboPointScaling = 0.00f;
     if (caster)
@@ -1007,7 +1010,7 @@ void SpellInfo::LoadSpellAddons()
     ChannelInterruptFlags = SpellInterrupts ? SpellInterrupts->ChannelInterruptFlags : 0;
     InterruptFlags = SpellInterrupts ? SpellInterrupts->InterruptFlags : 0;
 
-    SpellLevelsEntry const* SpellLevels  = GetSpellLevels();
+    SpellLevelsEntry const* SpellLevels = GetSpellLevels();
     BaseLevel = SpellLevels ? SpellLevels->baseLevel : 0;
     MaxLevel = SpellLevels ? SpellLevels->maxLevel : 0;
     SpellLevel = SpellLevels ? SpellLevels->spellLevel : 0;
