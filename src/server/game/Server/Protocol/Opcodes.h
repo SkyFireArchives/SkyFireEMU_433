@@ -532,7 +532,7 @@ enum Opcodes
     SMSG_ENVIRONMENTALDAMAGELOG                      = 0x00,
     CMSG_PLAYER_DIFFICULTY_CHANGE                    = 0x00,
     SMSG_RWHOIS                                      = 0x00,
-    SMSG_statPLAYER_REWARD                           = 0x00,
+    SMSG_LFG_PLAYER_REWARD                           = 0x00,
     SMSG_LFG_TELEPORT_DENIED                         = 0x00,
     CMSG_UNLEARN_SPELL                               = 0x00,
     CMSG_UNLEARN_SKILL                               = 0x00,
