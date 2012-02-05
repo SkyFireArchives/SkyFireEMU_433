@@ -90,6 +90,13 @@ struct CreatureTemplate
     uint32  Modelid3;
     uint32  Modelid4;
     std::string  Name;
+    std::string  Name2;
+    std::string  Name3;
+    std::string  Name4;
+    std::string  unkString;
+    std::string  unkString2;
+    std::string  unkString3;
+    std::string  unkString4;
     std::string  SubName;
     std::string  IconName;
     uint32  GossipMenuId;
@@ -112,6 +119,7 @@ struct CreatureTemplate
     uint32  rangeattacktime;
     uint32  unit_class;                                     // enum Classes. Note only 4 classes are known for creatures.
     uint32  unit_flags;                                     // enum UnitFlags mask values
+    uint32  unk_flags;
     uint32  dynamicflags;
     uint32  family;                                         // enum CreatureFamily values (optional)
     uint32  trainer_type;
