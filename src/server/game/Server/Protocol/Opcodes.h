@@ -1370,6 +1370,7 @@ enum Opcodes
     CMSG_OBJECT_UPDATE_FAILURE                       = 0x00, /* old 0x07233 */
     SMSG_VERIFY_CONNECTIVITY                         = 0x00, /* old 0x04F57 */
     CMSG_VERIFY_CONNECTIVITY_RESPONSE                = 0x10002, /* old 0x04C52 */
+	SMSG_USERLIST_REMOVE                             = 0x00,
 };
 
 extern void InitOpcodeTable();
