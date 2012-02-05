@@ -96,7 +96,7 @@ enum Opcodes
     CMSG_WHOIS                                       = 0x00, /* old 0x04480 */
     SMSG_WHOIS                                       = 0x00, /* old 0x02602 */
     CMSG_CONTACT_LIST                                = 0x00, /* old 0x044A2 */
-    SMSG_CONTACT_LIST                                = 0x00DAF,, /* old 0x04626 */
+    SMSG_CONTACT_LIST                                = 0x00DAF, /* old 0x04626 */
     SMSG_FRIEND_STATUS                               = 0x00, /* old 0x04E24 */
     CMSG_ADD_FRIEND                                  = 0x00, /* old 0x072A6 */
     CMSG_DEL_FRIEND                                  = 0x00, /* old 0x06EA0 */
@@ -400,7 +400,7 @@ enum Opcodes
     CMSG_PET_ABANDON                                 = 0x00,
     CMSG_PET_RENAME                                  = 0x00,
     SMSG_PET_NAME_INVALID                            = 0x00,
-    SMSG_PET_SPELLS                                  = 0x06583
+    SMSG_PET_SPELLS                                  = 0x06583,
     SMSG_PET_MODE                                    = 0x06D75,
     CMSG_GOSSIP_HELLO                                = 0x00, /* old 0x03622 */
     CMSG_GOSSIP_SELECT_OPTION                        = 0x00, /* old 0x00280 */
