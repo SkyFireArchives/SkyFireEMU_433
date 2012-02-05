@@ -122,7 +122,7 @@ enum Opcodes
     SMSG_PARTY_MEMBER_STATS                          = 0x00, /* old 0x03822 */
     SMSG_PARTY_COMMAND_RESULT                        = 0x00, /* old 0x06A20 */
     CMSG_GUILD_CREATE                                = 0x02D49, // oder 0x4515,
-    CMSG_GUILD_INVITE                                = 0x00, /* old 0x04936 */
+    CMSG_GUILD_INVITE                                = 0x00818,
     SMSG_GUILD_INVITE                                = 0x00, /* old 0x086A8 */
     CMSG_GUILD_ACCEPT                                = 0x00, /* old 0x04924 */
     CMSG_GUILD_DECLINE                               = 0x00, /* old 0x0084C */
@@ -569,7 +569,7 @@ enum Opcodes
     CMSG_CHARACTER_POINT_CHEAT                       = 0x00,
     SMSG_GOSSIP_POI                                  = 0x00,
     CMSG_CHAT_IGNORED                                = 0x00,
-    CMSG_GUILD_RANK                                  = 0x00, /* old 0x02A88 */
+    CMSG_GUILD_RANK                                  = 0x01501,
     SMSG_GUILD_RANK                                  = 0x01EB1,
     CMSG_GUILD_RANKS                                 = 0x01501,
     CMSG_GUILD_ADD_RANK                              = 0x00, /* old 0x00A8C */
@@ -1043,7 +1043,7 @@ enum Opcodes
     SMSG_VOICESESSION_FULL                           = 0x00,
     MSG_GUILD_PERMISSIONS                            = 0x03D0D,
     MSG_GUILD_BANK_MONEY_WITHDRAWN                   = 0x00,
-    MSG_GUILD_EVENT_LOG_QUERY                        = 0x00, /* old 0x05CA4 */
+    MSG_GUILD_EVENT_LOG_QUERY                        = 0x07589,
     CMSG_MAELSTROM_RENAME_GUILD                      = 0x00,
     CMSG_GET_MIRRORIMAGE_DATA                        = 0x00,
     SMSG_MIRRORIMAGE_DATA                            = 0x00,
@@ -1313,7 +1313,7 @@ enum Opcodes
     CMSG_BATTLEGROUND_PORT_AND_LEAVE                 = 0x00,
     SMSG_GUILD_XP_LIMIT                              = 0x00,
     CMSG_GUILD_QUERY_NEWS                            = 0x05589,
-    CMSG_GUILD_QUERY_XP                              = 0x00,
+    CMSG_GUILD_QUERY_XP                              = 0x03D01,
     SMSG_GUILD_XP                                    = 0x01C94,
     SMSG_GUILD_UPDATE_PARTY_STATE                    = 0x00,
     CMSG_GUILD_UPDATE_PARTY_STATE                    = 0x00,
@@ -1371,6 +1371,7 @@ enum Opcodes
     SMSG_VERIFY_CONNECTIVITY                         = 0x00, /* old 0x04F57 */
     CMSG_VERIFY_CONNECTIVITY_RESPONSE                = 0x10002, /* old 0x04C52 */
 	SMSG_USERLIST_REMOVE                             = 0x00,
+	SMSG_WAIT_QUEUE_UPDATE                           = 0x00CE1,
 };
 
 extern void InitOpcodeTable();
