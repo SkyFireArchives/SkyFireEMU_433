@@ -45,6 +45,9 @@ struct GameObjectTemplate
     uint32  type;
     uint32  displayId;
     std::string name;
+    std::string name2;
+    std::string name3;
+    std::string name4;
     std::string IconName;
     std::string castBarCaption;
     std::string unk1;
@@ -407,7 +410,7 @@ struct GameObjectTemplate
 
     std::string AIName;
     uint32 ScriptId;
-
+    uint32 expansion;
     // helpers
     bool IsDespawnAtAction() const
     {
