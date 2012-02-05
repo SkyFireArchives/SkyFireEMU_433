@@ -532,7 +532,7 @@ enum Opcodes
     SMSG_ENVIRONMENTALDAMAGELOG                      = 0x00,
     CMSG_PLAYER_DIFFICULTY_CHANGE                    = 0x00,
     SMSG_RWHOIS                                      = 0x00,
-    SMSG_LFG_PLAYER_REWARD                           = 0x00,
+    SMSG_statPLAYER_REWARD                           = 0x00,
     SMSG_LFG_TELEPORT_DENIED                         = 0x00,
     CMSG_UNLEARN_SPELL                               = 0x00,
     CMSG_UNLEARN_SKILL                               = 0x00,
@@ -855,7 +855,7 @@ enum Opcodes
     SMSG_MOVE_SET_CAN_FLY                            = 0x00, /* old 0x0440C */
     SMSG_MOVE_UNSET_CAN_FLY                          = 0x00451,
     CMSG_MOVE_SET_CAN_FLY_ACK                        = 0x021C0,
-    CMSG_MOVE_SET_FLY                                = 0x00, /* old 0x02421 */
+    CMSG_MOVE_SET_FLY                                = 0x02120,
     CMSG_SOCKET_GEMS                                 = 0x00,
     CMSG_ARENA_TEAM_CREATE                           = 0x05840,
     SMSG_ARENA_TEAM_COMMAND_RESULT                   = 0x014F4,
@@ -886,7 +886,7 @@ enum Opcodes
     SMSG_LFG_ROLE_CHECK_UPDATE                       = 0x00,
     SMSG_RAID_ROLE_CHECK_UPDATE                      = 0x00,
     SMSG_LFG_JOIN_RESULT                             = 0x01C20,
-    SMSG_LFG_QUEUE_STATUS                            = 0x01EC1,
+    SMSG_LFG_QUEUE_STATUS                            = 0x014F0, // SMSG_LFG_UPDATE_STATUS = 0x01EC1,
     CMSG_SET_LFG_COMMENT                             = 0x05811,
     SMSG_LFG_UPDATE_PLAYER                           = 0x00,
     SMSG_LFG_UPDATE_PARTY                            = 0x00,
