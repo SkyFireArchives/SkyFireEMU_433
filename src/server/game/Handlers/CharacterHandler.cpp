@@ -2129,7 +2129,7 @@ void WorldSession::HandleRandomizeCharNameOpcode(WorldPacket& recv_data)
     recv_data >> race;   
     recv_data >> gender;
 
-    if (!(1 << race-1) & RACEMASK_ALL_PLAYABLE)
+    if (! 1 << (race-1) & RACEMASK_ALL_PLAYABLE)
     {
         sLog->outError("Invalid race sent by accountId: %u", GetAccountId());
         return;
