@@ -165,7 +165,6 @@ enum Opcodes
     SMSG_PARTY_COMMAND_RESULT                        = 0x0,
     UMSG_UPDATE_GROUP_MEMBERS                        = 0x0,
     CMSG_GUILD_CREATE                                = 0x02D49,
-    CMSG_GUILD_INVITE                                = 0x0,
     SMSG_GUILD_INVITE                                = 0x01674,
     CMSG_GUILD_DECLINE_INVITATION                    = 0x0550D,
     CMSG_ACCEPT_GUILD_INVITE                         = 0x00049,
