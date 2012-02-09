@@ -34,71 +34,71 @@ OpcodeNameValueMap OpcodeNameValues;
 
 bool LoadOpcodes()
 {
-	uint16 build = 15211;
-	QueryResult result = WorldDatabase.PQuery("SELECT name, number FROM emuopcodes where version = %u", build);
+    uint16 build = 15211;
+    QueryResult result = WorldDatabase.PQuery("SELECT name, number FROM emuopcodes where version = %u", build);
 
-	if (!result)
-	{
-		sLog->outString();
-		sLog->outErrorDb(">> Failed to load opcode values from the DB. Cannot continue.");
-		return false;
-	}
+    if (!result)
+    {
+        sLog->outString();
+        sLog->outErrorDb(">> Failed to load opcode values from the DB. Cannot continue.");
+        return false;
+    }
 
-	uint32 count = 0;
-	do
-	{
-		Field *fields = result->Fetch();
+    uint32 count = 0;
+    do
+    {
+        Field *fields = result->Fetch();
 
-		std::string name = fields[0].GetString();
-		uint16 entry = fields[1].GetUInt16();
+        std::string name = fields[0].GetString();
+        uint16 entry = fields[1].GetUInt16();
 
-		OpcodeNameValues[name] = entry;
-		++count;
-	} while (result->NextRow());
+        OpcodeNameValues[name] = entry;
+        ++count;
+    } while (result->NextRow());
 
-	sLog->outString();
-	sLog->outString(">> Loaded %u opcodes for build %u", count, build);
+    sLog->outString();
+    sLog->outString(">> Loaded %u opcodes for build %u", count, build);
 
-	return true;
+    return true;
 }
 
 static void DefineOpcode(Opcodes enumId, const char* name, SessionStatus status, PacketProcessing packetProcessing, void (WorldSession::*handler)(WorldPacket& recvPacket) )
 {
-	opcodesEnumToName[enumId] = name;
-	OpcodeNameValueMap::iterator itr = OpcodeNameValues.find(std::string(name));
-	if (itr != OpcodeNameValues.end())
-	{
-		uint16 opcode = itr->second;
-		opcodesEnumToNumber[enumId] = opcode;
-		if (opcode == 0)
-			return; // opcode unknown yet :(
+    opcodesEnumToName[enumId] = name;
+    OpcodeNameValueMap::iterator itr = OpcodeNameValues.find(std::string(name));
+    if (itr != OpcodeNameValues.end())
+    {
+        uint16 opcode = itr->second;
+        opcodesEnumToNumber[enumId] = opcode;
+        if (opcode == 0)
+            return; // opcode unknown yet :(
 
-		opcodeTable[opcode].name = name;
-		opcodeTable[opcode].status = status;
-		opcodeTable[opcode].packetProcessing = packetProcessing;
-		opcodeTable[opcode].handler = handler;
-		opcodeTable[opcode].enumValue = enumId;
-	}
-	else
-	{
-		sLog->outError("Opcode not found in the DB %s", name);
-		opcodesEnumToNumber[enumId] = 0;
-	}
+        opcodeTable[opcode].name = name;
+        opcodeTable[opcode].status = status;
+        opcodeTable[opcode].packetProcessing = packetProcessing;
+        opcodeTable[opcode].handler = handler;
+        opcodeTable[opcode].enumValue = enumId;
+    }
+    else
+    {
+        sLog->outError("Opcode not found in the DB %s", name);
+        opcodesEnumToNumber[enumId] = 0;
+    }
 }
 
 #define OPCODE( name, status, packetProcessing, handler ) DefineOpcode( name, #name, status, packetProcessing, handler )
 
 void InitOpcodeTable()
 {
-	for( int i = 0; i < MAX_MSG_TYPES; ++i )
-	{
-		opcodeTable[i].name = "UNKNOWN";
-		opcodeTable[i].status = STATUS_NEVER;
-		opcodeTable[i].packetProcessing = PROCESS_INPLACE;
-		opcodeTable[i].handler = &WorldSession::Handle_NULL;
-	}
+    for( int i = 0; i < MAX_MSG_TYPES; ++i )
+    {
+        opcodeTable[i].name = "UNKNOWN";
+        opcodeTable[i].status = STATUS_NEVER;
+        opcodeTable[i].packetProcessing = PROCESS_INPLACE;
+        opcodeTable[i].handler = &WorldSession::Handle_NULL;
+    }
 
-	LoadOpcodes();
+    LoadOpcodes();
 
     OPCODE( CMSG_WORLD_TELEPORT,                          STATUS_LOGGEDIN, PROCESS_THREADUNSAFE,  &WorldSession::HandleWorldTeleportOpcode       );
     OPCODE( CMSG_TELEPORT_TO_UNIT,                        STATUS_LOGGEDIN, PROCESS_INPLACE,       &WorldSession::Handle_NULL                     );
@@ -1338,5 +1338,5 @@ void InitOpcodeTable()
     OPCODE( CMSG_REFORGE_ITEM,                            STATUS_LOGGEDIN, PROCESS_INPLACE,       &WorldSession::HandleReforgeItem               );
     OPCODE( MSG_VERIFY_CONNECTIVITY,                      STATUS_NEVER,    PROCESS_INPLACE,       &WorldSession::Handle_EarlyProccess            );
 
-	OpcodeNameValues.clear();
+    OpcodeNameValues.clear();
 };
