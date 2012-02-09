@@ -1580,7 +1580,7 @@ enum Opcodes
     SMSG_WAIT_QUEUE_FINISH                           = 0x01CA0,
 
     // The Missing defines.
-    SMSG_MOVE_SET_FLIGHT							 = 0x00,
+    SMSG_MOVE_SET_FLIGHT                             = 0x00,
     SMSG_MOVE_UNSET_FLIGHT                           = 0x00,
     CMSG_MOVE_FLIGHT_ACK                             = 0x00,
     MSG_MOVE_START_SWIM_CHEAT                        = 0x00,
