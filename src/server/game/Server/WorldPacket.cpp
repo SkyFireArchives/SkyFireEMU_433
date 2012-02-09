@@ -22,7 +22,7 @@
 
 void WorldPacket::Compress(Opcodes opcode)
 {
-    if (opcode == UNKNOWN_OPCODE || opcode == NULL_OPCODE)
+    if (opcode == MSG_OPCODE_UNKNOWN || opcode == MSG_OPCODE_UNKNOWN)
     {
         sLog->outError("Tried to compress packet with unknown opcode (%u)", uint32(opcode));
         return;

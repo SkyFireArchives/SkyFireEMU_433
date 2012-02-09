@@ -36,1366 +36,1356 @@
 /// List of Opcodes
 enum Opcodes
 {
-    NUM_OPCODE_HANDLERS = (0xFFFF+1),
-    UNKNOWN_OPCODE = NUM_OPCODE_HANDLERS,
-    NULL_OPCODE                                      = 0,
-
-    CMSG_WORLD_TELEPORT                              = 0x10000, //
-    CMSG_TELEPORT_TO_UNIT                            = 0x10001, //
-    SMSG_CHECK_FOR_BOTS                              = 0x10002, //
-    CMSG_BOT_DETECTED2                               = 0x10003, //
-    SMSG_FORCEACTIONSHOW                             = 0x10004, //
-    SMSG_PETGODMODE                                  = 0x10005, //
-    SMSG_GODMODE                                     = 0x10006, //
-    SMSG_DESTRUCTIBLE_BUILDING_DAMAGE                = 0x10007, //
-    CMSG_CHAR_CREATE                                 = 0x02A86, // 4.3.0 15050
-    CMSG_CHAR_ENUM                                   = 0x04B06, // 4.3.0 15050
-    CMSG_CHAR_DELETE                                 = 0x038A4, // 4.3.0 15050
-    SMSG_CHAR_CREATE                                 = 0x02A82, // 4.3.0 15050
-    SMSG_CHAR_ENUM                                   = 0x004AC, // 4.3.0 15050
-    SMSG_CHAR_DELETE                                 = 0x02A02, // 4.3.0 15050
-    CMSG_PLAYER_LOGIN                                = 0x00326, // 4.3.0 15050
-    SMSG_NEW_WORLD                                   = 0x1451E, //
-    SMSG_TRANSFER_PENDING                            = 0x17BE0, //
-    SMSG_TRANSFER_ABORTED                            = 0x12BE0, //
-    SMSG_CHARACTER_LOGIN_FAILED                      = 0x17ACC, //
-    SMSG_LOGIN_SETTIMESPEED                          = 0x139AC, //
-    SMSG_GAMETIME_UPDATE                             = 0x1F1EC, //
-    CMSG_GAMETIME_SET                                = 0x120C4, //
-    SMSG_GAMETIME_SET                                = 0x17888, //
-    CMSG_GAMESPEED_SET                               = 0x12084, //
-    SMSG_GAMESPEED_SET                               = 0x13EC0, //
-    CMSG_SERVERTIME                                  = 0x10005, //
-    SMSG_SERVERTIME                                  = 0x123A4, //
-    CMSG_PLAYER_LOGOUT                               = 0x1F78C, //
-    CMSG_LOGOUT_REQUEST                              = 0x1A7A8, //
-    SMSG_LOGOUT_RESPONSE                             = 0x1F788, //
-    SMSG_LOGOUT_COMPLETE                             = 0x1A0A4, //
-    CMSG_LOGOUT_CANCEL                               = 0x139E8, //
-    SMSG_LOGOUT_CANCEL_ACK                           = 0x1EE88, //
-    CMSG_NAME_QUERY                                  = 0x17AAC, //
-    SMSG_NAME_QUERY_RESPONSE                         = 0x17BC8, //
-    CMSG_PET_NAME_QUERY                              = 0x1F180, //
-    SMSG_PET_NAME_QUERY_RESPONSE                     = 0x168AC, //
-    CMSG_GUILD_QUERY                                 = 0x1AFC4, //
-    SMSG_GUILD_QUERY_RESPONSE                        = 0x13F80, //
-    CMSG_COMMENTATOR_START_WARGAME                   = 0x18588, //
-    SMSG_DB_REPLY                                    = 0x10C4E, //
-    SMSG_HOTFIX_NOTIFY_BLOP                          = 0x14C1E, // sent after SMSG_AUTH_RESPONSE
-    SMSG_HOTFIX_NOTIFY                               = 0x14C0E, // can be sent while ingame
-    CMSG_REQUEST_HOTFIX                              = 0x18589, // the client sends this after we send SMSG_HOTFIX_NOTIFY[_BLOP], only sent for the items that the player has in his inventory, that are flagged to be hotfixed
-    CMSG_PAGE_TEXT_QUERY                             = 0x1AC8C, //
-    SMSG_PAGE_TEXT_QUERY_RESPONSE                    = 0x1B084, //
-    CMSG_QUEST_QUERY                                 = 0x1EFE8, //
-    SMSG_QUEST_QUERY_RESPONSE                        = 0x17BA0, //
-    CMSG_GAMEOBJECT_QUERY                            = 0x172A0, //
-    SMSG_GAMEOBJECT_QUERY_RESPONSE                   = 0x1F4E8, //
-    CMSG_CREATURE_QUERY                              = 0x1268C, //
-    SMSG_CREATURE_QUERY_RESPONSE                     = 0x1E6AC, //
-    CMSG_WHO                                         = 0x1A4CC, //
-    SMSG_WHO                                         = 0x1BE8C, //
-    CMSG_WHOIS                                       = 0x12180, //
-    SMSG_WHOIS                                       = 0x1B1A4, //
-    CMSG_CONTACT_LIST                                = 0x1EAA4, //
-    SMSG_CONTACT_LIST                                = 0x1748C, //
-    SMSG_FRIEND_STATUS                               = 0x1F68C, //
-    CMSG_ADD_FRIEND                                  = 0x13980, //
-    CMSG_DEL_FRIEND                                  = 0x12980, //
-    CMSG_SET_CONTACT_NOTES                           = 0x17DCC, //
-    CMSG_ADD_IGNORE                                  = 0x16780, //
-    CMSG_DEL_IGNORE                                  = 0x1F384, //
-    CMSG_GROUP_INVITE                                = 0x127C0, //
-    SMSG_GROUP_INVITE                                = 0x1A8A8, //
-    CMSG_GROUP_CANCEL                                = 0x1000A, //
-    SMSG_GROUP_CANCEL                                = 0x16AAC, //
-    CMSG_GROUP_ACCEPT                                = 0x1368C, //
-    CMSG_GROUP_DECLINE                               = 0x1B4CC, //
-    SMSG_GROUP_DECLINE                               = 0x1ABAC, //
-    CMSG_GROUP_UNINVITE                              = 0x14F74, //
-    CMSG_GROUP_UNINVITE_GUID                         = 0x1E3C8, //
-    SMSG_GROUP_UNINVITE                              = 0x13ACC, //
-    CMSG_GROUP_SET_LEADER                            = 0x1B6E0, //
-    SMSG_GROUP_SET_LEADER                            = 0x1E88C, //
-    CMSG_LOOT_METHOD                                 = 0x1FCCC, //
-    CMSG_GROUP_DISBAND                               = 0x1BE88, //
-    SMSG_GROUP_DESTROYED                             = 0x122CC, //
-    SMSG_GROUP_LIST                                  = 0x16D8C, //
-    SMSG_PARTY_MEMBER_STATS                          = 0x129AC, //
-    SMSG_PARTY_COMMAND_RESULT                        = 0x126E0, //
-    CMSG_GUILD_CREATE                                = 0x12219, //
-    CMSG_GUILD_INVITE                                = 0x12DA8, //
-    SMSG_GUILD_INVITE                                = 0x1010C, //
-    CMSG_GUILD_ACCEPT                                = 0x13729, //
-    CMSG_GUILD_DECLINE                               = 0x1352D, //
-    SMSG_GUILD_DECLINE                               = 0x1B78C, //
-    CMSG_GUILD_INFO                                  = 0x16884, //
-    SMSG_GUILD_INFO                                  = 0x120A8, //
-    CMSG_GUILD_ROSTER                                = 0x1B2A4, //
-    CMSG_REQUEST_GUILD_ROSTER                        = 0x1250D, //
-    SMSG_GUILD_ROSTER                                = 0x14D5C, //
-    CMSG_GUILD_PROMOTE                               = 0x12109, //
-    CMSG_GUILD_DEMOTE                                = 0x1330D, //
-    CMSG_GUILD_LEAVE                                 = 0x13329, //
-    CMSG_GUILD_REMOVE                                = 0x1312D, //
-    CMSG_GUILD_DISBAND                               = 0x1372D, //
-    CMSG_GUILD_LEADER                                = 0x12650, //
-    CMSG_GUILD_MOTD                                  = 0x1272D, //
-    CMSG_QUERY_GUILD_REWARDS                         = 0x12210, //
-    CMSG_QUERY_GUILD_MAX_XP                          = 0x1350D, //
-    CMSG_QUERY_GUILD_XP                              = 0x13509, //
-    SMSG_GUILD_EVENT                                 = 0x1B7C4, //
-    SMSG_GUILD_UPDATE_ROSTER                         = 0x1085E, //
-    SMSG_GUILD_RANKS_UPDATE                          = 0x1004C, //
-    SMSG_GUILD_REWARDS_LIST                          = 0x10C4C, //
-    SMSG_GUILD_MAX_DAILY_XP                          = 0x1441C, //
-    SMSG_GUILD_NEWS_UPDATE                           = 0x1485E, //
-    CMSG_GUILD_QUERY_NEWS                            = 0x13529, //
-    CMSG_GUILD_REQUEST_NEWS                          = 0x13129, //
-    SMSG_GUILD_XP_UPDATE                             = 0x1440E, //
-    SMSG_GUILD_COMMAND_RESULT                        = 0x123C0, //
-    CMSG_MESSAGECHAT_SAY                             = 0x1002A, //
-    CMSG_MESSAGECHAT_YELL                            = 0x10802, //
-    CMSG_MESSAGECHAT_CHANNEL                         = 0x10821, //
-    CMSG_MESSAGECHAT_WHISPER                         = 0x10000, //
-    CMSG_MESSAGECHAT_GUILD                           = 0x10823, //
-    CMSG_MESSAGECHAT_OFFICER                         = 0x10861, //
-    CMSG_MESSAGECHAT_AFK                             = 0x1086B, //
-    CMSG_MESSAGECHAT_DND                             = 0x10003, //
-    CMSG_MESSAGECHAT_EMOTE                           = 0x10042, //
-    CMSG_MESSAGECHAT_PARTY                           = 0x1084B, //
-    CMSG_MESSAGECHAT_PARTY_LEADER                    = 0x1080B, //
-    CMSG_MESSAGECHAT_RAID                            = 0x10803, //
-    CMSG_MESSAGECHAT_RAID_LEADER                     = 0x10863, //
-    CMSG_MESSAGECHAT_BATTLEGROUND                    = 0x10063, //
-    CMSG_MESSAGECHAT_BATTLEGROUND_LEADER             = 0x10860, //
-    CMSG_MESSAGECHAT_RAID_WARNING                    = 0x10061, //
-    SMSG_MESSAGECHAT                                 = 0x161E4, //
-    CMSG_JOIN_CHANNEL                                = 0x10002, //
-    CMSG_LEAVE_CHANNEL                               = 0x1000B, //
-    SMSG_CHANNEL_NOTIFY                              = 0x17CAC, //
-    CMSG_CHANNEL_LIST                                = 0x17FE0, //
-    SMSG_CHANNEL_LIST                                = 0x169E0, //
-    CMSG_CHANNEL_PASSWORD                            = 0x1080A, //
-    CMSG_CHANNEL_SET_OWNER                           = 0x10800, //
-    CMSG_CHANNEL_OWNER                               = 0x10848, //
-    CMSG_CHANNEL_MODERATOR                           = 0x10828, //
-    CMSG_CHANNEL_UNMODERATOR                         = 0x10809, //
-    CMSG_CHANNEL_MUTE                                = 0x10023, //
-    CMSG_CHANNEL_UNMUTE                              = 0x10841, //
-    CMSG_CHANNEL_INVITE                              = 0x10020, //
-    CMSG_CHANNEL_KICK                                = 0x10068, //
-    CMSG_CHANNEL_ROSTER_INFO                         = 0x10069, //
-    CMSG_CHANNEL_BAN                                 = 0x1000A, //
-    CMSG_CHANNEL_UNBAN                               = 0x10048, //
-    CMSG_CHANNEL_ANNOUNCEMENTS                       = 0x1004B, //
-    CMSG_CHANNEL_MODERATE                            = 0x10018, //
-    SMSG_UPDATE_OBJECT                               = 0x13780, //
-    SMSG_DESTROY_OBJECT                              = 0x12AA0, //
-    CMSG_USE_ITEM                                    = 0x17080, //
-    CMSG_OPEN_ITEM                                   = 0x1A2A8, //
-    CMSG_READ_ITEM                                   = 0x1F3C0, //
-    SMSG_READ_ITEM_OK                                = 0x1A988, //
-    SMSG_READ_ITEM_FAILED                            = 0x1A4EC, //
-    SMSG_ITEM_COOLDOWN                               = 0x16CC8, //
-    CMSG_GAMEOBJ_USE                                 = 0x129E4, //
-    CMSG_DESTROY_ITEMS                               = 0x1B8A8, //
-    SMSG_GAMEOBJECT_CUSTOM_ANIM                      = 0x12E8C, //
-    CMSG_AREATRIGGER                                 = 0x1ADA8, //
-    MSG_MOVE_START_FORWARD                           = 0x1EBAC, //
-    MSG_MOVE_START_BACKWARD                          = 0x172E4, //
-    MSG_MOVE_STOP                                    = 0x134E0, //
-    MSG_MOVE_START_STRAFE_LEFT                       = 0x160E8, //
-    MSG_MOVE_START_STRAFE_RIGHT                      = 0x17DA4, //
-    MSG_MOVE_STOP_STRAFE                             = 0x1F9A8, //
-    MSG_MOVE_JUMP                                    = 0x165AC, //
-    MSG_MOVE_START_TURN_LEFT                         = 0x1B8C8, //
-    MSG_MOVE_START_TURN_RIGHT                        = 0x1F9E4, //
-    MSG_MOVE_STOP_TURN                               = 0x1E2E8, //
-    MSG_MOVE_START_PITCH_UP                          = 0x160E4, //
-    MSG_MOVE_START_PITCH_DOWN                        = 0x1ADC4, //
-    MSG_MOVE_STOP_PITCH                              = 0x128E8, //
-    MSG_MOVE_SET_RUN_MODE                            = 0x1E7A8, //
-    MSG_MOVE_SET_WALK_MODE                           = 0x13FAC, //
-    MSG_MOVE_TOGGLE_LOGGING                          = 0x1001D, //
-    MSG_MOVE_TELEPORT                                = 0x124E4, //
-    MSG_MOVE_TELEPORT_CHEAT                          = 0x1E7EC, //
-    MSG_MOVE_TELEPORT_ACK                            = 0x16DAC, //
-    MSG_MOVE_TOGGLE_FALL_LOGGING                     = 0x1001F, //
-    MSG_MOVE_FALL_LAND                               = 0x1AFAC, //
-    MSG_MOVE_START_SWIM                              = 0x126C0, //
-    MSG_MOVE_STOP_SWIM                               = 0x1FDE8, //
-    MSG_MOVE_SET_RUN_SPEED_CHEAT                     = 0x10020, //
-    MSG_MOVE_SET_RUN_SPEED                           = 0x164A0, //
-    MSG_MOVE_SET_RUN_BACK_SPEED_CHEAT                = 0x10021, //
-    MSG_MOVE_SET_RUN_BACK_SPEED                      = 0x1B5EC, //
-    MSG_MOVE_SET_WALK_SPEED_CHEAT                    = 0x10022, //
-    MSG_MOVE_SET_WALK_SPEED                          = 0x1F284, //
-    MSG_MOVE_SET_SWIM_SPEED_CHEAT                    = 0x10023, //
-    MSG_MOVE_SET_SWIM_SPEED                          = 0x12380, //
-    MSG_MOVE_SET_SWIM_BACK_SPEED_CHEAT               = 0x10024, //
-    MSG_MOVE_SET_SWIM_BACK_SPEED                     = 0x1B0AC, //
-    MSG_MOVE_SET_ALL_SPEED_CHEAT                     = 0x10025, //
-    MSG_MOVE_SET_TURN_RATE_CHEAT                     = 0x10026, //
-    MSG_MOVE_SET_TURN_RATE                           = 0x1A3A8, //
-    MSG_MOVE_TOGGLE_COLLISION_CHEAT                  = 0x17688, //
-    MSG_MOVE_SET_FACING                              = 0x1ABC4, //
-    MSG_MOVE_SET_PITCH                               = 0x1EBA0, //
-    MSG_MOVE_WORLDPORT_ACK                           = 0x12FC0, //
-    SMSG_MONSTER_MOVE                                = 0x1F1A4, //
-    SMSG_MOVE_WATER_WALK                             = 0x12E84, //
-    SMSG_MOVE_LAND_WALK                              = 0x12084, //
-    MSG_MOVE_SET_RAW_POSITION_ACK                    = 0x1F4A0, //
-    CMSG_MOVE_SET_RAW_POSITION                       = 0x1F0C8, //
-    SMSG_FORCE_RUN_SPEED_CHANGE                      = 0x1F1CC, //
-    CMSG_FORCE_RUN_SPEED_CHANGE_ACK                  = 0x126C8, //
-    SMSG_FORCE_RUN_BACK_SPEED_CHANGE                 = 0x168E8, //
-    CMSG_FORCE_RUN_BACK_SPEED_CHANGE_ACK             = 0x178E4, //
-    SMSG_FORCE_SWIM_SPEED_CHANGE                     = 0x1F5A0, //
-    CMSG_FORCE_SWIM_SPEED_CHANGE_ACK                 = 0x1B1A0, //
-    SMSG_FORCE_MOVE_ROOT                             = 0x12F88, //
-    CMSG_FORCE_MOVE_ROOT_ACK                         = 0x17184, //
-    SMSG_FORCE_MOVE_UNROOT                           = 0x130A0, //
-    CMSG_FORCE_MOVE_UNROOT_ACK                       = 0x17FA8, //
-    MSG_MOVE_ROOT                                    = 0x1ABA8, //
-    MSG_MOVE_UNROOT                                  = 0x12088, //
-    MSG_MOVE_HEARTBEAT                               = 0x122EC, //
-    SMSG_MOVE_KNOCK_BACK                             = 0x1B180, //
-    CMSG_MOVE_KNOCK_BACK_ACK                         = 0x1F580, //
-    MSG_MOVE_KNOCK_BACK                              = 0x1B0E8, //
-    SMSG_MOVE_FEATHER_FALL                           = 0x16088, //
-    SMSG_MOVE_NORMAL_FALL                            = 0x16CE0, //
-    SMSG_MOVE_SET_HOVER                              = 0x16AE0, //
-    SMSG_MOVE_UNSET_HOVER                            = 0x13FE0, //
-    SMSG_MOVE_SET_WALK_IN_AIR                        = 0x1A980, //
-    SMSG_MOVE_UNSET_WALK_IN_AIR                      = 0x17784, //
-    CMSG_MOVE_HOVER_ACK                              = 0x1F4CC, //
-    MSG_MOVE_HOVER                                   = 0x12FCC, //
-    CMSG_TRIGGER_CINEMATIC_CHEAT                     = 0x1003D, //
-    CMSG_OPENING_CINEMATIC                           = 0x1B1E8, //
-    SMSG_TRIGGER_CINEMATIC                           = 0x173A4, //
-    CMSG_NEXT_CINEMATIC_CAMERA                       = 0x1B2CC, //
-    CMSG_COMPLETE_CINEMATIC                          = 0x12ACC, //
-    SMSG_TUTORIAL_FLAGS                              = 0x13384, //
-    CMSG_TUTORIAL_FLAG                               = 0x1E4CC, //
-    CMSG_TUTORIAL_CLEAR                              = 0x1A5E4, //
-    CMSG_TUTORIAL_RESET                              = 0x12188, //
-    CMSG_STANDSTATECHANGE                            = 0x1FC88, //
-    CMSG_EMOTE                                       = 0x1FAC4, //
-    SMSG_EMOTE                                       = 0x1EEA0, //
-    CMSG_TEXT_EMOTE                                  = 0x1E9E0, //
-    SMSG_TEXT_EMOTE                                  = 0x1BB8C, //
-    CMSG_AUTOEQUIP_GROUND_ITEM                       = 0x10044, //
-    CMSG_AUTOSTORE_GROUND_ITEM                       = 0x12FC8, //
-    CMSG_AUTOSTORE_LOOT_ITEM                         = 0x1B2E8, //
-    CMSG_AUTOSTORE_LOOT_CURRENCY                     = 0x10991, //
-    CMSG_STORE_LOOT_IN_SLOT                          = 0x17FCC, //
-    CMSG_AUTOEQUIP_ITEM                              = 0x1E1C0, //
-    CMSG_AUTOSTORE_BAG_ITEM                          = 0x1EDCC, //
-    CMSG_SWAP_ITEM                                   = 0x1E8AC, //
-    CMSG_SWAP_INV_ITEM                               = 0x13EC4, //
-    CMSG_SPLIT_ITEM                                  = 0x1FDAC, //
-    CMSG_AUTOEQUIP_ITEM_SLOT                         = 0x1E8A8, //
-    OBSOLETE_DROP_ITEM                               = 0x10049, //
-    CMSG_DESTROYITEM                                 = 0x1B8A8, //
-    SMSG_INVENTORY_CHANGE_FAILURE                    = 0x1AFCC, //
-    SMSG_OPEN_CONTAINER                              = 0x13FC4, //
-    CMSG_INSPECT                                     = 0x178A8, //
-    SMSG_INSPECT                                     = 0x17AC8, //
-    CMSG_INITIATE_TRADE                              = 0x10413, //
-    CMSG_BEGIN_TRADE                                 = 0x10F93, //
-    CMSG_BUSY_TRADE                                  = 0x1004C, //
-    CMSG_IGNORE_TRADE                                = 0x1004D, //
-    CMSG_ACCEPT_TRADE                                = 0x10891, //
-    CMSG_UNACCEPT_TRADE                              = 0x10811, //
-    CMSG_CANCEL_TRADE                                = 0x10013, //
-    CMSG_SET_TRADE_ITEM                              = 0x10A11, //
-    CMSG_CLEAR_TRADE_ITEM                            = 0x10213, //
-    CMSG_SET_TRADE_GOLD                              = 0x10C13, //
-    SMSG_TRADE_STATUS                                = 0x1494E, //
-    SMSG_TRADE_STATUS_EXTENDED                       = 0x1400C, //
-    SMSG_INITIALIZE_FACTIONS                         = 0x125C0, //
-    SMSG_SET_FACTION_VISIBLE                         = 0x13988, //
-    SMSG_SET_FACTION_STANDING                        = 0x1718C, //
-    CMSG_SET_FACTION_ATWAR                           = 0x10055, //
-    CMSG_SET_FACTION_CHEAT                           = 0x10056, //
-    SMSG_SET_PROFICIENCY                             = 0x1BBA8, //
-    CMSG_SET_ACTION_BUTTON                           = 0x172E8, //
-    SMSG_ACTION_BUTTONS                              = 0x12CCC, //
-    SMSG_INITIAL_SPELLS                              = 0x16584, //
-    SMSG_LEARNED_SPELL                               = 0x176E8, //
-    SMSG_SUPERCEDED_SPELL                            = 0x1E8E4, //
-    CMSG_NEW_SPELL_SLOT                              = 0x10057, //
-    CMSG_CAST_SPELL                                  = 0x165C4, //
-    CMSG_CANCEL_CAST                                 = 0x1A1C0, //
-    SMSG_CAST_FAILED                                 = 0x12A8C, //
-    SMSG_SPELL_START                                 = 0x16BA8, //
-    SMSG_SPELL_GO                                    = 0x130C0, //
-    SMSG_SPELL_FAILURE                               = 0x1F9CC, //
-    SMSG_SPELL_COOLDOWN                              = 0x1F3E8, //
-    SMSG_COOLDOWN_EVENT                              = 0x1EAEC, //
-    CMSG_CANCEL_AURA                                 = 0x17684, //
-    SMSG_EQUIPMENT_SET_SAVED                         = 0x1B0C0, //
-    SMSG_PET_CAST_FAILED                             = 0x1A9CC, //
-    MSG_CHANNEL_START                                = 0x12BAC, //
-    MSG_CHANNEL_UPDATE                               = 0x162AC, //
-    CMSG_CANCEL_CHANNELLING                          = 0x1A780, //
-    SMSG_AI_REACTION                                 = 0x131CC, //
-    CMSG_SET_SELECTION                               = 0x16488, //
-    CMSG_EQUIPMENT_SET_DELETE                        = 0x1AEA0, //
-    CMSG_INSTANCE_LOCK_WARNING_RESPONSE              = 0x134C4, //
-    CMSG_UNUSED2                                     = 0x10058, //
-    CMSG_ATTACKSWING                                 = 0x174A8, //
-    CMSG_ATTACKSTOP                                  = 0x162C4, //
-    SMSG_ATTACKSTART                                 = 0x1B68C, //
-    SMSG_ATTACKSTOP                                  = 0x16DCC, //
-    SMSG_ATTACKSWING_NOTINRANGE                      = 0x136C4, //
-    SMSG_ATTACKSWING_BADFACING                       = 0x167A8, //
-    SMSG_INSTANCE_LOCK_WARNING_QUERY                 = 0x17488, //
-    SMSG_ATTACKSWING_DEADTARGET                      = 0x1A7C4, //
-    SMSG_ATTACKSWING_CANT_ATTACK                     = 0x16188, //
-    SMSG_ATTACKERSTATEUPDATE                         = 0x1BBC0, //
-    SMSG_BATTLEFIELD_PORT_DENIED                     = 0x10059, //
-    SMSG_DAMAGE_DONE_OBSOLETE                        = 0x1005A, //
-    SMSG_UNIT_SPELLCAST_START                        = 0x1BDE0, //
-    SMSG_CANCEL_COMBAT                               = 0x1BAE4, //
-    SMSG_SPELLBREAKLOG                               = 0x1BDAC, //
-    SMSG_SPELLHEALLOG                                = 0x16E84, //
-    SMSG_SPELLENERGIZELOG                            = 0x1F0EC, //
-    SMSG_BREAK_TARGET                                = 0x12488, //
-    CMSG_SAVE_PLAYER                                 = 0x1005C, //
-    CMSG_SETDEATHBINDPOINT                           = 0x1A94E, //
-    SMSG_BINDPOINTUPDATE                             = 0x1A9A0, //
-    CMSG_GETDEATHBINDZONE                            = 0x1005E, //
-    SMSG_BINDZONEREPLY                               = 0x1ACAC, //
-    SMSG_PLAYERBOUND                                 = 0x16BCC, //
-    SMSG_CLIENT_CONTROL_UPDATE                       = 0x13C84, //
-    CMSG_REPOP_REQUEST                               = 0x1A9E4, //
-    SMSG_RESURRECT_REQUEST                           = 0x1F3A0, //
-    CMSG_RESURRECT_RESPONSE                          = 0x1BBE8, //
-    CMSG_LOOT                                        = 0x1FCEC, //
-    CMSG_LOOT_MONEY                                  = 0x179E0, //
-    CMSG_LOOT_RELEASE                                = 0x13CE8, //
-    SMSG_LOOT_RESPONSE                               = 0x1F38C, //
-    SMSG_LOOT_RELEASE_RESPONSE                       = 0x123C8, //
-    SMSG_LOOT_REMOVED                                = 0x16F88, //
-    SMSG_LOOT_MONEY_NOTIFY                           = 0x167C0, //
-    SMSG_LOOT_ITEM_NOTIFY                            = 0x1AECC, //
-    SMSG_LOOT_CLEAR_MONEY                            = 0x13480, //
-    SMSG_ITEM_PUSH_RESULT                            = 0x1FBE8, //
-    SMSG_DUEL_REQUESTED                              = 0x13FC8, //
-    SMSG_DUEL_OUTOFBOUNDS                            = 0x168C0, //
-    SMSG_DUEL_INBOUNDS                               = 0x1ECA4, //
-    SMSG_DUEL_COMPLETE                               = 0x1FCE8, //
-    SMSG_DUEL_WINNER                                 = 0x179E4, //
-    CMSG_DUEL_ACCEPTED                               = 0x1A688, //
-    CMSG_DUEL_CANCELLED                              = 0x16F8C, //
-    SMSG_MOUNTRESULT                                 = 0x12AEC, //
-    SMSG_DISMOUNTRESULT                              = 0x1F9C0, //
-    SMSG_PUREMOUNT_CANCELLED_OBSOLETE                = 0x1054E, //
-    CMSG_MOUNTSPECIAL_ANIM                           = 0x12EE4, //
-    SMSG_MOUNTSPECIAL_ANIM                           = 0x12388, //
-    SMSG_PET_TAME_FAILURE                            = 0x1FDA8, //
-    CMSG_PET_SET_ACTION                              = 0x13C8C, //
-    CMSG_PET_ACTION                                  = 0x1AFC0, //
-    CMSG_PET_ABANDON                                 = 0x1A480, //
-    CMSG_PET_RENAME                                  = 0x138E8, //
-    SMSG_PET_NAME_INVALID                            = 0x11457, //
-    SMSG_PET_SPELLS                                  = 0x1B780, //
-    SMSG_PET_MODE                                    = 0x179C0, //
-    CMSG_GOSSIP_HELLO                                = 0x174C8, //
-    CMSG_GOSSIP_SELECT_OPTION                        = 0x1FF88, //
-    SMSG_GOSSIP_MESSAGE                              = 0x1BBC8, //
-    SMSG_GOSSIP_COMPLETE                             = 0x1F0AC, //
-    CMSG_NPC_TEXT_QUERY                              = 0x1A2EC, //
-    SMSG_NPC_TEXT_UPDATE                             = 0x1B2AC, //
-    SMSG_NPC_WONT_TALK                               = 0x10061, //
-    CMSG_QUESTGIVER_STATUS_QUERY                     = 0x1FDEC, //
-    SMSG_QUESTGIVER_STATUS                           = 0x17988, //
-    CMSG_QUESTGIVER_HELLO                            = 0x136AC, //
-    SMSG_QUESTGIVER_QUEST_LIST                       = 0x12B88, //
-    CMSG_QUESTGIVER_QUERY_QUEST                      = 0x12CC0, //
-    CMSG_QUESTGIVER_QUEST_AUTOLAUNCH                 = 0x10064, //
-    SMSG_QUESTGIVER_QUEST_DETAILS                    = 0x168A0, //
-    CMSG_QUESTGIVER_ACCEPT_QUEST                     = 0x120C4, //
-    CMSG_QUESTGIVER_COMPLETE_QUEST                   = 0x1B5AC, //
-    SMSG_QUESTGIVER_REQUEST_ITEMS                    = 0x16EE0, //
-    CMSG_QUESTGIVER_REQUEST_REWARD                   = 0x123A8, //
-    SMSG_QUESTGIVER_OFFER_REWARD                     = 0x13FCC, //
-    CMSG_QUESTGIVER_CHOOSE_REWARD                    = 0x16AC0, //
-    SMSG_QUESTGIVER_QUEST_INVALID                    = 0x12B88, //
-    CMSG_QUESTGIVER_CANCEL                           = 0x161EC, //
-    SMSG_QUESTGIVER_QUEST_COMPLETE                   = 0x1050E, //
-    SMSG_QUESTGIVER_QUEST_FAILED                     = 0x1A084, //
-    CMSG_QUESTLOG_SWAP_QUEST                         = 0x10068, //
-    CMSG_QUESTLOG_REMOVE_QUEST                       = 0x1EDA8, //
-    SMSG_QUESTLOG_FULL                               = 0x161EC, //
-    SMSG_QUESTUPDATE_FAILED                          = 0x1E588, //
-    SMSG_QUESTUPDATE_FAILEDTIMER                     = 0x1F7CC, //
-    SMSG_QUESTUPDATE_COMPLETE                        = 0x1EDA0, //
-    SMSG_QUESTUPDATE_ADD_KILL                        = 0x1ADA0, //
-    SMSG_QUESTUPDATE_ADD_ITEM                        = 0x1006B, //
-    CMSG_QUEST_CONFIRM_ACCEPT                        = 0x16FCC, //
-    SMSG_QUEST_CONFIRM_ACCEPT                        = 0x17C8C, //
-    CMSG_PUSHQUESTTOPARTY                            = 0x129E8, //
-    CMSG_LIST_INVENTORY                              = 0x1EDC8, //
-    SMSG_LIST_INVENTORY                              = 0x1F8AC, //
-    CMSG_SELL_ITEM                                   = 0x163A4, //
-    SMSG_SELL_ITEM                                   = 0x16CE8, //
-    CMSG_BUY_ITEM                                    = 0x1EA84, //
-    SMSG_BUY_ITEM                                    = 0x169CC, //
-    SMSG_BUY_FAILED                                  = 0x16CE8, //
-    CMSG_TAXICLEARALLNODES                           = 0x1006C, //    
-    CMSG_TAXIENABLEALLNODES                          = 0x1006D, //    
-    CMSG_TAXISHOWNODES                               = 0x1B8E8, //
-    SMSG_SHOWTAXINODES                               = 0x12B84, //
-    CMSG_TAXINODE_STATUS_QUERY                       = 0x1A1EC, //
-    SMSG_TAXINODE_STATUS                             = 0x177E8, //
-    CMSG_TAXIQUERYAVAILABLENODES                     = 0x1BE8E, //
-    CMSG_ACTIVATETAXI                                = 0x139A4, //
-    SMSG_ACTIVATETAXIREPLY                           = 0x17A84, //
-    SMSG_NEW_TAXI_PATH                               = 0x1E5E4, //
-    CMSG_TRAINER_LIST                                = 0x1E5AC, //
-    SMSG_TRAINER_LIST                                = 0x1BBE0, //
-    CMSG_TRAINER_BUY_SPELL                           = 0x1FDC8, //
-    SMSG_TRAINER_BUY_RESULT                          = 0x16DEC, //
-    CMSG_BINDER_ACTIVATE                             = 0x1A48C, //
-    SMSG_PLAYERBINDERROR                             = 0x1EEC8, //
-    CMSG_BANKER_ACTIVATE                             = 0x1E7E0, //
-    SMSG_SHOW_BANK                                   = 0x127A4, //
-    CMSG_BUY_BANK_SLOT                               = 0x12BA0, //
-    SMSG_BUY_BANK_SLOT_RESULT                        = 0x1F5C0, //
-    CMSG_PETITION_SHOWLIST                           = 0x1FCC4, //
-    SMSG_PETITION_SHOWLIST                           = 0x1FCC0, //
-    CMSG_PETITION_BUY                                = 0x1B3E4, //
-    CMSG_PETITION_SHOW_SIGNATURES                    = 0x12CA8, //
-    SMSG_PETITION_SHOW_SIGNATURES                    = 0x1E2E0, //
-    CMSG_PETITION_SIGN                               = 0x13AA0, //
-    SMSG_PETITION_SIGN_RESULTS                       = 0x1A1A4, //
-    MSG_PETITION_DECLINE                             = 0x132E0, //
-    CMSG_OFFER_PETITION                              = 0x17AC4, //
-    CMSG_TURN_IN_PETITION                            = 0x1A584, //
-    SMSG_TURN_IN_PETITION_RESULTS                    = 0x135AC, //
-    CMSG_PETITION_QUERY                              = 0x1B1AC, //
-    SMSG_PETITION_QUERY_RESPONSE                     = 0x1FB80, //
-    SMSG_FISH_NOT_HOOKED                             = 0x139EC, //
-    SMSG_FISH_ESCAPED                                = 0x1F080, //
-    CMSG_BUG                                         = 0x134AC, //
-    SMSG_NOTIFICATION                                = 0x1BC88, //
-    CMSG_PLAYED_TIME                                 = 0x1F480, //
-    SMSG_PLAYED_TIME                                 = 0x1E4C8, //
-    CMSG_QUERY_TIME                                  = 0x1B1C0, //
-    SMSG_QUERY_TIME_RESPONSE                         = 0x1F1AC, //
-    SMSG_LOG_XPGAIN                                  = 0x1B880, //
-    SMSG_AURACASTLOG                                 = 0x10080, //
-    CMSG_RECLAIM_CORPSE                              = 0x17CC8, //
-    CMSG_WRAP_ITEM                                   = 0x17CC4, //
-    SMSG_LEVELUP_INFO                                = 0x1B9C4, //
-    MSG_MINIMAP_PING                                 = 0x1C475, //
-    SMSG_RESISTLOG                                   = 0x10084, //
-    SMSG_ENCHANTMENTLOG                              = 0x1F5AC, //
-    CMSG_SET_SKILL_CHEAT                             = 0x10085, //
-    SMSG_START_MIRROR_TIMER                          = 0x1B4A8, //
-    SMSG_PAUSE_MIRROR_TIMER                          = 0x121EC, //
-    SMSG_STOP_MIRROR_TIMER                           = 0x1A68C, //
-    CMSG_PING                                        = 0x1064E, //
-    SMSG_PONG                                        = 0x1A01B, //
-    SMSG_CLEAR_COOLDOWN                              = 0x136CC, //
-    SMSG_GAMEOBJECT_PAGETEXT                         = 0x1E5C8, //
-    CMSG_SETSHEATHED                                 = 0x1AAE4, //
-    SMSG_COOLDOWN_CHEAT                              = 0x1AAA4, //
-    SMSG_SPELL_DELAYED                               = 0x1A3E8, //
-    CMSG_QUEST_POI_QUERY                             = 0x17DE0, //
-    SMSG_QUEST_POI_QUERY_RESPONSE                    = 0x16AEC, //
-    CMSG_GHOST                                       = 0x10088, //
-    CMSG_GM_INVIS                                    = 0x10089, //
-    SMSG_INVALID_PROMOTION_CODE                      = 0x169AC, //
-    MSG_GM_BIND_OTHER                                = 0x1008B, //
-    MSG_GM_SUMMON                                    = 0x1008C, //
-    SMSG_ITEM_TIME_UPDATE                            = 0x166A4, //
-    SMSG_ITEM_ENCHANT_TIME_UPDATE                    = 0x166A0, //
-    SMSG_AUTH_CHALLENGE                              = 0x01723, // 4.3.0 15050
-    CMSG_AUTH_SESSION                                = 0x01100, // 4.3.0 15050
-    SMSG_AUTH_RESPONSE                               = 0x01406, // 4.3.0 15050
-    MSG_GM_SHOWLABEL                                 = 0x1008D, //
-    CMSG_PET_CAST_SPELL                              = 0x12888, //
-    MSG_SAVE_GUILD_EMBLEM                            = 0x131AC, //
-    MSG_TABARDVENDOR_ACTIVATE                        = 0x12C80, //
-    SMSG_PLAY_SPELL_VISUAL                           = 0x1FF8C, //
-    CMSG_ZONEUPDATE                                  = 0x133E4, //
-    SMSG_PARTYKILLLOG                                = 0x1AB84, //
-    SMSG_COMPRESSED_UPDATE_OBJECT                    = 0x1EAC0, //
-    SMSG_PLAY_SPELL_IMPACT                           = 0x1A3E4, //
-    SMSG_EXPLORATION_EXPERIENCE                      = 0x1A9C4, //
-    CMSG_GM_SET_SECURITY_GROUP                       = 0x1008E, //
-    CMSG_GM_NUKE                                     = 0x1008F, //
-    MSG_RANDOM_ROLL                                  = 0x1B7A4, //
-    SMSG_ENVIRONMENTALDAMAGELOG                      = 0x1E1C8, //
-    CMSG_PLAYER_DIFFICULTY_CHANGE                    = 0x13F88, //
-    SMSG_RWHOIS                                      = 0x171C8, //
-    SMSG_LFG_PLAYER_REWARD                           = 0x12C88, //
-    SMSG_LFG_TELEPORT_DENIED                         = 0x1EAA0, //
-    CMSG_UNLEARN_SPELL                               = 0x10090, //
-    CMSG_UNLEARN_SKILL                               = 0x163C8, //
-    SMSG_REMOVED_SPELL                               = 0x17CA0, //
-    CMSG_DECHARGE                                    = 0x10092, //
-    CMSG_GMTICKET_CREATE                             = 0x16380, //
-    SMSG_GMTICKET_CREATE                             = 0x1A8A0, //
-    CMSG_GMTICKET_UPDATETEXT                         = 0x17F8C, //
-    SMSG_GMTICKET_UPDATETEXT                         = 0x1A5E8, //
-    SMSG_ACCOUNT_DATA_TIMES                          = 0x17280, //
-    CMSG_REQUEST_ACCOUNT_DATA                        = 0x1EEAC, //
-    CMSG_UPDATE_ACCOUNT_DATA                         = 0x172A4, //
-    SMSG_UPDATE_ACCOUNT_DATA                         = 0x1F7A0, //
-    SMSG_CLEAR_FAR_SIGHT_IMMEDIATE                   = 0x1BEE4, //
-    SMSG_PLAYER_DIFFICULTY_CHANGE                    = 0x12A80, //
-    CMSG_GM_TEACH                                    = 0x10095, //
-    CMSG_GM_CREATE_ITEM_TARGET                       = 0x10096, //
-    CMSG_GMTICKET_GETTICKET                          = 0x1B4C4, //
-    SMSG_GMTICKET_GETTICKET                          = 0x12284, //
-    CMSG_UNLEARN_TALENTS                             = 0x10098, //
-    SMSG_UPDATE_INSTANCE_ENCOUNTER_UNIT              = 0x1EDA4, // wtf::SMSG_GAMEOBJECT_SPAWN_ANIM_OBSOLETE
-    SMSG_GAMEOBJECT_DESPAWN_ANIM                     = 0x1BFA8, //
-    MSG_CORPSE_QUERY                                 = 0x1E0C8, //
-    CMSG_GMTICKET_DELETETICKET                       = 0x1FBE4, //
-    SMSG_GMTICKET_DELETETICKET                       = 0x1F48C, //
-    SMSG_CHAT_WRONG_FACTION                          = 0x1BB88, //
-    CMSG_GMTICKET_SYSTEMSTATUS                       = 0x1ACE0, //
-    SMSG_GMTICKET_SYSTEMSTATUS                       = 0x1B9C0, //
-    CMSG_SPIRIT_HEALER_ACTIVATE                      = 0x1F3AC, //
-    SMSG_QUEST_FORCE_REMOVED                         = 0x134E8, //
-    CMSG_SKILL_BUY_STEP                              = 0x1009E, //
-    CMSG_SKILL_BUY_RANK                              = 0x1009F, //
-    SMSG_SPIRIT_HEALER_CONFIRM                       = 0x167E0, //
-    CMSG_CHARACTER_POINT_CHEAT                       = 0x100A0, //
-    SMSG_GOSSIP_POI                                  = 0x1B9AC, //
-    CMSG_CHAT_IGNORED                                = 0x1A78C, //
-    CMSG_GUILD_RANK                                  = 0x12709, //
-    CMSG_GUILD_RANKS                                 = 0x13129, //
-    SMSG_GUILD_RANK                                  = 0x1411E, //
-    CMSG_GUILD_ADD_RANK                              = 0x12309, //
-    CMSG_GUILD_DEL_RANK                              = 0x12129, //
-    CMSG_GUILD_SWITCH_RANK                           = 0x13309, //
-    CMSG_GUILD_SET_NOTE                              = 0x1232D, //
-    CMSG_GUILD_QUERY_TRADESKILL                      = 0x12329, //
-    SMSG_GUILD_TRADESKILL_UPDATE                     = 0x1454E, //
-    SMSG_LOGIN_VERIFY_WORLD                          = 0x128C0, //
-    CMSG_CLEAR_EXPLORATION                           = 0x100A9, //
-    CMSG_SEND_MAIL                                   = 0x12DEC, //
-    SMSG_SEND_MAIL_RESULT                            = 0x1E5C0, //
-    CMSG_GET_MAIL_LIST                               = 0x1B284, //
-    SMSG_MAIL_LIST_RESULT                            = 0x1F1C8, //
-    CMSG_BATTLEFIELD_LIST                            = 0x10508, //
-    SMSG_BATTLEFIELD_LIST                            = 0x1490C, //
-    CMSG_BATTLEFIELD_JOIN                            = 0x10C91, //
-    SMSG_JOINED_BATTLEGROUND_QUEUE                   = 0x1090E, //
-    CMSG_REQUEST_RATED_BG_INFO                       = 0x18501, //
-    CMSG_REQUEST_PVP_OPTIONS_ENABLED                 = 0x10188, //
-    CMSG_JOIN_RATED_BATTLEFIELD                      = 0x10591, //
-    CMSG_ITEM_TEXT_QUERY                             = 0x1F280, //
-    SMSG_ITEM_TEXT_QUERY_RESPONSE                    = 0x177C8, //
-    CMSG_MAIL_TAKE_MONEY                             = 0x1E8EC, //
-    CMSG_MAIL_TAKE_ITEM                              = 0x162A8, //
-    CMSG_MAIL_MARK_AS_READ                           = 0x1E8C0, //
-    CMSG_MAIL_RETURN_TO_SENDER                       = 0x165A4, //
-    CMSG_MAIL_DELETE                                 = 0x17DE4, //
-    CMSG_MAIL_CREATE_TEXT_ITEM                       = 0x1FAE4, //
-    SMSG_SPELLLOGMISS                                = 0x1BDA4, //
-    SMSG_SPELLLOGEXECUTE                             = 0x1B6E8, //
-    SMSG_DEBUGAURAPROC                               = 0x100B6, //
-    SMSG_PERIODICAURALOG                             = 0x13388, //
-    SMSG_SPELLDAMAGESHIELD                           = 0x173A0, //
-    SMSG_SPELLNONMELEEDAMAGELOG                      = 0x174AC, //
-    CMSG_LEARN_TALENT                                = 0x1A7CC, //
-    SMSG_RESURRECT_FAILED                            = 0x1D557, //
-    CMSG_TOGGLE_PVP                                  = 0x16480, //
-    SMSG_ZONE_UNDER_ATTACK                           = 0x1BD80, //
-    MSG_AUCTION_HELLO                                = 0x1B3A0, //
-    CMSG_AUCTION_SELL_ITEM                           = 0x1EE8C, //
-    CMSG_AUCTION_REMOVE_ITEM                         = 0x13EEC, //
-    CMSG_AUCTION_LIST_ITEMS                          = 0x1E48C, //
-    CMSG_AUCTION_LIST_OWNER_ITEMS                    = 0x12D8C, //
-    CMSG_AUCTION_PLACE_BID                           = 0x1A6A0, //
-    SMSG_AUCTION_COMMAND_RESULT                      = 0x1AAE0, //
-    SMSG_AUCTION_LIST_RESULT                         = 0x1E5A8, //
-    SMSG_AUCTION_OWNER_LIST_RESULT                   = 0x13CA8, //
-    SMSG_AUCTION_BIDDER_NOTIFICATION                 = 0x1ACEC, //
-    SMSG_AUCTION_OWNER_NOTIFICATION                  = 0x16C80, //
-    SMSG_PROCRESIST                                  = 0x17E80, //
-    SMSG_STANDSTATE_CHANGE_FAILURE_OBSOLETE          = 0x16DCC, //
-    SMSG_DISPEL_FAILED                               = 0x1AAE8, //
-    SMSG_SPELLORDAMAGE_IMMUNE                        = 0x173C8, //
-    CMSG_AUCTION_LIST_BIDDER_ITEMS                   = 0x121C0, //
-    SMSG_AUCTION_BIDDER_LIST_RESULT                  = 0x1A1A8, //
-    SMSG_SET_FLAT_SPELL_MODIFIER                     = 0x12BC8, //
-    SMSG_SET_PCT_SPELL_MODIFIER                      = 0x1A6E8, //
-    SMSG_CORPSE_RECLAIM_DELAY                        = 0x131C4, //
-    CMSG_SET_ACTIVE_MOVER                            = 0x16CA0, //
-    CMSG_PET_CANCEL_AURA                             = 0x1F6C0, //
-    CMSG_PLAYER_AI_CHEAT                             = 0x100C2, //
-    CMSG_CANCEL_AUTO_REPEAT_SPELL                    = 0x175CC, //
-    MSG_GM_ACCOUNT_ONLINE                            = 0x100C3, //
-    MSG_LIST_STABLED_PETS                            = 0x16EAC, //
-    SMSG_STABLE_RESULT                               = 0x1EACC, //
-    CMSG_STABLE_REVIVE_PET                           = 0x100C7, //
-    CMSG_STABLE_CHANGE_SLOT                          = 0x10291, //
-    MSG_QUEST_PUSH_RESULT                            = 0x122A4, //
-    SMSG_PLAY_MUSIC                                  = 0x19C7F, //
-    SMSG_PLAY_OBJECT_SOUND                           = 0x17DA0, //
-    CMSG_REQUEST_PET_INFO                            = 0x1EAE4, //
-    CMSG_FAR_SIGHT                                   = 0x1B2EC, //
-    SMSG_SPELLDISPELLOG                              = 0xA9C8,  //
-    SMSG_DAMAGE_CALC_LOG                             = 0x1FD84, //
-    CMSG_ENABLE_DAMAGE_LOG                           = 0x100CB, //
-    CMSG_GROUP_CHANGE_SUB_GROUP                      = 0x13A80, //
-    CMSG_REQUEST_PARTY_MEMBER_STATS                  = 0x170C8, //
-    CMSG_GROUP_SWAP_SUB_GROUP                        = 0x131C8, //
-    CMSG_RESET_FACTION_CHEAT                         = 0x100CD, //
-    CMSG_AUTOSTORE_BANK_ITEM                         = 0x1F2AC, //
-    CMSG_AUTOBANK_ITEM                               = 0x166E4, //
-    MSG_QUERY_NEXT_MAIL_TIME                         = 0x125C8, //
-    SMSG_RECEIVED_MAIL                               = 0x175E4, //
-    SMSG_RAID_GROUP_ONLY                             = 0x10554, //
-    CMSG_SET_DURABILITY_CHEAT                        = 0x100CE, //
-    CMSG_SET_PVP_RANK_CHEAT                          = 0x100CF, //
-    CMSG_ADD_PVP_MEDAL_CHEAT                         = 0x100D0, //
-    CMSG_DEL_PVP_MEDAL_CHEAT                         = 0x100D1, //
-    CMSG_SET_PVP_TITLE                               = 0x100D2, //
-    SMSG_PVP_CREDIT                                  = 0x137C8, //
-    SMSG_AUCTION_REMOVED_NOTIFICATION                = 0x1B1EC, //
-    CMSG_GROUP_RAID_CONVERT                          = 0x1628C, //
-    CMSG_GROUP_ASSISTANT_LEADER                      = 0x13F84, //
-    CMSG_BUYBACK_ITEM                                = 0x1A4C4, //
-    SMSG_SERVER_MESSAGE                              = 0x178C0, //
-    CMSG_SET_SAVED_INSTANCE_EXTEND                   = 0x12588, //
-    SMSG_LFG_OFFER_CONTINUE                          = 0x163EC, //
-    CMSG_MEETINGSTONE_CHEAT                          = 0x100D5, //
-    SMSG_MEETINGSTONE_SETQUEUE                       = 0x1ED88, //
-    CMSG_MEETINGSTONE_INFO                           = 0x1F984, //
-    SMSG_MEETINGSTONE_COMPLETE                       = 0x1F680, //
-    SMSG_MEETINGSTONE_IN_PROGRESS                    = 0x1E7C4, //
-    SMSG_MEETINGSTONE_MEMBER_ADDED                   = 0x1B2A8, //
-    CMSG_GMTICKETSYSTEM_TOGGLE                       = 0x100D7, //
-    CMSG_CANCEL_GROWTH_AURA                          = 0x1FECC, //
-    SMSG_CANCEL_AUTO_REPEAT                          = 0x13DE0, //
-    SMSG_STANDSTATE_UPDATE                           = 0x1E6A8, //
-    SMSG_LOOT_ALL_PASSED                             = 0x16AC4, //
-    SMSG_LOOT_ROLL_WON                               = 0x16280, //
-    CMSG_LOOT_ROLL                                   = 0x1BDA8, //
-    SMSG_LOOT_START_ROLL                             = 0x1EB84, //
-    SMSG_LOOT_ROLL                                   = 0x166A8, //
-    CMSG_LOOT_MASTER_GIVE                            = 0x13BA4, //
-    SMSG_LOOT_MASTER_LIST                            = 0x1ECC4, //
-    SMSG_SET_FORCED_REACTIONS                        = 0x1FFA0, //
-    SMSG_SPELL_FAILED_OTHER                          = 0x1E7A4, //
-    SMSG_GAMEOBJECT_RESET_STATE                      = 0x122E0, //
-    CMSG_REPAIR_ITEM                                 = 0x139E4, //
-    SMSG_CHAT_PLAYER_NOT_FOUND                       = 0x135A0, //
-    MSG_TALENT_WIPE_CONFIRM                          = 0x1BFC4, //
-    SMSG_SUMMON_REQUEST                              = 0x13AE4, //
-    CMSG_SUMMON_RESPONSE                             = 0x16BA0, //
-    MSG_MOVE_TOGGLE_GRAVITY_CHEAT                    = 0x100DD, //
-    SMSG_MONSTER_MOVE_TRANSPORT                      = 0x1248C, //
-    SMSG_PET_BROKEN                                  = 0x175E0, //
-    MSG_MOVE_FEATHER_FALL                            = 0x1B6A8, //
-    MSG_MOVE_WATER_WALK                              = 0x1E1A4, //
-    CMSG_SERVER_BROADCAST                            = 0x100DE, //
-    CMSG_SELF_RES                                    = 0x1AEC4, //
-    SMSG_FEIGN_DEATH_RESISTED                        = 0x13BE8, //
-    CMSG_RUN_SCRIPT                                  = 0x100DF, //
-    SMSG_SCRIPT_MESSAGE                              = 0x100E0, //
-    SMSG_DUEL_COUNTDOWN                              = 0x1E8E0, //
-    SMSG_AREA_TRIGGER_MESSAGE                        = 0x1EAE0, //
-    CMSG_SHOWING_HELM                                = 0x1B7C0, //
-    CMSG_SHOWING_CLOAK                               = 0x17AA4, //
-    SMSG_LFG_ROLE_CHOSEN                             = 0x1A9AC, //
-    SMSG_PLAYER_SKINNED                              = 0x1BAA0, //
-    SMSG_DURABILITY_DAMAGE_DEATH                     = 0x1FDA0, //
-    CMSG_SET_EXPLORATION                             = 0x100E1, //
-    CMSG_SET_ACTIONBAR_TOGGLES                       = 0x132C4, //
-    MSG_PETITION_RENAME                              = 0x170C0, //
-    SMSG_INIT_WORLD_STATES                           = 0x1F6E8, //
-    SMSG_UPDATE_WORLD_STATE                          = 0x1F784, //
-    CMSG_ITEM_NAME_QUERY                             = 0x100E3, //
-    SMSG_ITEM_NAME_QUERY_RESPONSE                    = 0x17BC8, //
-    SMSG_PET_ACTION_FEEDBACK                         = 0x12584, //
-    CMSG_CHAR_RENAME                                 = 0x127C4, //
-    SMSG_CHAR_RENAME                                 = 0x1E0EC, //
-    CMSG_MOVE_SPLINE_DONE                            = 0x169E8, //
-    CMSG_MOVE_FALL_RESET                             = 0x1E680, //
-    SMSG_INSTANCE_SAVE_CREATED                       = 0x1BBC4, //
-    SMSG_RAID_INSTANCE_INFO                          = 0x1A18C, //
-    CMSG_REQUEST_RAID_INFO                           = 0x13DE4, //
-    CMSG_MOVE_TIME_SKIPPED                           = 0x1E180, //
-    CMSG_MOVE_FEATHER_FALL_ACK                       = 0x16EA8, //
-    CMSG_MOVE_WATER_WALK_ACK                         = 0x121C4, //
-    CMSG_MOVE_NOT_ACTIVE_MOVER                       = 0x1B9A8, //
-    SMSG_PLAY_SOUND                                  = 0x12EA8, //
-    CMSG_BATTLEFIELD_STATUS                          = 0x18188, //
-    SMSG_BATTLEFIELD_STATUS1                         = 0x1454C, //
-    SMSG_BATTLEFIELD_STATUS2                         = 0x1051E, //
-    SMSG_BATTLEFIELD_STATUS3                         = 0x1081C, //
-    SMSG_BATTLEFIELD_STATUS4                         = 0x14C4C, //
-    CMSG_BATTLEFIELD_PORT                            = 0x10E11, //
-    CMSG_INSPECT_HONOR_STATS                         = 0x10E93, //
-    SMSG_INSPECT_HONOR_STATS                         = 0x1005E, //
-    CMSG_BATTLEMASTER_HELLO                          = 0x16D57, //
-    CMSG_MOVE_START_SWIM_CHEAT                       = 0x126C0, //
-    CMSG_MOVE_STOP_SWIM_CHEAT                        = 0x16988, //
-    SMSG_FORCE_WALK_SPEED_CHANGE                     = 0x168E8, //
-    CMSG_FORCE_WALK_SPEED_CHANGE_ACK                 = 0x178CC, //
-    SMSG_FORCE_SWIM_BACK_SPEED_CHANGE                = 0x1AE88, //
-    CMSG_FORCE_SWIM_BACK_SPEED_CHANGE_ACK            = 0x1E8C4, //
-    SMSG_FORCE_TURN_RATE_CHANGE                      = 0x1708C, //
-    CMSG_FORCE_TURN_RATE_CHANGE_ACK                  = 0x1E384, //
-    MSG_PVP_LOG_DATA                                 = 0x10C0E, //
-    SMSG_PVP_RATED_STATS_UPDATE                      = 0x1015E, //
-    CMSG_BATTLEFIELD_REQUEST_SCORE_DATA              = 0x10493, //
-    CMSG_LEAVE_BATTLEFIELD                           = 0x17DC4, //
-    CMSG_AREA_SPIRIT_HEALER_QUERY                    = 0x1A6C0, //
-    CMSG_AREA_SPIRIT_HEALER_QUEUE                    = 0x1F388, //
-    SMSG_AREA_SPIRIT_HEALER_TIME                     = 0x16D80, //
-    CMSG_GM_UNTEACH                                  = 0x100FD, //
-    SMSG_WARDEN_DATA                                 = 0x1F8A0, //
-    CMSG_WARDEN_DATA                                 = 0x12F84, //
-    SMSG_GROUP_JOINED_BATTLEGROUND                   = 0x10D1E, //
-    CMSG_BATTLEGROUND_PLAYER_POSITIONS               = 0x10293, //
-    SMSG_BATTLEGROUND_PLAYER_POSITIONS               = 0x1045C, //
-    CMSG_PET_STOP_ATTACK                             = 0x13A88, //
-    SMSG_BINDER_CONFIRM                              = 0x133C4, //
-    SMSG_BATTLEGROUND_PLAYER_JOINED                  = 0x1494C, //
-    SMSG_BATTLEGROUND_PLAYER_LEFT                    = 0x10D1C, //
-    CMSG_BATTLEMASTER_JOIN                           = 0x10137, //
-    SMSG_ADDON_INFO                                  = 0x1EA80, //
-    CMSG_PET_UNLEARN                                 = 0x10105, //
-    SMSG_PET_UNLEARN_CONFIRM                         = 0x10106, //
-    SMSG_PARTY_MEMBER_STATS_FULL                     = 0x1BA8C, //
-    CMSG_PET_SPELL_AUTOCAST                          = 0x1B6A4, //
-    SMSG_WEATHER                                     = 0x179A0, //
-    SMSG_PLAY_TIME_WARNING                           = 0x132EC, //
-    SMSG_MINIGAME_SETUP                              = 0x126A4, //
-    SMSG_MINIGAME_STATE                              = 0x1A5A8, //
-    CMSG_MINIGAME_MOVE                               = 0x1B2E4, //
-    SMSG_MINIGAME_MOVE_FAILED                        = 0x10109, //
-    SMSG_RAID_INSTANCE_MESSAGE                       = 0x16680, //
-    SMSG_COMPRESSED_MOVES                            = 0x16FE4, //
-    CMSG_GUILD_INFO_TEXT                             = 0x1270D, //
-    SMSG_GUILD_PARTY_STATE_UPDATE                    = 0x1450C, //
-    SMSG_CHAT_RESTRICTED                             = 0x13EC8, //
-    SMSG_SPLINE_SET_RUN_SPEED                        = 0x1F9E8, //
-    SMSG_SPLINE_SET_RUN_BACK_SPEED                   = 0x1E9C0, //
-    SMSG_SPLINE_SET_SWIM_SPEED                       = 0x1B2C0, //
-    SMSG_SPLINE_SET_WALK_SPEED                       = 0x13EA8, //
-    SMSG_SPLINE_SET_SWIM_BACK_SPEED                  = 0x121C8, //
-    SMSG_SPLINE_SET_TURN_RATE                        = 0x17EAC, //
-    SMSG_SPLINE_MOVE_UNROOT                          = 0x1010B, //
-    SMSG_SPLINE_MOVE_FEATHER_FALL                    = 0x1010C, //
-    SMSG_SPLINE_MOVE_NORMAL_FALL                     = 0x1010D, //
-    SMSG_SPLINE_MOVE_SET_HOVER                       = 0x1010E, //
-    SMSG_SPLINE_MOVE_UNSET_HOVER                     = 0x1010F, //
-    SMSG_SPLINE_MOVE_WATER_WALK                      = 0x161C0, //
-    SMSG_SPLINE_MOVE_LAND_WALK                       = 0x1A7C8, //
-    SMSG_SPLINE_MOVE_START_SWIM                      = 0x10112, //
-    SMSG_SPLINE_MOVE_STOP_SWIM                       = 0x10113, //
-    SMSG_SPLINE_MOVE_SET_RUN_MODE                    = 0x10114, //
-    SMSG_SPLINE_MOVE_SET_WALK_MODE                   = 0x10115, //
-    CMSG_GM_NUKE_ACCOUNT                             = 0x10116, //
-    MSG_GM_DESTROY_CORPSE                            = 0x10117, //
-    CMSG_GM_DESTROY_ONLINE_CORPSE                    = 0x10118, //
-    CMSG_ACTIVATETAXIEXPRESS                         = 0x1FC8C, //
-    SMSG_SET_FACTION_ATWAR                           = 0x1EEEC, //
-    SMSG_GAMETIMEBIAS_SET                            = 0x1011A, //
-    CMSG_DEBUG_ACTIONS_START                         = 0x1011B, //
-    CMSG_DEBUG_ACTIONS_STOP                          = 0x1011C, //
-    CMSG_SET_FACTION_INACTIVE                        = 0x1FE84, //
-    CMSG_SET_WATCHED_FACTION                         = 0x135C8, //
-    MSG_MOVE_TIME_SKIPPED                            = 0x125E4, //
-    SMSG_SPLINE_MOVE_ROOT                            = 0x11E55, //
-    CMSG_SET_EXPLORATION_ALL                         = 0x10120, //
-    SMSG_INVALIDATE_PLAYER                           = 0x1A884, //
-    CMSG_RESET_INSTANCES                             = 0x1AAA0, //
-    SMSG_INSTANCE_RESET                              = 0x130E8, //
-    SMSG_INSTANCE_RESET_FAILED                       = 0x13BA0, //
-    SMSG_UPDATE_LAST_INSTANCE                        = 0x133E8, //
-    MSG_RAID_TARGET_UPDATE                           = 0x1A5AC, //
-    MSG_RAID_READY_CHECK                             = 0x1FDC0, //
-    SMSG_RAID_READY_CHECK_THROTTLED                  = 0x1EEC4, //
-    CMSG_LUA_USAGE                                   = 0x10122, //
-    SMSG_PET_ACTION_SOUND                            = 0x130E4, //
-    SMSG_PET_DISMISS_SOUND                           = 0x1B7E0, //
-    SMSG_GHOSTEE_GONE                                = 0x10123, //
-    CMSG_GM_UPDATE_TICKET_STATUS                     = 0x10124, //
-    SMSG_GM_TICKET_STATUS_UPDATE                     = 0x172C4, //
-    MSG_SET_DUNGEON_DIFFICULTY                       = 0x174E0, //
-    CMSG_GMSURVEY_SUBMIT                             = 0x1E280, //
-    SMSG_UPDATE_INSTANCE_OWNERSHIP                   = 0x13B8C, //
-    CMSG_IGNORE_KNOCKBACK_CHEAT                      = 0x10126, //
-    SMSG_CHAT_PLAYER_AMBIGUOUS                       = 0x16AE8, //
-    MSG_DELAY_GHOST_TELEPORT                         = 0x10127, //
-    SMSG_SPELLINSTAKILLLOG                           = 0x161C8, //
-    SMSG_SPELL_UPDATE_CHAIN_TARGETS                  = 0x136A4, //
-    CMSG_CHAT_FILTERED                               = 0x175A8, //
-    SMSG_EXPECTED_SPAM_RECORDS                       = 0x16084, //
-    SMSG_SPELLSTEALLOG                               = 0x19F74, //
-    CMSG_LOTTERY_QUERY_OBSOLETE                      = 0x10129, //
-    SMSG_LOTTERY_QUERY_RESULT_OBSOLETE               = 0x1012A, //
-    CMSG_BUY_LOTTERY_TICKET_OBSOLETE                 = 0x10336, //
-    SMSG_LOTTERY_RESULT_OBSOLETE                     = 0x1012C, //
-    SMSG_CHARACTER_PROFILE                           = 0x1012D, //
-    SMSG_CHARACTER_PROFILE_REALM_CONNECTED           = 0x1012E, //
-    SMSG_DEFENSE_MESSAGE                             = 0x165EC, //
-    SMSG_INSTANCE_DIFFICULTY                         = 0x1FFE4, //
-    MSG_GM_RESETINSTANCELIMIT                        = 0x1012F, //
-    SMSG_MOTD                                        = 0x177C0, //
-    SMSG_MOVE_SET_FLIGHT                             = 0x1C57F, //
-    SMSG_MOVE_UNSET_FLIGHT                           = 0x1BDA0, //
-    CMSG_MOVE_FLIGHT_ACK                             = 0x1A3C8, //
-    MSG_MOVE_START_SWIM_CHEAT                        = 0x126C0, //
-    MSG_MOVE_STOP_SWIM_CHEAT                         = 0x16988, //
-    SMSG_MOVE_SET_CAN_FLY                            = 0x1BDA0, //
-    SMSG_MOVE_UNSET_CAN_FLY                          = 0x13084, //
-    CMSG_MOVE_SET_CAN_FLY_ACK                        = 0x1FCAC, //
-    CMSG_MOVE_SET_FLY                                = 0x1E0E0, //
-    CMSG_SOCKET_GEMS                                 = 0x176C4, //
-    CMSG_ARENA_TEAM_CREATE                           = 0x10509, //
-    SMSG_ARENA_TEAM_COMMAND_RESULT                   = 0x1040C, //
-    CMSG_ARENA_TEAM_QUERY                            = 0x1B9C8, //
-    SMSG_ARENA_TEAM_QUERY_RESPONSE                   = 0x13DE8, //
-    CMSG_ARENA_TEAM_ROSTER                           = 0x16BAC, //
-    SMSG_ARENA_TEAM_ROSTER                           = 0x1EC80, //
-    CMSG_ARENA_TEAM_INVITE                           = 0x1E9CC, //
-    SMSG_ARENA_TEAM_INVITE                           = 0x163A0, //
-    CMSG_ARENA_TEAM_ACCEPT                           = 0x161AC, //
-    CMSG_ARENA_TEAM_DECLINE                          = 0x1F2C0, //
-    CMSG_ARENA_TEAM_LEAVE                            = 0x164C4, //
-    CMSG_ARENA_TEAM_REMOVE                           = 0x17E84, //
-    CMSG_ARENA_TEAM_DISBAND                          = 0x1698C, //
-    CMSG_ARENA_TEAM_LEADER                           = 0x1218C, //
-    SMSG_ARENA_TEAM_EVENT                            = 0x174C4, //
-    CMSG_BATTLEMASTER_JOIN_ARENA                     = 0x10311, //
-    MSG_MOVE_START_ASCEND                            = 0x1BDC0, //
-    MSG_MOVE_STOP_ASCEND                             = 0x1FCA8, //
-    SMSG_ARENA_TEAM_STATS                            = 0x1FA80, //
-    CMSG_LFG_JOIN                                    = 0x163C0, //
-    CMSG_LFG_LEAVE                                   = 0x13688, //
-    CMSG_SEARCH_LFG_JOIN                             = 0x161CC, //
-    CMSG_SEARCH_LFG_LEAVE                            = 0x1847D, //
-    SMSG_UPDATE_LFG_LIST                             = 0x1768C, //
-    SMSG_LFG_PROPOSAL_UPDATE                         = 0x132AC, //
-    CMSG_LFG_PROPOSAL_RESULT                         = 0x1A7A4, //
-    SMSG_LFG_ROLE_CHECK_UPDATE                       = 0x1F2A8, //
-    SMSG_RAID_ROLE_CHECK_UPDATE                      = 0x1484C, //
-    SMSG_LFG_JOIN_RESULT                             = 0x1338C, //
-    SMSG_LFG_QUEUE_STATUS                            = 0x1B388, //
-    CMSG_SET_LFG_COMMENT                             = 0x1E1C4, //
-    SMSG_LFG_UPDATE_PLAYER                           = 0x1E284, //
-    SMSG_LFG_UPDATE_PARTY                            = 0x12CE8, //
-    SMSG_LFG_UPDATE_LIST                             = 0x13880, //
-    CMSG_LFG_SET_ROLES                               = 0x1E8CC, //
-    CMSG_LFG_SET_NEEDS                               = 0x10145, //
-    CMSG_LFG_SET_BOOT_VOTE                           = 0x1D65D, //
-    SMSG_LFG_BOOT_PROPOSAL_UPDATE                    = 0x179AC, //
-    CMSG_LFD_PLAYER_LOCK_INFO_REQUEST                = 0x1E5E8, //
-    SMSG_LFG_PLAYER_INFO                             = 0x1E088, //
-    //SMSG_LFG_PLAYER_INFO                             = 0x1E088, // :redefinition; previous def was 'enumerator'
-    CMSG_LFG_TELEPORT                                = 0x1FA88, //
-    CMSG_LFD_PARTY_LOCK_INFO_REQUEST                 = 0x10574, //
-    SMSG_LFG_PARTY_INFO                              = 0x160A0, //
-    SMSG_TITLE_EARNED                                = 0x16C8C, //
-    CMSG_SET_TITLE                                   = 0x1EC8C, //
-    CMSG_CANCEL_MOUNT_AURA                           = 0x164CC, //
-    SMSG_ARENA_ERROR                                 = 0x12FEC, //
-    MSG_INSPECT_ARENA_TEAMS                          = 0x1FDA4, //
-    SMSG_DEATH_RELEASE_LOC                           = 0x133C8, //
-    CMSG_CANCEL_TEMP_ENCHANTMENT                     = 0x1E484, //
-    SMSG_FORCED_DEATH_UPDATE                         = 0x1FFE8, //
-    CMSG_CHEAT_SET_HONOR_CURRENCY                    = 0x1014D, //
-    CMSG_CHEAT_SET_ARENA_CURRENCY                    = 0x1014E, //
-    SMSG_INIT_CURRENCY                               = 0x1091C, //
-    SMSG_UPDATE_CURRENCY                             = 0x1405E, //
-    SMSG_UPDATE_CURRENCY_WEEK_LIMIT                  = 0x14C5C, //
-    MSG_MOVE_SET_FLIGHT_SPEED_CHEAT                  = 0x1014F, //
-    MSG_MOVE_SET_FLIGHT_SPEED                        = 0x1B088, //
-    MSG_MOVE_SET_FLIGHT_BACK_SPEED_CHEAT             = 0x10150, //
-    MSG_MOVE_SET_FLIGHT_BACK_SPEED                   = 0x1B484, //
-    SMSG_FORCE_FLIGHT_SPEED_CHANGE                   = 0x1E5CC, //
-    CMSG_FORCE_FLIGHT_SPEED_CHANGE_ACK               = 0x1A98C, //
-    SMSG_FORCE_FLIGHT_BACK_SPEED_CHANGE              = 0x1F1E4, //
-    CMSG_FORCE_FLIGHT_BACK_SPEED_CHANGE_ACK          = 0x1FBC8, //
-    SMSG_SPLINE_SET_FLIGHT_SPEED                     = 0x1E0C0, //
-    SMSG_SPLINE_SET_FLIGHT_BACK_SPEED                = 0x1F2EC, //
-    CMSG_MAELSTROM_INVALIDATE_CACHE                  = 0x10155, //
-    SMSG_FLIGHT_SPLINE_SYNC                          = 0x1BFAC, //
-    CMSG_SET_TAXI_BENCHMARK_MODE                     = 0x173C4, //
-    //SMSG_JOINED_BATTLEGROUND_QUEUE                   = 0x1090E, // :redefinition; previous def was 'enumerator'
-    SMSG_REALM_SPLIT                                 = 0x125EC, //
-    CMSG_REALM_SPLIT                                 = 0x160AC, //
-    CMSG_MOVE_CHNG_TRANSPORT                         = 0x10158, //
-    MSG_PARTY_ASSIGNMENT                             = 0x128AC, //
-    SMSG_OFFER_PETITION_ERROR                        = 0x17DC0, //
-    SMSG_TIME_SYNC_REQ                               = 0x1AA80, //
-    CMSG_TIME_SYNC_RESP                              = 0x1A8AC, //
-    CMSG_SEND_LOCAL_EVENT                            = 0x1015A, //
-    CMSG_SEND_GENERAL_TRIGGER                        = 0x1015B, //
-    CMSG_SEND_COMBAT_TRIGGER                         = 0x1015C, //
-    CMSG_MAELSTROM_GM_SENT_MAIL                      = 0x1015D, //
-    SMSG_RESET_FAILED_NOTIFY                         = 0x1BD5C, //
-    SMSG_REAL_GROUP_UPDATE                           = 0x131C0, //
-    SMSG_LFG_DISABLED                                = 0x1F880, //
-    CMSG_ACTIVE_PVP_CHEAT                            = 0x1015E, //
-    CMSG_CHEAT_DUMP_ITEMS_DEBUG_ONLY                 = 0x1015F, //
-    SMSG_CHEAT_DUMP_ITEMS_DEBUG_ONLY_RESPONSE        = 0x10160, //
-    SMSG_CHEAT_DUMP_ITEMS_DEBUG_ONLY_RESPONSE_WRITE_FILE  = 0x10161, //
-    SMSG_UPDATE_COMBO_POINTS                         = 0x137A8, //
-    SMSG_VOICE_SESSION_ROSTER_UPDATE                 = 0x1ACC0, //
-    SMSG_VOICE_SESSION_LEAVE                         = 0x178A4, //
-    SMSG_VOICE_SESSION_ADJUST_PRIORITY               = 0x10165, //
-    CMSG_VOICE_SET_TALKER_MUTED_REQUEST              = 0x10166, //
-    SMSG_VOICE_SET_TALKER_MUTED                      = 0x1E3E4, //
-    SMSG_INIT_EXTRA_AURA_INFO_OBSOLETE               = 0x10168, //
-    SMSG_SET_EXTRA_AURA_INFO_OBSOLETE                = 0x10169, //
-    SMSG_SET_EXTRA_AURA_INFO_NEED_UPDATE_OBSOLETE    = 0x1016A, //
-    SMSG_CLEAR_EXTRA_AURA_INFO_OBSOLETE              = 0x1016B, //
-    MSG_MOVE_START_DESCEND                           = 0x17880, //
-    CMSG_IGNORE_REQUIREMENTS_CHEAT                   = 0x1016D, //
-    SMSG_IGNORE_REQUIREMENTS_CHEAT                   = 0x17C84, //
-    SMSG_SPELL_CHANCE_PROC_LOG                       = 0x1016E, //
-    CMSG_MOVE_SET_RUN_SPEED                          = 0x1016F, //
-    SMSG_DISMOUNT                                    = 0x13CC4, //
-    MSG_MOVE_UPDATE_CAN_FLY                          = 0x125E0, //
-    MSG_RAID_READY_CHECK_CONFIRM                     = 0x1A2AC, //
-    CMSG_VOICE_SESSION_ENABLE                        = 0x1FEA4, //
-    SMSG_VOICE_SESSION_ENABLE                        = 0x10170, //
-    SMSG_VOICE_PARENTAL_CONTROLS                     = 0x171E8, //
-    CMSG_GM_WHISPER                                  = 0x10172, //
-    SMSG_GM_MESSAGECHAT                              = 0x13AEC, //
-    MSG_GM_GEARRATING                                = 0x10173, //
-    CMSG_COMMENTATOR_ENABLE                          = 0x1B1C4, //
-    SMSG_COMMENTATOR_STATE_CHANGED                   = 0x1E0E4, //
-    CMSG_COMMENTATOR_GET_MAP_INFO                    = 0x128C4, //
-    SMSG_COMMENTATOR_MAP_INFO                        = 0x1A4E8, //
-    CMSG_COMMENTATOR_GET_PLAYER_INFO                 = 0x1BBA0, //
-    SMSG_COMMENTATOR_GET_PLAYER_INFO                 = 0x1758C, //
-    SMSG_COMMENTATOR_PLAYER_INFO                     = 0x1758C, //
-    CMSG_COMMENTATOR_ENTER_INSTANCE                  = 0x17BCC, //
-    CMSG_COMMENTATOR_EXIT_INSTANCE                   = 0x1B8E4, //
-    CMSG_COMMENTATOR_INSTANCE_COMMAND                = 0x17D80, //
-    SMSG_CLEAR_TARGET                                = 0x1A7AC, //
-    CMSG_BOT_DETECTED                                = 0x1E757, //
-    SMSG_CROSSED_INEBRIATION_THRESHOLD               = 0x1A580, //
-    CMSG_CHEAT_PLAYER_LOGIN                          = 0x1017D, //
-    CMSG_CHEAT_PLAYER_LOOKUP                         = 0x1017E, //
-    SMSG_CHEAT_PLAYER_LOOKUP                         = 0x1017F, //
-    SMSG_KICK_REASON                                 = 0x1EAC8, //
-    MSG_RAID_READY_CHECK_FINISHED                    = 0x1A0A0, //
-    CMSG_COMPLAIN                                    = 0x168C8, //
-    SMSG_COMPLAIN_RESULT                             = 0x170CC, //
-    SMSG_FEATURE_SYSTEM_STATUS                       = 0x13DAC, //
-    CMSG_GM_SHOW_COMPLAINTS                          = 0x10181, //
-    CMSG_GM_UNSQUELCH                                = 0x10182, //
-    CMSG_CHANNEL_SILENCE_VOICE                       = 0x17A18, //
-    CMSG_CHANNEL_SILENCE_ALL                         = 0x11A90, //
-    CMSG_CHANNEL_UNSILENCE_VOICE                     = 0x16A80, //
-    CMSG_CHANNEL_UNSILENCE_ALL                       = 0x10186, //
-    CMSG_TARGET_CAST                                 = 0x10183, //
-    CMSG_TARGET_SCRIPT_CAST                          = 0x10184, //
-    CMSG_CHANNEL_DISPLAY_LIST                        = 0x10185, //
-    CMSG_SET_ACTIVE_VOICE_CHANNEL                    = 0x132A4, //
-    CMSG_GET_CHANNEL_MEMBER_COUNT                    = 0x10009, //
-    SMSG_CHANNEL_MEMBER_COUNT                        = 0x12CEC, //
-    CMSG_CHANNEL_VOICE_ON                            = 0x15A98, //
-    CMSG_CHANNEL_VOICE_OFF                           = 0x17A88, //
-    CMSG_DEBUG_LIST_TARGETS                          = 0x10187, //
-    SMSG_DEBUG_LIST_TARGETS                          = 0x10188, //
-    SMSG_AVAILABLE_VOICE_CHANNEL                     = 0x1F8C8, //
-    CMSG_ADD_VOICE_IGNORE                            = 0x1B888, //
-    CMSG_DEL_VOICE_IGNORE                            = 0x17AC0, //
-    CMSG_PARTY_SILENCE                               = 0x16CC4, //
-    CMSG_PARTY_UNSILENCE                             = 0x1FCA4, //
-    MSG_NOTIFY_PARTY_SQUELCH                         = 0x1E8E8, //
-    SMSG_COMSAT_RECONNECT_TRY                        = 0x1E880, //
-    SMSG_COMSAT_DISCONNECT                           = 0x1AAC8, //
-    SMSG_COMSAT_CONNECT_FAIL                         = 0x129A0, //
-    SMSG_VOICE_CHAT_STATUS                           = 0x16B88, //
-    CMSG_REPORT_PVP_AFK                              = 0x1E3AC, //
-    SMSG_REPORT_PVP_AFK_RESULT                       = 0x178E8, //
-    CMSG_GUILD_BANKER_ACTIVATE                       = 0x1FFC4, //
-    CMSG_GUILD_BANK_QUERY_TAB                        = 0x1A788, //
-    SMSG_GUILD_BANK_LIST                             = 0x1A6A8, //
-    CMSG_GUILD_BANK_SWAP_ITEMS                       = 0x1A8C4, //
-    CMSG_GUILD_BANK_BUY_TAB                          = 0x178AC, //
-    CMSG_GUILD_BANK_UPDATE_TAB                       = 0x1E3CC, //
-    CMSG_GUILD_BANK_DEPOSIT_MONEY                    = 0x16FE8, //
-    CMSG_GUILD_BANK_WITHDRAW_MONEY                   = 0x173A8, //
-    CMSG_GUILD_BANK_NOTE                             = 0x17680, //
-    MSG_GUILD_BANK_LOG_QUERY                         = 0x1F584, //
-    CMSG_SET_CHANNEL_WATCH                           = 0x17FE0, //
-    SMSG_USERLIST_ADD                                = 0x1F8CC, //
-    SMSG_USERLIST_REMOVE                             = 0x1EF80, //
-    SMSG_USERLIST_UPDATE                             = 0x12C8C, //
-    CMSG_CLEAR_CHANNEL_WATCH                         = 0x1A1E0, //
-    SMSG_INSPECT_TALENT                              = 0x1F8C0, //
-    SMSG_GOGOGO_OBSOLETE                             = 0x10195, //
-    SMSG_ECHO_PARTY_SQUELCH                          = 0x12AC4, //
-    CMSG_SET_TITLE_SUFFIX                            = 0x10196, //
-    CMSG_SPELLCLICK                                  = 0x1F9A4, //
-    SMSG_LOOT_LIST                                   = 0x1F684, //
-    CMSG_GM_CHARACTER_RESTORE                        = 0x10198, //
-    CMSG_GM_CHARACTER_SAVE                           = 0x10199, //
-    SMSG_VOICESESSION_FULL                           = 0x1A456, //
-    MSG_GUILD_PERMISSIONS                            = 0x1F4C4, //
-    MSG_GUILD_BANK_MONEY_WITHDRAWN                   = 0x16CE4, //
-    MSG_GUILD_EVENT_LOG_QUERY                        = 0x169EC, //
-    CMSG_MAELSTROM_RENAME_GUILD                      = 0x1019A, //
-    CMSG_GET_MIRRORIMAGE_DATA                        = 0x1A08C, //
-    SMSG_MIRRORIMAGE_DATA                            = 0x1E2A4, //
-    SMSG_FORCE_DISPLAY_UPDATE                        = 0x16788, //
-    SMSG_SPELL_CHANCE_RESIST_PUSHBACK                = 0x1019C, //
-    CMSG_IGNORE_DIMINISHING_RETURNS_CHEAT            = 0x1019D, //
-    SMSG_IGNORE_DIMINISHING_RETURNS_CHEAT            = 0x1747E, //
-    CMSG_KEEP_ALIVE                                  = 0x12CE0, //
-    SMSG_RAID_READY_CHECK_ERROR                      = 0x1547E, //
-    CMSG_OPT_OUT_OF_LOOT                             = 0x175A4, //
-    MSG_QUERY_GUILD_BANK_TEXT                        = 0x1A2C4, //
-    CMSG_SET_GUILD_BANK_TEXT                         = 0x17680, //
-    CMSG_SET_GRANTABLE_LEVELS                        = 0x101A1, //
-    CMSG_GRANT_LEVEL                                 = 0x1B980, //
-    CMSG_REFER_A_FRIEND                              = 0x130C4, //
-    MSG_GM_CHANGE_ARENA_RATING                       = 0x101A3, //
-    CMSG_DECLINE_CHANNEL_INVITE                      = 0x1DF7F, //
-    SMSG_GROUPACTION_THROTTLED                       = 0x1F4E4, //
-    SMSG_OVERRIDE_LIGHT                              = 0x10756, //
-    SMSG_TOTEM_CREATED                               = 0x12EAC, //
-    CMSG_TOTEM_DESTROYED                             = 0x134A0, //
-    CMSG_EXPIRE_RAID_INSTANCE                        = 0x101A7, //
-    CMSG_NO_SPELL_VARIANCE                           = 0x101A8, //
-    CMSG_QUESTGIVER_STATUS_MULTIPLE_QUERY            = 0x12DAC, //
-    SMSG_QUESTGIVER_STATUS_MULTIPLE                  = 0x1F5C0, //
-    CMSG_SET_PLAYER_DECLINED_NAMES                   = 0x1ADC0, //
-    SMSG_SET_PLAYER_DECLINED_NAMES_RESULT            = 0x1BAAC, //
-    CMSG_QUERY_SERVER_BUCK_DATA                      = 0x101AC, //
-    CMSG_CLEAR_SERVER_BUCK_DATA                      = 0x101AD, //
-    SMSG_SERVER_BUCK_DATA                            = 0x101AE, //
-    SMSG_SEND_UNLEARN_SPELLS                         = 0x1BDE8, //
-    SMSG_PROPOSE_LEVEL_GRANT                         = 0x1E0C4, //
-    CMSG_ACCEPT_LEVEL_GRANT                          = 0x1B5CC, //
-    SMSG_REFER_A_FRIEND_FAILURE                      = 0x17F7C, //
-    SMSG_SPLINE_MOVE_SET_FLYING                      = 0x15D54, //
-    SMSG_SPLINE_MOVE_UNSET_FLYING                    = 0x17688, //
-    SMSG_SUMMON_CANCEL                               = 0x170A8, //
-    CMSG_CHANGE_PERSONAL_ARENA_RATING                = 0x101B2, //
-    CMSG_ALTER_APPEARANCE                            = 0x134A4, //
-    SMSG_ENABLE_BARBER_SHOP                          = 0x137E8, //
-    SMSG_BARBER_SHOP_RESULT                          = 0x13188, //
-    CMSG_CALENDAR_GET_CALENDAR                       = 0x1B2A4, //
-    CMSG_CALENDAR_GET_EVENT                          = 0x13580, //
-    CMSG_CALENDAR_GUILD_FILTER                       = 0x1ADAC, //
-    CMSG_CALENDAR_ARENA_TEAM                         = 0x1E9AC, //
-    CMSG_CALENDAR_ADD_EVENT                          = 0x1F488, //
-    CMSG_CALENDAR_UPDATE_EVENT                       = 0x1F084, //
-    CMSG_CALENDAR_REMOVE_EVENT                       = 0x16C88, //
-    CMSG_CALENDAR_COPY_EVENT                         = 0x1BF84, //
-    CMSG_CALENDAR_EVENT_INVITE                       = 0x1F6C4, //
-    CMSG_CALENDAR_EVENT_RSVP                         = 0x1757F, //
-    CMSG_CALENDAR_EVENT_REMOVE_INVITE                = 0x1EBCC, //
-    CMSG_CALENDAR_EVENT_STATUS                       = 0x1BC84, //
-    CMSG_CALENDAR_EVENT_MODERATOR_STATUS             = 0x1BDE4, //
-    SMSG_CALENDAR_SEND_CALENDAR                      = 0x1B0A4, //
-    SMSG_CALENDAR_SEND_EVENT                         = 0x1FAA4, //
-    SMSG_CALENDAR_FILTER_GUILD                       = 0x12FC4, //
-    SMSG_CALENDAR_ARENA_TEAM                         = 0x121E0, //
-    SMSG_CALENDAR_EVENT_INVITE                       = 0x1A5A0, //
-    SMSG_CALENDAR_EVENT_INVITE_REMOVED               = 0x1A9E0, //
-    SMSG_CALENDAR_EVENT_STATUS                       = 0x17EC0, //
-    SMSG_CALENDAR_COMMAND_RESULT                     = 0x1AD80, //
-    SMSG_CALENDAR_RAID_LOCKOUT_ADDED                 = 0x12AE0, //
-    SMSG_CALENDAR_RAID_LOCKOUT_REMOVED               = 0x1FCE0, //
-    SMSG_CALENDAR_EVENT_INVITE_ALERT                 = 0x1AFA8, //
-    SMSG_CALENDAR_EVENT_INVITE_REMOVED_ALERT         = 0x1FEE0, //
-    SMSG_CALENDAR_EVENT_INVITE_STATUS_ALERT          = 0x1F7C8, //
-    SMSG_CALENDAR_EVENT_REMOVED_ALERT                = 0x16288, //
-    SMSG_CALENDAR_EVENT_UPDATED_ALERT                = 0x129C0, //
-    SMSG_CALENDAR_EVENT_MODERATOR_STATUS_ALERT       = 0x1ABC8, //
-    CMSG_CALENDAR_COMPLAIN                           = 0x11E75, //
-    CMSG_CALENDAR_GET_NUM_PENDING                    = 0x1EFAC, //
-    SMSG_CALENDAR_SEND_NUM_PENDING                   = 0x1A8E0, //
-    CMSG_SAVE_DANCE                                  = 0x101C3, //
-    SMSG_NOTIFY_DANCE                                = 0x13488, //
-    CMSG_PLAY_DANCE                                  = 0x12288, //
-    SMSG_PLAY_DANCE                                  = 0x1B4EC, //
-    CMSG_LOAD_DANCES                                 = 0x101C4, //
-    CMSG_STOP_DANCE                                  = 0x13080, //
-    SMSG_STOP_DANCE                                  = 0x1E0A8, //
-    CMSG_SYNC_DANCE                                  = 0x101C6, //
-    CMSG_DANCE_QUERY                                 = 0x122A0, //
-    SMSG_DANCE_QUERY_RESPONSE                        = 0x131A8, //
-    SMSG_INVALIDATE_DANCE                            = 0x1BEE8, //
-    CMSG_DELETE_DANCE                                = 0x101C8, //
-    SMSG_LEARNED_DANCE_MOVES                         = 0x16F80, //
-    CMSG_LEARN_DANCE_MOVE                            = 0x101C9, //
-    CMSG_UNLEARN_DANCE_MOVE                          = 0x101CA, //
-    CMSG_SET_RUNE_COUNT                              = 0x101CB, //
-    CMSG_SET_RUNE_COOLDOWN                           = 0x101CC, //
-    MSG_MOVE_SET_PITCH_RATE_CHEAT                    = 0x101CD, //
-    MSG_MOVE_SET_PITCH_RATE                          = 0x1ABA4, //
-    SMSG_FORCE_PITCH_RATE_CHANGE                     = 0x1BF8C, //
-    CMSG_FORCE_PITCH_RATE_CHANGE_ACK                 = 0x1E6C0, //
-    SMSG_SPLINE_SET_PITCH_RATE                       = 0x170C4, //
-    SMSG_MOVE_ABANDON_TRANSPORT                      = 0x101D0, //
-    SMSG_CALENDAR_UPDATE_INVITE_LIST                 = 0x171A0, //
-    SMSG_CALENDAR_UPDATE_INVITE_LIST2                = 0x1EDC4, //
-    CMSG_UPDATE_MISSILE_TRAJECTORY                   = 0x10E54, //
-    SMSG_UPDATE_ACCOUNT_DATA_COMPLETE                = 0x1B1CC, //
-    SMSG_TRIGGER_MOVIE                               = 0x120C8, //
-    CMSG_COMPLETE_MOVIE                              = 0x1E188, //
-    CMSG_SET_GLYPH_SLOT                              = 0x101D4, //
-    CMSG_SET_GLYPH                                   = 0x101D5, //
-    SMSG_ACHIEVEMENT_EARNED                          = 0x1F5E4, //
-    SMSG_DYNAMIC_DROP_ROLL_RESULT                    = 0x101D7, //
-    SMSG_CRITERIA_UPDATE                             = 0x1AFC8, //
-    CMSG_QUERY_INSPECT_ACHIEVEMENTS                  = 0x169A0, //
-    SMSG_RESPOND_INSPECT_ACHIEVEMENTS                = 0x1041C, //
-    CMSG_DISMISS_CONTROLLED_VEHICLE                  = 0x1E3C0, //
-    CMSG_COMPLETE_ACHIEVEMENT_CHEAT                  = 0x101DC, //
-    SMSG_COMPRESSED_RESPOND_INSPECT_ACHIEVEMENTS     = 0x19130, //
-    SMSG_COMPRESSED_ACHIEVEMENT_DATA                 = 0x1C1B0, //
-    SMSG_QUESTUPDATE_ADD_PVP_KILL                    = 0x178E0, //
-    CMSG_SET_CRITERIA_CHEAT                          = 0x101DD, //
-    SMSG_CALENDAR_UPDATE_INVITE_LIST3                = 0x1A2A0, //
-    CMSG_UNITANIMTIER_CHEAT                          = 0x101DE, //
-    CMSG_CHAR_CUSTOMIZE                              = 0x16484, //
-    SMSG_CHAR_CUSTOMIZE                              = 0x12DA4, //
-    SMSG_PET_RENAMEABLE                              = 0x1B6C8, //
-    CMSG_REQUEST_VEHICLE_EXIT                        = 0x1B3CC, //
-    CMSG_REQUEST_PLAYER_VEHICLE_EXIT                 = 0x1208C, //
-    CMSG_REQUEST_VEHICLE_PREV_SEAT                   = 0x12DE4, //
-    CMSG_REQUEST_VEHICLE_NEXT_SEAT                   = 0x164E4, //
-    CMSG_REQUEST_VEHICLE_SWITCH_SEAT                 = 0x1A8CC, //
-    CMSG_PET_LEARN_TALENT                            = 0x1A7A0, //
-    CMSG_PET_UNLEARN_TALENTS                         = 0x18F5D, //
-    SMSG_SET_PHASE_SHIFT                             = 0x1044C, //
-    SMSG_ALL_ACHIEVEMENT_DATA                        = 0x1445E, //
-    CMSG_FORCE_SAY_CHEAT                             = 0x101E7, //
-    SMSG_HEALTH_UPDATE                               = 0x12AA8, //
-    SMSG_POWER_UPDATE                                = 0x165E8, //
-    CMSG_GAMEOBJ_REPORT_USE                          = 0x123A0, //
-    SMSG_HIGHEST_THREAT_UPDATE                       = 0x13F7E, //
-    SMSG_THREAT_UPDATE                               = 0x1B480, //
-    SMSG_THREAT_REMOVE                               = 0x129E0, //
-    SMSG_THREAT_CLEAR                                = 0x1FFC8, //
-    SMSG_CONVERT_RUNE                                = 0x1B4AC, //
-    SMSG_RESYNC_RUNES                                = 0x1F8E4, //
-    SMSG_ADD_RUNE_POWER                              = 0x1F5E8, //
-    CMSG_START_QUEST                                 = 0x10613, //
-    CMSG_REMOVE_GLYPH                                = 0x101EC, //
-    CMSG_DUMP_OBJECTS                                = 0x101ED, //
-    SMSG_DUMP_OBJECTS_DATA                           = 0x101EE, //
-    CMSG_DISMISS_CRITTER                             = 0x1B7CC, //
-    SMSG_NOTIFY_DEST_LOC_SPELL_CAST                  = 0x13588, //
-    CMSG_AUCTION_LIST_PENDING_SALES                  = 0x1EDEC, //
-    SMSG_AUCTION_LIST_PENDING_SALES                  = 0x1BAC4, //
-    SMSG_MODIFY_COOLDOWN                             = 0x130CC, //
-    SMSG_PET_UPDATE_COMBO_POINTS                     = 0x17588, //
-    CMSG_ENABLETAXI                                  = 0x1328C, //
-    SMSG_PRE_RESURRECT                               = 0x166C4, //
-    SMSG_AURA_UPDATE_ALL                             = 0x137E0, //
-    SMSG_AURA_UPDATE                                 = 0x165C0, //
-    CMSG_FLOOD_GRACE_CHEAT                           = 0x101F2, //
-    SMSG_SERVER_FIRST_ACHIEVEMENT                    = 0x168CC, //
-    SMSG_PET_LEARNED_SPELL                           = 0x1B3C4, //
-    SMSG_PET_REMOVED_SPELL                           = 0x1F28C, //
-    CMSG_CHANGE_SEATS_ON_CONTROLLED_VEHICLE          = 0x1E988, //
-    CMSG_HEARTH_AND_RESURRECT                        = 0x1B6C4, //
-    SMSG_ON_CANCEL_EXPECTED_RIDE_VEHICLE_AURA        = 0x13380, //
-    SMSG_CRITERIA_DELETED                            = 0x1AF84, //
-    SMSG_ACHIEVEMENT_DELETED                         = 0x1E6A0, //
-    CMSG_SERVER_INFO_QUERY                           = 0x101F6, //
-    SMSG_SERVER_INFO_RESPONSE                        = 0x101F7, //
-    CMSG_CHECK_LOGIN_CRITERIA                        = 0x101F8, //
-    SMSG_SERVER_BUCK_DATA_START                      = 0x101F9, //
-    CMSG_QUERY_VEHICLE_STATUS                        = 0x101F0, //
-    SMSG_BATTLEGROUND_INFO_THROTTLED                 = 0x175C4, //
-    SMSG_PLAYER_VEHICLE_DATA                         = 0x1A5A4, //
-    CMSG_PLAYER_VEHICLE_ENTER                        = 0x1AEC8, //
-    CMSG_EJECT_PASSENGER                             = 0x1F688, //
-    SMSG_PET_GUIDS                                   = 0x1E4E8, //
-    SMSG_CLIENTCACHE_VERSION                         = 0x12EC4, //
-    SMSG_ITEM_REFUND_INFO_RESPONSE                   = 0x1095E, //
-    CMSG_ITEM_REFUND_INFO                            = 0x131E0, //
-    CMSG_ITEM_REFUND                                 = 0x162E8, //
-    SMSG_ITEM_REFUND_RESULT                          = 0x1441E, //
-    CMSG_CORPSE_MAP_POSITION_QUERY                   = 0x123CC, //
-    SMSG_CORPSE_MAP_POSITION_QUERY_RESPONSE          = 0x1020A, //
-    CMSG_LFG_SET_ROLES_2                             = 0x1020B, //
-    CMSG_CALENDAR_CONTEXT_EVENT_SIGNUP               = 0x1AEAC, //
-    SMSG_CALENDAR_ACTION_PENDING                     = 0x17E8C, //
-    SMSG_EQUIPMENT_SET_LIST                          = 0x1F1A8, //
-    CMSG_EQUIPMENT_SET_SAVE                          = 0x1BFC0, //
-    CMSG_UPDATE_PROJECTILE_POSITION                  = 0x1EF7F, //
-    SMSG_SET_PROJECTILE_POSITION                     = 0x12C84, //
-    SMSG_TALENTS_INFO                                = 0x175C4, //
-    CMSG_LEARN_PREVIEW_TALENTS                       = 0x1FFAC, //
-    CMSG_LEARN_PREVIEW_TALENTS_PET                   = 0x1BCE8, //
-    SMSG_ARENA_OPPONENT_UPDATE                       = 0x128CC, //
-    SMSG_ARENA_TEAM_CHANGE_FAILED_QUEUED             = 0x1B2A0, //
-    SMSG_MULTIPLE_PACKETS                            = 0x1FEC0, //
-    SMSG_MOVE_GRAVITY_DISABLE                        = 0x10219, //
-    CMSG_MOVE_GRAVITY_DISABLE_ACK                    = 0x1F0C0, //
-    SMSG_MOVE_GRAVITY_ENABLE                         = 0x1021B, //
-    CMSG_MOVE_GRAVITY_ENABLE_ACK                     = 0x17DE8, //
-    SMSG_MOVE_LEVITATING                             = 0x1B8AC, //
-    SMSG_SPLINE_MOVE_GRAVITY_DISABLE                 = 0x1021E, //
-    SMSG_SPLINE_MOVE_GRAVITY_ENABLE                  = 0x1022F, //
-    CMSG_EQUIPMENT_SET_USE                           = 0x1E8A0, //
-    SMSG_EQUIPMENT_SET_USE_RESULT                    = 0x176AC, //
-    SMSG_UNKNOWN_1240                                = 0x1B8E0, //
-    CMSG_CHAR_FACTION_CHANGE                         = 0x1BBCC, //
-    SMSG_CHAR_FACTION_CHANGE                         = 0x123AC, //
-    SMSG_BATTLEFIELD_MGR_ENTRY_INVITE                = 0x1455E, //
-    CMSG_BATTLEFIELD_MGR_ENTRY_INVITE_RESPONSE       = 0x10100, //
-    SMSG_BATTLEFIELD_MGR_ENTERED                     = 0x1415C, //
-    SMSG_BATTLEFIELD_MGR_QUEUE_INVITE                = 0x1054C, //
-    CMSG_BATTLEFIELD_MGR_QUEUE_INVITE_RESPONSE       = 0x18108, //
-    CMSG_BATTLEFIELD_MGR_QUEUE_REQUEST               = 0x10611, //
-    SMSG_BATTLEFIELD_MGR_QUEUE_REQUEST_RESPONSE      = 0x10C0C, //
-    SMSG_BATTLEFIELD_MGR_EJECT_PENDING               = 0x1045E, //
-    SMSG_BATTLEFIELD_MGR_EJECTED                     = 0x14C1C, //
-    CMSG_BATTLEFIELD_MGR_EXIT_REQUEST                = 0x18581, //
-    SMSG_BATTLEFIELD_MGR_STATE_CHANGE                = 0x1485C, //
-    CMSG_WARGAME_ACCEPT                              = 0x10108, //
-    CMSG_WARGAME_REQUEST                             = 0x10501, //
-    SMSG_WARGAME_REQUEST_RESPONSE                    = 0x1094E, //
-    SMSG_WARGAME_REQUEST_SENT                        = 0x10C1C, //
-    MSG_SET_RAID_DIFFICULTY                          = 0x1B5E8, //
-    SMSG_TOGGLE_XP_GAIN                              = 0x17980, //
-    SMSG_GMRESPONSE_DB_ERROR                         = 0x1E0A0, //
-    SMSG_GMRESPONSE_RECEIVED                         = 0x133AC, //
-    CMSG_GMRESPONSE_RESOLVE                          = 0x162C8, //
-    SMSG_GMRESPONSE_STATUS_UPDATE                    = 0x10101, //
-    CMSG_WORLD_STATE_UI_TIMER_UPDATE                 = 0x13FA8, //
-    SMSG_WORLD_STATE_UI_TIMER_UPDATE                 = 0x15557, //
-    CMSG_CHAR_RACE_CHANGE                            = 0x16EA4, //
-    SMSG_TALENTS_INVOLUNTARILY_RESET                 = 0x12A84, //
-    SMSG_UNKNOWN_1276                                = 0x1023A, //
-    SMSG_LOOT_SLOT_CHANGED                           = 0x131EC, //
-    CMSG_READY_FOR_ACCOUNT_DATA_TIMES                = 0x17DA8, //
-    CMSG_QUERY_QUESTS_COMPLETED                      = 0x1ECE8, //
-    SMSG_QUERY_QUESTS_COMPLETED_RESPONSE             = 0x1F1E8, //
-    CMSG_GM_REPORT_LAG                               = 0x13FA0, //
-    SMSG_CORPSE_NOT_IN_INSTANCE                      = 0x131E4, //
-    CMSG_SET_ALLOW_LOW_LEVEL_RAID1                   = 0x135EC, //
-    CMSG_SET_ALLOW_LOW_LEVEL_RAID2                   = 0x129C4, //
-    SMSG_CAMERA_SHAKE                                = 0x1A2E4, //
-    SMSG_UPDATE_ITEM_ENCHANTMENTS                    = 0x120E8, //
-    SMSG_REDIRECT_CLIENT                             = 0x1201B, //
-    CMSG_REDIRECTION_FAILED                          = 0x10007, //
-    SMSG_UNKNOWN_1295                                = 0x10008, //
-    CMSG_UNKNOWN_1296                                = 0x10009, //
-    SMSG_FORCE_SEND_QUEUED_PACKETS                   = 0x12880, //
-    CMSG_REDIRECTION_AUTH_PROOF                      = 0x10E4C, //
-    SMSG_COMBAT_LOG_MULTIPLE                         = 0x133A8, //
-    SMSG_LFG_OPEN_FROM_GOSSIP                        = 0x171EC, //
-    SMSG_UNKNOWN_1302                                = 0x10010, //
-    CMSG_UNKNOWN_1303                                = 0x16BE0, //
-    SMSG_UNKNOWN_1304                                = 0x172E0, //
-    CMSG_COMMENTATOR_SKIRMISH_QUEUE_COMMAND          = 0x16DC8, //
-    SMSG_UNKNOWN_1308                                = 0x10011, //
-    CMSG_TRANSFORM                                   = 0x14577, //
-    SMSG_UNKNOWN_1310                                = 0x12E88, //
-    SMSG_UNKNOWN_1311                                = 0x11E76, //
-    SMSG_UNKNOWN_1312                                = 0x14D56, //
-    SMSG_UNKNOWN_1314                                = 0x10256, //
-    SMSG_UNKNOWN_1315                                = 0x10257, //
-    SMSG_UNKNOWN_1316                                = 0x10258, //
-    SMSG_UNKNOWN_1317                                = 0x10259, //
-    CMSG_UNKNOWN_1320                                = 0x1025C, //
-    SMSG_UNKNOWN_1329                                = 0x12D57, //
-    SMSG_BATTLEGROUND_IN_PROGRESS                    = 0x1051E, //
-    SMSG_BATTLEGROUND_EXIT_QUEUE                     = 0x1454C, //
-    SMSG_BATTLEGROUND_WAIT_JOIN                      = 0x1081C, //
-    CMSG_BATTLEGROUND_PORT_AND_LEAVE                 = 0x10E11, //
-    SMSG_GUILD_XP_LIMIT                              = 0x1441C, //
-    CMSG_GUILD_QUERY_XP                              = 0x1350D, //
-    SMSG_GUILD_XP                                    = 0x1440E, //
-    SMSG_GUILD_UPDATE_PARTY_STATE                    = 0x1450C, //
-    CMSG_GUILD_UPDATE_PARTY_STATE                    = 0x12219, //
-    SMSG_SEND_QUEUED_PACKETS                         = 0x1E280, //
-    CMSG_REDIRECT_AUTH_PROOF                         = 0x10100, //
-    CMSG_AUTO_DECLINE_GUILD_INVITES                  = 0x1EDAC, //
-    CMSG_SET_PRIMARY_TALENT_TREE                     = 0x1FEA8, //
-    CMSG_GROUP_SET_ROLES                             = 0x18509, //
-    CMSG_WORLD_LOGIN                                 = 0x18508, //
-    SMSG_UNKNOWN_65508                               = 0x1FFE4, //
-    SMSG_GUILD_ACHIEVEMENT_EARNED                    = 0x10D5C, //
-    SMSG_GUILD_ACHIEVEMENT_DATA                      = 0x1491E, //
-    CMSG_UI_TIME_REQUEST                             = 0x13FA8, //
-    SMSG_UI_TIME                                     = 0x1618C, //
-    SMSG_UNKNOWN_1330                                = 0x1618C, //
-    CMSG_REFORGE_ITEM                                = 0x10313, //
-    CMSG_COMPLETED_ARTIFACTS                         = 0x10A13, //
-    SMSG_COMPLETED_ARTIFACTS                         = 0x1044E, // structure: uint32 (count) loop: uint32(id), uint32(date), uint32(number of times completed) :endloop
-    SMSG_ARTIFACT_COMPLETED                          = 0x1491C, //
-    CMSG_SET_FOCUSED_ACHIEVEMENT                     = 0x13109, //
-    SMSG_REFORGE_OPEN_FROM_GOSSIP                    = 0x10C5C, //
-    SMSG_UNKNOWN_GOLD                                = 0x1004E, // gives gold to the player
-    SMSG_REQUEST_WAR_GAME_RESPONSE                   = 0x10C1C, //
-    SMSG_SERVER_MESSAGE_BOX                          = 0x1080C, // Server msgbox-like 4.0.6a 13623
-    SMSG_TALENT_ERROR                                = 0x168A4, //
-    SMSG_SEND_ERROR_MESSAGE                          = 0x1480C, // this has its own enum u8+u32+u32 special
-    CMSG_GET_GUILD_ACHIEVEMENT_MEMBERS               = 0x12509, //
-    SMSG_SEND_GUILD_ACHIEVEMENT_MEMBERS              = 0x1414E, //
-    CMSG_CLEAR_RAID_MARKER                           = 0x12218, //
-    CMSG_REQUEST_GUILD_PARTY_STATE                   = 0x12219, //
-    CMSG_GET_GUILD_MEMBER_RECIPES                    = 0x1212D, //
-    CMSG_QUERY_GUILD_MEMBERS_FOR_RECIPE              = 0x1210D, //
-    CMSG_GUILD_NEWS_SET_STICKY                       = 0x1252D, //
-    SMSG_GUILD_CRITERIA_DELETED                      = 0x1000C, //
-    SMSG_GUILD_CRITERIA_DATA                         = 0x1400E, //
-    CMSG_RETURN_TO_GRAVEYARD                         = 0x10593, //
-    MSG_VERIFY_CONNECTIVITY                          = 0x04F57, // 4.3.0 15050
-	CMSG_RANDOMIZE_CHAR_NAME                         = 0x10594, //
-	SMSG_RANDOMIZE_CHAR_NAME                         = 0x10595, //
-
-    NUM_MSG_TYPES                                    = 0x102B8  // last unknown opcode + 1.
+	MSG_OPCODE_UNKNOWN,
+	CMSG_ACCEPT_LEVEL_GRANT,
+	CMSG_ACCEPT_TRADE,
+	CMSG_ACTIVATETAXI,
+	CMSG_ACTIVATETAXIEXPRESS,
+	CMSG_ACTIVE_PVP_CHEAT,
+	CMSG_ADD_FRIEND,
+	CMSG_ADD_IGNORE,
+	CMSG_ADD_PVP_MEDAL_CHEAT,
+	CMSG_ADD_VOICE_IGNORE,
+	CMSG_ALTER_APPEARANCE,
+	CMSG_AREATRIGGER,
+	CMSG_AREA_SPIRIT_HEALER_QUERY,
+	CMSG_AREA_SPIRIT_HEALER_QUEUE,
+	CMSG_ARENA_TEAM_ACCEPT,
+	CMSG_ARENA_TEAM_CREATE,
+	CMSG_ARENA_TEAM_DECLINE,
+	CMSG_ARENA_TEAM_DISBAND,
+	CMSG_ARENA_TEAM_INVITE,
+	CMSG_ARENA_TEAM_LEADER,
+	CMSG_ARENA_TEAM_LEAVE,
+	CMSG_ARENA_TEAM_QUERY,
+	CMSG_ARENA_TEAM_REMOVE,
+	CMSG_ARENA_TEAM_ROSTER,
+	CMSG_ATTACKSTOP,
+	CMSG_ATTACKSWING,
+	CMSG_AUCTION_LIST_BIDDER_ITEMS,
+	CMSG_AUCTION_LIST_ITEMS,
+	CMSG_AUCTION_LIST_OWNER_ITEMS,
+	CMSG_AUCTION_LIST_PENDING_SALES,
+	CMSG_AUCTION_PLACE_BID,
+	CMSG_AUCTION_REMOVE_ITEM,
+	CMSG_AUCTION_SELL_ITEM,
+	CMSG_AUTH_SESSION,
+	CMSG_AUTOBANK_ITEM,
+	CMSG_AUTOEQUIP_GROUND_ITEM,
+	CMSG_AUTOEQUIP_ITEM,
+	CMSG_AUTOEQUIP_ITEM_SLOT,
+	CMSG_AUTOSTORE_BAG_ITEM,
+	CMSG_AUTOSTORE_BANK_ITEM,
+	CMSG_AUTOSTORE_GROUND_ITEM,
+	CMSG_AUTOSTORE_LOOT_ITEM,
+	CMSG_AUTO_DECLINE_GUILD_INVITES,
+	CMSG_BANKER_ACTIVATE,
+	CMSG_BATTLEFIELD_JOIN,
+	CMSG_BATTLEFIELD_LIST,
+	CMSG_BATTLEFIELD_MGR_ENTRY_INVITE_RESPONSE,
+	CMSG_BATTLEFIELD_MGR_EXIT_REQUEST,
+	CMSG_BATTLEFIELD_MGR_QUEUE_INVITE_RESPONSE,
+	CMSG_BATTLEFIELD_MGR_QUEUE_REQUEST,
+	CMSG_BATTLEFIELD_PORT,
+	CMSG_BATTLEFIELD_REQUEST_SCORE_DATA,
+	CMSG_BATTLEFIELD_STATUS,
+	CMSG_BATTLEGROUND_PLAYER_POSITIONS,
+	CMSG_BATTLEMASTER_HELLO,
+	CMSG_BATTLEMASTER_JOIN,
+	CMSG_BATTLEMASTER_JOIN_ARENA,
+	CMSG_BATTLEMASTER_JOIN_RATED,
+	CMSG_BEGIN_TRADE,
+	CMSG_BINDER_ACTIVATE,
+	CMSG_BOT_DETECTED,
+	CMSG_BOT_DETECTED2,
+	CMSG_BUG,
+	CMSG_BUSY_TRADE,
+	CMSG_BUYBACK_ITEM,
+	CMSG_BUY_BANK_SLOT,
+	CMSG_BUY_ITEM,
+	CMSG_BUY_LOTTERY_TICKET_OBSOLETE,
+	CMSG_CALENDAR_ADD_EVENT,
+	CMSG_CALENDAR_ARENA_TEAM,
+	CMSG_CALENDAR_COMPLAIN,
+	CMSG_CALENDAR_CONTEXT_EVENT_SIGNUP,
+	CMSG_CALENDAR_COPY_EVENT,
+	CMSG_CALENDAR_EVENT_INVITE,
+	CMSG_CALENDAR_EVENT_MODERATOR_STATUS,
+	CMSG_CALENDAR_EVENT_REMOVE_INVITE,
+	CMSG_CALENDAR_EVENT_RSVP,
+	CMSG_CALENDAR_EVENT_STATUS,
+	CMSG_CALENDAR_GET_CALENDAR,
+	CMSG_CALENDAR_GET_EVENT,
+	CMSG_CALENDAR_GET_NUM_PENDING,
+	CMSG_CALENDAR_GUILD_FILTER,
+	CMSG_CALENDAR_REMOVE_EVENT,
+	CMSG_CALENDAR_UPDATE_EVENT,
+	CMSG_CANCEL_AURA,
+	CMSG_CANCEL_AUTO_REPEAT_SPELL,
+	CMSG_CANCEL_CAST,
+	CMSG_CANCEL_CHANNELLING,
+	CMSG_CANCEL_GROWTH_AURA,
+	CMSG_CANCEL_MOUNT_AURA,
+	CMSG_CANCEL_TEMP_ENCHANTMENT,
+	CMSG_CANCEL_TRADE,
+	CMSG_CAST_SPELL,
+	CMSG_CHANGE_PERSONAL_ARENA_RATING,
+	CMSG_CHANGE_SEATS_ON_CONTROLLED_VEHICLE,
+	CMSG_CHANNEL_ANNOUNCEMENTS,
+	CMSG_CHANNEL_BAN,
+	CMSG_CHANNEL_DISPLAY_LIST,
+	CMSG_CHANNEL_INVITE,
+	CMSG_CHANNEL_KICK,
+	CMSG_CHANNEL_LIST,
+	CMSG_CHANNEL_MODERATE,
+	CMSG_CHANNEL_MODERATOR,
+	CMSG_CHANNEL_MUTE,
+	CMSG_CHANNEL_OWNER,
+	CMSG_CHANNEL_PASSWORD,
+	CMSG_CHANNEL_ROSTER_INFO,
+	CMSG_CHANNEL_SET_OWNER,
+	CMSG_CHANNEL_SILENCE_ALL,
+	CMSG_CHANNEL_SILENCE_VOICE,
+	CMSG_CHANNEL_UNBAN,
+	CMSG_CHANNEL_UNMODERATOR,
+	CMSG_CHANNEL_UNMUTE,
+	CMSG_CHANNEL_UNSILENCE_ALL,
+	CMSG_CHANNEL_UNSILENCE_VOICE,
+	CMSG_CHANNEL_VOICE_OFF,
+	CMSG_CHANNEL_VOICE_ON,
+	CMSG_CHARACTER_POINT_CHEAT,
+	CMSG_CHAR_CREATE,
+	CMSG_CHAR_CUSTOMIZE,
+	CMSG_CHAR_DELETE,
+	CMSG_CHAR_ENUM,
+	CMSG_CHAR_FACTION_CHANGE,
+	CMSG_CHAR_RACE_CHANGE,
+	CMSG_CHAR_RENAME,
+	CMSG_CHAT_FILTERED,
+	CMSG_CHAT_IGNORED,
+	CMSG_CHEAT_DUMP_ITEMS_DEBUG_ONLY,
+	CMSG_CHEAT_PLAYER_LOGIN,
+	CMSG_CHEAT_PLAYER_LOOKUP,
+	CMSG_CHEAT_SET_ARENA_CURRENCY,
+	CMSG_CHEAT_SET_HONOR_CURRENCY,
+	CMSG_CHECK_LOGIN_CRITERIA,
+	CMSG_CLEAR_CHANNEL_WATCH,
+	CMSG_CLEAR_EXPLORATION,
+	CMSG_CLEAR_SERVER_BUCK_DATA,
+	CMSG_CLEAR_TRADE_ITEM,
+	CMSG_COMMENTATOR_ENABLE,
+	CMSG_COMMENTATOR_ENTER_INSTANCE,
+	CMSG_COMMENTATOR_EXIT_INSTANCE,
+	CMSG_COMMENTATOR_GET_MAP_INFO,
+	CMSG_COMMENTATOR_GET_PLAYER_INFO,
+	CMSG_COMMENTATOR_INSTANCE_COMMAND,
+	CMSG_COMMENTATOR_SKIRMISH_QUEUE_COMMAND,
+	CMSG_COMMENTATOR_START_WARGAME,
+	CMSG_COMPLAIN,
+	CMSG_COMPLETE_ACHIEVEMENT_CHEAT,
+	CMSG_COMPLETE_CINEMATIC,
+	CMSG_COMPLETE_MOVIE,
+	CMSG_CONTACT_LIST,
+	CMSG_CORPSE_MAP_POSITION_QUERY,
+	CMSG_CREATURE_QUERY,
+	CMSG_DANCE_QUERY,
+	CMSG_DEBUG_ACTIONS_START,
+	CMSG_DEBUG_ACTIONS_STOP,
+	CMSG_DEBUG_LIST_TARGETS,
+	CMSG_DECHARGE,
+	CMSG_DECLINE_CHANNEL_INVITE,
+	CMSG_DELETE_DANCE,
+	CMSG_DEL_FRIEND,
+	CMSG_DEL_IGNORE,
+	CMSG_DEL_PVP_MEDAL_CHEAT,
+	CMSG_DEL_VOICE_IGNORE,
+	CMSG_DESTROYITEM,
+	CMSG_DESTROY_ITEMS,
+	CMSG_DISMISS_CONTROLLED_VEHICLE,
+	CMSG_DISMISS_CRITTER,
+	CMSG_DUEL_ACCEPTED,
+	CMSG_DUEL_CANCELLED,
+	CMSG_DUMP_OBJECTS,
+	CMSG_EJECT_PASSENGER,
+	CMSG_EMOTE,
+	CMSG_ENABLETAXI,
+	CMSG_ENABLE_DAMAGE_LOG,
+	CMSG_EQUIPMENT_SET_DELETE,
+	CMSG_EQUIPMENT_SET_SAVE,
+	CMSG_EQUIPMENT_SET_USE,
+	CMSG_EXPIRE_RAID_INSTANCE,
+	CMSG_FAR_SIGHT,
+	CMSG_FLOOD_GRACE_CHEAT,
+	CMSG_FORCE_FLIGHT_BACK_SPEED_CHANGE_ACK,
+	CMSG_FORCE_FLIGHT_SPEED_CHANGE_ACK,
+	CMSG_FORCE_MOVE_ROOT_ACK,
+	CMSG_FORCE_MOVE_UNROOT_ACK,
+	CMSG_FORCE_PITCH_RATE_CHANGE_ACK,
+	CMSG_FORCE_RUN_BACK_SPEED_CHANGE_ACK,
+	CMSG_FORCE_RUN_SPEED_CHANGE_ACK,
+	CMSG_FORCE_SAY_CHEAT,
+	CMSG_FORCE_SWIM_BACK_SPEED_CHANGE_ACK,
+	CMSG_FORCE_SWIM_SPEED_CHANGE_ACK,
+	CMSG_FORCE_TURN_RATE_CHANGE_ACK,
+	CMSG_FORCE_UNK1_SPEED_CHANGE_ACK,
+	CMSG_FORCE_UNK2_SPEED_CHANGE_ACK,
+	CMSG_FORCE_WALK_SPEED_CHANGE_ACK,
+	CMSG_GAMEOBJECT_QUERY,
+	CMSG_GAMEOBJ_REPORT_USE,
+	CMSG_GAMEOBJ_USE,
+	CMSG_GAMESPEED_SET,
+	CMSG_GAMETIME_SET,
+	CMSG_GETDEATHBINDZONE,
+	CMSG_GET_CHANNEL_MEMBER_COUNT,
+	CMSG_GET_MAIL_LIST,
+	CMSG_GET_MIRRORIMAGE_DATA,
+	CMSG_GHOST,
+	CMSG_GMRESPONSE_RESOLVE,
+	CMSG_GMSURVEY_SUBMIT,
+	CMSG_GMTICKETSYSTEM_TOGGLE,
+	CMSG_GMTICKET_CREATE,
+	CMSG_GMTICKET_DELETETICKET,
+	CMSG_GMTICKET_GETTICKET,
+	CMSG_GMTICKET_SYSTEMSTATUS,
+	CMSG_GMTICKET_UPDATETEXT,
+	CMSG_GM_CHARACTER_RESTORE,
+	CMSG_GM_CHARACTER_SAVE,
+	CMSG_GM_CREATE_ITEM_TARGET,
+	CMSG_GM_DESTROY_ONLINE_CORPSE,
+	CMSG_GM_INVIS,
+	CMSG_GM_NUKE,
+	CMSG_GM_NUKE_ACCOUNT,
+	CMSG_GM_REPORT_LAG,
+	CMSG_GM_SET_SECURITY_GROUP,
+	CMSG_GM_SHOW_COMPLAINTS,
+	CMSG_GM_TEACH,
+	CMSG_GM_UNSQUELCH,
+	CMSG_GM_UNTEACH,
+	CMSG_GM_UPDATE_TICKET_STATUS,
+	CMSG_GM_WHISPER,
+	CMSG_GOSSIP_HELLO,
+	CMSG_GOSSIP_SELECT_OPTION,
+	CMSG_GRANT_LEVEL,
+	CMSG_GROUP_ACCEPT,
+	CMSG_GROUP_ASSISTANT_LEADER,
+	CMSG_GROUP_CANCEL,
+	CMSG_GROUP_CHANGE_SUB_GROUP,
+	CMSG_GROUP_DECLINE,
+	CMSG_GROUP_DISBAND,
+	CMSG_GROUP_INVITE,
+	CMSG_GROUP_RAID_CONVERT,
+	CMSG_GROUP_SET_LEADER,
+	CMSG_GROUP_SET_ROLES,
+	CMSG_GROUP_SWAP_SUB_GROUP,
+	CMSG_GROUP_UNINVITE,
+	CMSG_GROUP_UNINVITE_GUID,
+	CMSG_GUILD_ACCEPT,
+	CMSG_GUILD_ADD_RANK,
+	CMSG_GUILD_BANKER_ACTIVATE,
+	CMSG_GUILD_BANK_BUY_TAB,
+	CMSG_GUILD_BANK_DEPOSIT_MONEY,
+	CMSG_GUILD_BANK_NOTE,
+	CMSG_GUILD_BANK_QUERY_TAB,
+	CMSG_GUILD_BANK_SWAP_ITEMS,
+	CMSG_GUILD_BANK_UPDATE_TAB,
+	CMSG_GUILD_BANK_WITHDRAW_MONEY,
+	CMSG_GUILD_CREATE,
+	CMSG_GUILD_DECLINE,
+	CMSG_GUILD_DEL_RANK,
+	CMSG_GUILD_DEMOTE,
+	CMSG_GUILD_DISBAND,
+	CMSG_GUILD_INFO,
+	CMSG_GUILD_INFO_TEXT,
+	CMSG_GUILD_INVITE,
+	CMSG_GUILD_LEADER,
+	CMSG_GUILD_LEAVE,
+	CMSG_GUILD_MOTD,
+	CMSG_GUILD_PROMOTE,
+	CMSG_GUILD_QUERY,
+	CMSG_GUILD_RANK,
+	CMSG_GUILD_REMOVE,
+	CMSG_GUILD_ROSTER,
+	CMSG_GUILD_SET_NOTE,
+	CMSG_GUILD_SWITCH_RANK,
+	CMSG_HEARTH_AND_RESURRECT,
+	CMSG_IGNORE_DIMINISHING_RETURNS_CHEAT,
+	CMSG_IGNORE_KNOCKBACK_CHEAT,
+	CMSG_IGNORE_REQUIREMENTS_CHEAT,
+	CMSG_IGNORE_TRADE,
+	CMSG_INITIATE_TRADE,
+	CMSG_INSPECT,
+	CMSG_INSPECT_HONOR_STATS,
+	CMSG_INSTANCE_LOCK_WARNING_RESPONSE,
+	CMSG_ITEM_NAME_QUERY,
+	CMSG_ITEM_REFUND,
+	CMSG_ITEM_REFUND_INFO,
+	CMSG_ITEM_TEXT_QUERY,
+	CMSG_JOIN_CHANNEL,
+	CMSG_KEEP_ALIVE,
+	CMSG_LEARN_DANCE_MOVE,
+	CMSG_LEARN_PREVIEW_TALENTS,
+	CMSG_LEARN_PREVIEW_TALENTS_PET,
+	CMSG_LEARN_TALENT,
+	CMSG_LEAVE_BATTLEFIELD,
+	CMSG_LEAVE_CHANNEL,
+	CMSG_LFD_PARTY_LOCK_INFO_REQUEST,
+	CMSG_LFD_PLAYER_LOCK_INFO_REQUEST,
+	CMSG_LFG_JOIN,
+	CMSG_LFG_LEAVE,
+	CMSG_LFG_PROPOSAL_RESULT,
+	CMSG_LFG_SET_BOOT_VOTE,
+	CMSG_LFG_SET_NEEDS,
+	CMSG_LFG_SET_ROLES,
+	CMSG_LFG_SET_ROLES_2,
+	CMSG_LFG_TELEPORT,
+	CMSG_LIST_INVENTORY,
+	CMSG_LOAD_DANCES,
+	CMSG_LOGOUT_CANCEL,
+	CMSG_LOGOUT_REQUEST,
+	CMSG_LOOT,
+	CMSG_LOOT_MASTER_GIVE,
+	CMSG_LOOT_METHOD,
+	CMSG_LOOT_MONEY,
+	CMSG_LOOT_RELEASE,
+	CMSG_LOOT_ROLL,
+	CMSG_LOTTERY_QUERY_OBSOLETE,
+	CMSG_LUA_USAGE,
+	CMSG_MAELSTROM_GM_SENT_MAIL,
+	CMSG_MAELSTROM_INVALIDATE_CACHE,
+	CMSG_MAELSTROM_RENAME_GUILD,
+	CMSG_MAIL_CREATE_TEXT_ITEM,
+	CMSG_MAIL_DELETE,
+	CMSG_MAIL_MARK_AS_READ,
+	CMSG_MAIL_RETURN_TO_SENDER,
+	CMSG_MAIL_TAKE_ITEM,
+	CMSG_MAIL_TAKE_MONEY,
+	CMSG_MEETINGSTONE_CHEAT,
+	CMSG_MEETINGSTONE_INFO,
+	CMSG_MESSAGECHAT_AFK,
+	CMSG_MESSAGECHAT_BATTLEGROUND,
+	CMSG_MESSAGECHAT_BATTLEGROUND_LEADER,
+	CMSG_MESSAGECHAT_CHANNEL,
+	CMSG_MESSAGECHAT_DND,
+	CMSG_MESSAGECHAT_EMOTE,
+	CMSG_MESSAGECHAT_GUILD,
+	CMSG_MESSAGECHAT_OFFICER,
+	CMSG_MESSAGECHAT_PARTY,
+	CMSG_MESSAGECHAT_PARTY_LEADER,
+	CMSG_MESSAGECHAT_RAID,
+	CMSG_MESSAGECHAT_RAID_LEADER,
+	CMSG_MESSAGECHAT_RAID_WARNING,
+	CMSG_MESSAGECHAT_SAY,
+	CMSG_MESSAGECHAT_WHISPER,
+	CMSG_MESSAGECHAT_YELL,
+	CMSG_MINIGAME_MOVE,
+	CMSG_MOUNTSPECIAL_ANIM,
+	CMSG_MOVE_CHNG_TRANSPORT,
+	CMSG_MOVE_FALL_RESET,
+	CMSG_MOVE_FEATHER_FALL_ACK,
+	CMSG_MOVE_FLIGHT_ACK,
+	CMSG_MOVE_HOVER_ACK,
+	CMSG_MOVE_KNOCK_BACK_ACK,
+	CMSG_MOVE_NOT_ACTIVE_MOVER,
+	CMSG_MOVE_SET_CAN_FLY_ACK,
+	CMSG_MOVE_SET_FLY,
+	CMSG_MOVE_SET_RAW_POSITION,
+	CMSG_MOVE_SET_RUN_SPEED,
+	CMSG_MOVE_SPLINE_DONE,
+	CMSG_MOVE_START_SWIM_CHEAT,
+	CMSG_MOVE_STOP_SWIM_CHEAT,
+	CMSG_MOVE_TIME_SKIPPED,
+	CMSG_MOVE_WATER_WALK_ACK,
+	CMSG_NAME_QUERY,
+	CMSG_NEW_SPELL_SLOT,
+	CMSG_NEXT_CINEMATIC_CAMERA,
+	CMSG_NO_SPELL_VARIANCE,
+	CMSG_NPC_TEXT_QUERY,
+	CMSG_OFFER_PETITION,
+	CMSG_OPENING_CINEMATIC,
+	CMSG_OPEN_ITEM,
+	CMSG_OPT_OUT_OF_LOOT,
+	CMSG_PAGE_TEXT_QUERY,
+	CMSG_PARTY_SILENCE,
+	CMSG_PARTY_UNSILENCE,
+	CMSG_PETITION_BUY,
+	CMSG_PETITION_QUERY,
+	CMSG_PETITION_SHOWLIST,
+	CMSG_PETITION_SHOW_SIGNATURES,
+	CMSG_PETITION_SIGN,
+	CMSG_PET_ABANDON,
+	CMSG_PET_ACTION,
+	CMSG_PET_CANCEL_AURA,
+	CMSG_PET_CAST_SPELL,
+	CMSG_PET_LEARN_TALENT,
+	CMSG_PET_NAME_QUERY,
+	CMSG_PET_RENAME,
+	CMSG_PET_SET_ACTION,
+	CMSG_PET_SPELL_AUTOCAST,
+	CMSG_PET_STOP_ATTACK,
+	CMSG_PET_UNLEARN,
+	CMSG_PET_UNLEARN_TALENTS,
+	CMSG_PING,
+	CMSG_PLAYED_TIME,
+	CMSG_PLAYER_AI_CHEAT,
+	CMSG_PLAYER_DIFFICULTY_CHANGE,
+	CMSG_PLAYER_LOGIN,
+	CMSG_PLAYER_LOGOUT,
+	CMSG_PLAYER_VEHICLE_ENTER,
+	CMSG_PLAY_DANCE,
+	CMSG_PUSHQUESTTOPARTY,
+	CMSG_QUERY_GUILD_MAX_XP,
+	CMSG_QUERY_GUILD_REWARDS,
+	CMSG_QUERY_GUILD_XP,
+	CMSG_QUERY_INSPECT_ACHIEVEMENTS,
+	CMSG_QUERY_QUESTS_COMPLETED,
+	CMSG_QUERY_SERVER_BUCK_DATA,
+	CMSG_QUERY_TIME,
+	CMSG_QUERY_VEHICLE_STATUS,
+	CMSG_QUESTGIVER_ACCEPT_QUEST,
+	CMSG_QUESTGIVER_CANCEL,
+	CMSG_QUESTGIVER_CHOOSE_REWARD,
+	CMSG_QUESTGIVER_COMPLETE_QUEST,
+	CMSG_QUESTGIVER_HELLO,
+	CMSG_QUESTGIVER_QUERY_QUEST,
+	CMSG_QUESTGIVER_QUEST_AUTOLAUNCH,
+	CMSG_QUESTGIVER_REQUEST_REWARD,
+	CMSG_QUESTGIVER_STATUS_MULTIPLE_QUERY,
+	CMSG_QUESTGIVER_STATUS_QUERY,
+	CMSG_QUESTLOG_REMOVE_QUEST,
+	CMSG_QUESTLOG_SWAP_QUEST,
+	CMSG_QUEST_CONFIRM_ACCEPT,
+	CMSG_QUEST_POI_QUERY,
+	CMSG_QUEST_QUERY,
+	CMSG_READY_FOR_ACCOUNT_DATA_TIMES,
+	CMSG_READ_ITEM,
+	CMSG_REALM_SPLIT,
+	CMSG_RECLAIM_CORPSE,
+	CMSG_REDIRECTION_AUTH_PROOF,
+	CMSG_REDIRECTION_FAILED,
+	CMSG_REDIRECT_AUTH_PROOF,
+	CMSG_REFER_A_FRIEND,
+	CMSG_REMOVE_GLYPH,
+	CMSG_REPAIR_ITEM,
+	CMSG_REPOP_REQUEST,
+	CMSG_REPORT_PVP_AFK,
+	CMSG_REQUEST_ACCOUNT_DATA,
+	CMSG_REQUEST_PARTY_MEMBER_STATS,
+	CMSG_REQUEST_PET_INFO,
+	CMSG_REQUEST_PLAYER_VEHICLE_EXIT,
+	CMSG_REQUEST_PVP_OPTIONS_ENABLED,
+	CMSG_REQUEST_RAID_INFO,
+	CMSG_REQUEST_RATED_BG_INFO,
+	CMSG_REQUEST_VEHICLE_EXIT,
+	CMSG_REQUEST_VEHICLE_NEXT_SEAT,
+	CMSG_REQUEST_VEHICLE_PREV_SEAT,
+	CMSG_REQUEST_VEHICLE_SWITCH_SEAT,
+	CMSG_RESET_FACTION_CHEAT,
+	CMSG_RESET_INSTANCES,
+	CMSG_RESURRECT_RESPONSE,
+	CMSG_RETURN_TO_GRAVEYARD,
+	CMSG_RUN_SCRIPT,
+	CMSG_SAVE_DANCE,
+	CMSG_SAVE_PLAYER,
+	CMSG_SEARCH_LFG_JOIN,
+	CMSG_SEARCH_LFG_LEAVE,
+	CMSG_SELF_RES,
+	CMSG_SELL_ITEM,
+	CMSG_SEND_COMBAT_TRIGGER,
+	CMSG_SEND_GENERAL_TRIGGER,
+	CMSG_SEND_LOCAL_EVENT,
+	CMSG_SEND_MAIL,
+	CMSG_SERVERTIME,
+	CMSG_SERVER_BROADCAST,
+	CMSG_SERVER_INFO_QUERY,
+	CMSG_SETDEATHBINDPOINT,
+	CMSG_SETSHEATHED,
+	CMSG_SET_ACTIONBAR_TOGGLES,
+	CMSG_SET_ACTION_BUTTON,
+	CMSG_SET_ACTIVE_MOVER,
+	CMSG_SET_ACTIVE_VOICE_CHANNEL,
+	CMSG_SET_ALLOW_LOW_LEVEL_RAID1,
+	CMSG_SET_ALLOW_LOW_LEVEL_RAID2,
+	CMSG_SET_AMMO,
+	CMSG_SET_CHANNEL_WATCH,
+	CMSG_SET_CONTACT_NOTES,
+	CMSG_SET_CRITERIA_CHEAT,
+	CMSG_SET_DURABILITY_CHEAT,
+	CMSG_SET_EXPLORATION,
+	CMSG_SET_EXPLORATION_ALL,
+	CMSG_SET_FACTION_ATWAR,
+	CMSG_SET_FACTION_CHEAT,
+	CMSG_SET_FACTION_INACTIVE,
+	CMSG_SET_GLYPH,
+	CMSG_SET_GLYPH_SLOT,
+	CMSG_SET_GRANTABLE_LEVELS,
+	CMSG_SET_GUILD_BANK_TEXT,
+	CMSG_SET_LFG_COMMENT,
+	CMSG_SET_PLAYER_DECLINED_NAMES,
+	CMSG_SET_PRIMARY_TALENT_TREE,
+	CMSG_SET_PVP_RANK_CHEAT,
+	CMSG_SET_PVP_TITLE,
+	CMSG_SET_RUNE_COOLDOWN,
+	CMSG_SET_RUNE_COUNT,
+	CMSG_SET_SAVED_INSTANCE_EXTEND,
+	CMSG_SET_SELECTION,
+	CMSG_SET_SKILL_CHEAT,
+	CMSG_SET_TAXI_BENCHMARK_MODE,
+	CMSG_SET_TITLE,
+	CMSG_SET_TITLE_SUFFIX,
+	CMSG_SET_TRADE_GOLD,
+	CMSG_SET_TRADE_ITEM,
+	CMSG_SET_WATCHED_FACTION,
+	CMSG_SHOWING_CLOAK,
+	CMSG_SHOWING_HELM,
+	CMSG_SKILL_BUY_RANK,
+	CMSG_SKILL_BUY_STEP,
+	CMSG_SOCKET_GEMS,
+	CMSG_SPELLCLICK,
+	CMSG_SPIRIT_HEALER_ACTIVATE,
+	CMSG_SPLIT_ITEM,
+	CMSG_STABLE_CHANGE_SLOT,
+	CMSG_STABLE_REVIVE_PET,
+	CMSG_STANDSTATECHANGE,
+	CMSG_START_QUEST,
+	CMSG_STOP_DANCE,
+	CMSG_STORE_LOOT_IN_SLOT,
+	CMSG_SUMMON_RESPONSE,
+	CMSG_SWAP_INV_ITEM,
+	CMSG_SWAP_ITEM,
+	CMSG_SYNC_DANCE,
+	CMSG_TARGET_CAST,
+	CMSG_TARGET_SCRIPT_CAST,
+	CMSG_TAXICLEARALLNODES,
+	CMSG_TAXICLEARNODE,
+	CMSG_TAXIENABLEALLNODES,
+	CMSG_TAXIENABLENODE,
+	CMSG_TAXINODE_STATUS_QUERY,
+	CMSG_TAXIQUERYAVAILABLENODES,
+	CMSG_TAXISHOWNODES,
+	CMSG_TELEPORT_TO_UNIT,
+	CMSG_TEXT_EMOTE,
+	CMSG_TIME_SYNC_RESP,
+	CMSG_TOGGLE_PVP,
+	CMSG_TOTEM_DESTROYED,
+	CMSG_TRAINER_BUY_SPELL,
+	CMSG_TRAINER_LIST,
+	CMSG_TRANSFORM,
+	CMSG_TRIGGER_CINEMATIC_CHEAT,
+	CMSG_TURN_IN_PETITION,
+	CMSG_TUTORIAL_CLEAR,
+	CMSG_TUTORIAL_FLAG,
+	CMSG_TUTORIAL_RESET,
+	CMSG_UNACCEPT_TRADE,
+	CMSG_UNITANIMTIER_CHEAT,
+	CMSG_UNKNOWN_1296,
+	CMSG_UNKNOWN_1303,
+	CMSG_UNKNOWN_1320,
+	CMSG_UNLEARN_DANCE_MOVE,
+	CMSG_UNLEARN_SKILL,
+	CMSG_UNLEARN_SPELL,
+	CMSG_UNLEARN_TALENTS,
+	CMSG_UNUSED2,
+	CMSG_UPDATE_ACCOUNT_DATA,
+	CMSG_UPDATE_MISSILE_TRAJECTORY,
+	CMSG_UPDATE_PROJECTILE_POSITION,
+	CMSG_USE_ITEM,
+	CMSG_VOICE_SESSION_ENABLE,
+	CMSG_VOICE_SET_TALKER_MUTED_REQUEST,
+	CMSG_WARDEN_DATA,
+	CMSG_WHO,
+	CMSG_WHOIS,
+	CMSG_WORLD_LOGIN,
+	CMSG_WORLD_STATE_UI_TIMER_UPDATE,
+	CMSG_WORLD_TELEPORT,
+	CMSG_WRAP_ITEM,
+	CMSG_ZONEUPDATE,
+	MSG_AUCTION_HELLO,
+	MSG_CHANNEL_START,
+	MSG_CHANNEL_UPDATE,
+	MSG_CORPSE_QUERY,
+	MSG_DELAY_GHOST_TELEPORT,
+	MSG_GM_ACCOUNT_ONLINE,
+	MSG_GM_BIND_OTHER,
+	MSG_GM_CHANGE_ARENA_RATING,
+	MSG_GM_DESTROY_CORPSE,
+	MSG_GM_GEARRATING,
+	MSG_GM_RESETINSTANCELIMIT,
+	MSG_GM_SHOWLABEL,
+	MSG_GM_SUMMON,
+	MSG_GUILD_BANK_LOG_QUERY,
+	MSG_GUILD_BANK_MONEY_WITHDRAWN,
+	MSG_GUILD_EVENT_LOG_QUERY,
+	MSG_GUILD_PERMISSIONS,
+	MSG_INSPECT_ARENA_TEAMS,
+	MSG_LIST_STABLED_PETS,
+	MSG_MINIMAP_PING,
+	MSG_MOVE_FALL_LAND,
+	MSG_MOVE_FEATHER_FALL,
+	MSG_MOVE_HEARTBEAT,
+	MSG_MOVE_HOVER,
+	MSG_MOVE_JUMP,
+	MSG_MOVE_KNOCK_BACK,
+	MSG_MOVE_ROOT,
+	MSG_MOVE_SET_ALL_SPEED_CHEAT,
+	MSG_MOVE_SET_FACING,
+	MSG_MOVE_SET_FLIGHT_BACK_SPEED,
+	MSG_MOVE_SET_FLIGHT_BACK_SPEED_CHEAT,
+	MSG_MOVE_SET_FLIGHT_SPEED,
+	MSG_MOVE_SET_FLIGHT_SPEED_CHEAT,
+	MSG_MOVE_SET_PITCH,
+	MSG_MOVE_SET_PITCH_RATE,
+	MSG_MOVE_SET_PITCH_RATE_CHEAT,
+	MSG_MOVE_SET_RAW_POSITION_ACK,
+	MSG_MOVE_SET_RUN_BACK_SPEED,
+	MSG_MOVE_SET_RUN_BACK_SPEED_CHEAT,
+	MSG_MOVE_SET_RUN_MODE,
+	MSG_MOVE_SET_RUN_SPEED,
+	MSG_MOVE_SET_RUN_SPEED_CHEAT,
+	MSG_MOVE_SET_SWIM_BACK_SPEED,
+	MSG_MOVE_SET_SWIM_BACK_SPEED_CHEAT,
+	MSG_MOVE_SET_SWIM_SPEED,
+	MSG_MOVE_SET_SWIM_SPEED_CHEAT,
+	MSG_MOVE_SET_TURN_RATE,
+	MSG_MOVE_SET_TURN_RATE_CHEAT,
+	MSG_MOVE_SET_WALK_MODE,
+	MSG_MOVE_SET_WALK_SPEED,
+	MSG_MOVE_SET_WALK_SPEED_CHEAT,
+	MSG_MOVE_START_ASCEND,
+	MSG_MOVE_START_BACKWARD,
+	MSG_MOVE_START_DESCEND,
+	MSG_MOVE_START_FORWARD,
+	MSG_MOVE_START_PITCH_DOWN,
+	MSG_MOVE_START_PITCH_UP,
+	MSG_MOVE_START_STRAFE_LEFT,
+	MSG_MOVE_START_STRAFE_RIGHT,
+	MSG_MOVE_START_SWIM,
+	MSG_MOVE_START_SWIM_CHEAT,
+	MSG_MOVE_START_TURN_LEFT,
+	MSG_MOVE_START_TURN_RIGHT,
+	MSG_MOVE_STOP,
+	MSG_MOVE_STOP_ASCEND,
+	MSG_MOVE_STOP_PITCH,
+	MSG_MOVE_STOP_STRAFE,
+	MSG_MOVE_STOP_SWIM,
+	MSG_MOVE_STOP_SWIM_CHEAT,
+	MSG_MOVE_STOP_TURN,
+	MSG_MOVE_TELEPORT,
+	MSG_MOVE_TELEPORT_ACK,
+	MSG_MOVE_TELEPORT_CHEAT,
+	MSG_MOVE_TIME_SKIPPED,
+	MSG_MOVE_TOGGLE_COLLISION_CHEAT,
+	MSG_MOVE_TOGGLE_FALL_LOGGING,
+	MSG_MOVE_TOGGLE_GRAVITY_CHEAT,
+	MSG_MOVE_TOGGLE_LOGGING,
+	MSG_MOVE_UNROOT,
+	MSG_MOVE_UPDATE_CAN_FLY,
+	MSG_MOVE_WATER_WALK,
+	MSG_MOVE_WORLDPORT_ACK,
+	MSG_NOTIFY_PARTY_SQUELCH,
+	MSG_PARTY_ASSIGNMENT,
+	MSG_PETITION_DECLINE,
+	MSG_PETITION_RENAME,
+	MSG_PVP_LOG_DATA,
+	MSG_QUERY_GUILD_BANK_TEXT,
+	MSG_QUERY_NEXT_MAIL_TIME,
+	MSG_QUEST_PUSH_RESULT,
+	MSG_RAID_READY_CHECK,
+	MSG_RAID_READY_CHECK_CONFIRM,
+	MSG_RAID_READY_CHECK_FINISHED,
+	MSG_RAID_TARGET_UPDATE,
+	MSG_RANDOM_ROLL,
+	MSG_SAVE_GUILD_EMBLEM,
+	MSG_SET_DUNGEON_DIFFICULTY,
+	MSG_SET_RAID_DIFFICULTY,
+	MSG_TABARDVENDOR_ACTIVATE,
+	MSG_TALENT_WIPE_CONFIRM,
+	SMSG_ACCOUNT_DATA_TIMES,
+	SMSG_ACHIEVEMENT_DELETED,
+	SMSG_ACHIEVEMENT_EARNED,
+	SMSG_ACTION_BUTTONS,
+	SMSG_ACTIVATETAXIREPLY,
+	SMSG_ADDON_INFO,
+	SMSG_ADD_RUNE_POWER,
+	SMSG_AI_REACTION,
+	SMSG_ALL_ACHIEVEMENT_DATA,
+	SMSG_AREA_SPIRIT_HEALER_TIME,
+	SMSG_AREA_TRIGGER_MESSAGE,
+	SMSG_ARENA_ERROR,
+	SMSG_ARENA_OPPONENT_UPDATE,
+	SMSG_ARENA_TEAM_CHANGE_FAILED_QUEUED,
+	SMSG_ARENA_TEAM_COMMAND_RESULT,
+	SMSG_ARENA_TEAM_EVENT,
+	SMSG_ARENA_TEAM_INVITE,
+	SMSG_ARENA_TEAM_QUERY_RESPONSE,
+	SMSG_ARENA_TEAM_ROSTER,
+	SMSG_ARENA_TEAM_STATS,
+	SMSG_ATTACKERSTATEUPDATE,
+	SMSG_ATTACKSTART,
+	SMSG_ATTACKSTOP,
+	SMSG_ATTACKSWING_BADFACING,
+	SMSG_ATTACKSWING_CANT_ATTACK,
+	SMSG_ATTACKSWING_DEADTARGET,
+	SMSG_ATTACKSWING_NOTINRANGE,
+	SMSG_AUCTION_BIDDER_LIST_RESULT,
+	SMSG_AUCTION_BIDDER_NOTIFICATION,
+	SMSG_AUCTION_COMMAND_RESULT,
+	SMSG_AUCTION_LIST_PENDING_SALES,
+	SMSG_AUCTION_LIST_RESULT,
+	SMSG_AUCTION_OWNER_LIST_RESULT,
+	SMSG_AUCTION_OWNER_NOTIFICATION,
+	SMSG_AUCTION_REMOVED_NOTIFICATION,
+	SMSG_AURACASTLOG,
+	SMSG_AURA_UPDATE,
+	SMSG_AURA_UPDATE_ALL,
+	SMSG_AUTH_CHALLENGE,
+	SMSG_AUTH_RESPONSE,
+	SMSG_AVAILABLE_VOICE_CHANNEL,
+	SMSG_BARBER_SHOP_RESULT,
+	SMSG_BATTLEFIELD_LIST,
+	SMSG_BATTLEFIELD_MGR_EJECTED,
+	SMSG_BATTLEFIELD_MGR_EJECT_PENDING,
+	SMSG_BATTLEFIELD_MGR_ENTERED,
+	SMSG_BATTLEFIELD_MGR_ENTRY_INVITE,
+	SMSG_BATTLEFIELD_MGR_QUEUE_INVITE,
+	SMSG_BATTLEFIELD_MGR_QUEUE_REQUEST_RESPONSE,
+	SMSG_BATTLEFIELD_MGR_STATE_CHANGE,
+	SMSG_BATTLEFIELD_PORT_DENIED,
+	SMSG_BATTLEFIELD_STATUS1,
+	SMSG_BATTLEFIELD_STATUS2,
+	SMSG_BATTLEFIELD_STATUS3,
+	SMSG_BATTLEFIELD_STATUS4,
+	SMSG_BATTLEGROUND_INFO_THROTTLED,
+	SMSG_BATTLEGROUND_PLAYER_JOINED,
+	SMSG_BATTLEGROUND_PLAYER_LEFT,
+	SMSG_BATTLEGROUND_PLAYER_POSITIONS,
+	SMSG_BINDER_CONFIRM,
+	SMSG_BINDPOINTUPDATE,
+	SMSG_BINDZONEREPLY,
+	SMSG_BREAK_TARGET,
+	SMSG_BUY_BANK_SLOT_RESULT,
+	SMSG_BUY_FAILED,
+	SMSG_BUY_ITEM,
+	SMSG_CALENDAR_ACTION_PENDING,
+	SMSG_CALENDAR_ARENA_TEAM,
+	SMSG_CALENDAR_COMMAND_RESULT,
+	SMSG_CALENDAR_EVENT_INVITE,
+	SMSG_CALENDAR_EVENT_INVITE_ALERT,
+	SMSG_CALENDAR_EVENT_INVITE_REMOVED,
+	SMSG_CALENDAR_EVENT_INVITE_REMOVED_ALERT,
+	SMSG_CALENDAR_EVENT_INVITE_STATUS_ALERT,
+	SMSG_CALENDAR_EVENT_MODERATOR_STATUS_ALERT,
+	SMSG_CALENDAR_EVENT_REMOVED_ALERT,
+	SMSG_CALENDAR_EVENT_STATUS,
+	SMSG_CALENDAR_EVENT_UPDATED_ALERT,
+	SMSG_CALENDAR_FILTER_GUILD,
+	SMSG_CALENDAR_RAID_LOCKOUT_ADDED,
+	SMSG_CALENDAR_RAID_LOCKOUT_REMOVED,
+	SMSG_CALENDAR_SEND_CALENDAR,
+	SMSG_CALENDAR_SEND_EVENT,
+	SMSG_CALENDAR_SEND_NUM_PENDING,
+	SMSG_CALENDAR_UPDATE_INVITE_LIST,
+	SMSG_CALENDAR_UPDATE_INVITE_LIST2,
+	SMSG_CALENDAR_UPDATE_INVITE_LIST3,
+	SMSG_CAMERA_SHAKE,
+	SMSG_CANCEL_AUTO_REPEAT,
+	SMSG_CANCEL_COMBAT,
+	SMSG_CAST_FAILED,
+	SMSG_CHANNEL_LIST,
+	SMSG_CHANNEL_MEMBER_COUNT,
+	SMSG_CHANNEL_NOTIFY,
+	SMSG_CHARACTER_LOGIN_FAILED,
+	SMSG_CHARACTER_PROFILE,
+	SMSG_CHARACTER_PROFILE_REALM_CONNECTED,
+	SMSG_CHAR_CREATE,
+	SMSG_CHAR_CUSTOMIZE,
+	SMSG_CHAR_DELETE,
+	SMSG_CHAR_ENUM,
+	SMSG_CHAR_FACTION_CHANGE,
+	SMSG_CHAR_RENAME,
+	SMSG_CHAT_PLAYER_AMBIGUOUS,
+	SMSG_CHAT_PLAYER_NOT_FOUND,
+	SMSG_CHAT_RESTRICTED,
+	SMSG_CHAT_WRONG_FACTION,
+	SMSG_CHEAT_DUMP_ITEMS_DEBUG_ONLY_RESPONSE,
+	SMSG_CHEAT_DUMP_ITEMS_DEBUG_ONLY_RESPONSE_WRITE_FILE,
+	SMSG_CHEAT_PLAYER_LOOKUP,
+	SMSG_CHECK_FOR_BOTS,
+	SMSG_CLEAR_COOLDOWN,
+	SMSG_CLEAR_EXTRA_AURA_INFO_OBSOLETE,
+	SMSG_CLEAR_FAR_SIGHT_IMMEDIATE,
+	SMSG_CLEAR_TARGET,
+	SMSG_CLIENTCACHE_VERSION,
+	SMSG_CLIENT_CONTROL_UPDATE,
+	SMSG_COMBAT_LOG_MULTIPLE,
+	SMSG_COMMENTATOR_GET_PLAYER_INFO,
+	SMSG_COMMENTATOR_MAP_INFO,
+	SMSG_COMMENTATOR_PLAYER_INFO,
+	SMSG_COMMENTATOR_STATE_CHANGED,
+	SMSG_COMPLAIN_RESULT,
+	SMSG_COMPRESSED_MOVES,
+	SMSG_COMPRESSED_UPDATE_OBJECT,
+	SMSG_COMSAT_CONNECT_FAIL,
+	SMSG_COMSAT_DISCONNECT,
+	SMSG_COMSAT_RECONNECT_TRY,
+	SMSG_CONTACT_LIST,
+	SMSG_CONVERT_RUNE,
+	SMSG_COOLDOWN_CHEAT,
+	SMSG_COOLDOWN_EVENT,
+	SMSG_CORPSE_MAP_POSITION_QUERY_RESPONSE,
+	SMSG_CORPSE_NOT_IN_INSTANCE,
+	SMSG_CORPSE_RECLAIM_DELAY,
+	SMSG_CREATURE_QUERY_RESPONSE,
+	SMSG_CRITERIA_DELETED,
+	SMSG_CRITERIA_UPDATE,
+	SMSG_CROSSED_INEBRIATION_THRESHOLD,
+	SMSG_DAMAGE_CALC_LOG,
+	SMSG_DAMAGE_DONE_OBSOLETE,
+	SMSG_DANCE_QUERY_RESPONSE,
+	SMSG_DEATH_RELEASE_LOC,
+	SMSG_DEBUGAURAPROC,
+	SMSG_DEBUG_LIST_TARGETS,
+	SMSG_DEFENSE_MESSAGE,
+	SMSG_DESTROY_OBJECT,
+	SMSG_DESTRUCTIBLE_BUILDING_DAMAGE,
+	SMSG_DISMOUNT,
+	SMSG_DISMOUNTRESULT,
+	SMSG_DISPEL_FAILED,
+	SMSG_DUEL_COMPLETE,
+	SMSG_DUEL_COUNTDOWN,
+	SMSG_DUEL_INBOUNDS,
+	SMSG_DUEL_OUTOFBOUNDS,
+	SMSG_DUEL_REQUESTED,
+	SMSG_DUEL_WINNER,
+	SMSG_DUMP_OBJECTS_DATA,
+	SMSG_DURABILITY_DAMAGE_DEATH,
+	SMSG_DYNAMIC_DROP_ROLL_RESULT,
+	SMSG_ECHO_PARTY_SQUELCH,
+	SMSG_EMOTE,
+	SMSG_ENABLE_BARBER_SHOP,
+	SMSG_ENCHANTMENTLOG,
+	SMSG_ENVIRONMENTALDAMAGELOG,
+	SMSG_EQUIPMENT_SET_LIST,
+	SMSG_EQUIPMENT_SET_SAVED,
+	SMSG_EQUIPMENT_SET_USE_RESULT,
+	SMSG_EXPECTED_SPAM_RECORDS,
+	SMSG_EXPLORATION_EXPERIENCE,
+	SMSG_FEATURE_SYSTEM_STATUS,
+	SMSG_FEIGN_DEATH_RESISTED,
+	SMSG_FISH_ESCAPED,
+	SMSG_FISH_NOT_HOOKED,
+	SMSG_FLIGHT_SPLINE_SYNC,
+	SMSG_FORCEACTIONSHOW,
+	SMSG_FORCED_DEATH_UPDATE,
+	SMSG_FORCE_DISPLAY_UPDATE,
+	SMSG_FORCE_FLIGHT_BACK_SPEED_CHANGE,
+	SMSG_FORCE_FLIGHT_SPEED_CHANGE,
+	SMSG_FORCE_MOVE_ROOT,
+	SMSG_FORCE_MOVE_UNROOT,
+	SMSG_FORCE_PITCH_RATE_CHANGE,
+	SMSG_FORCE_RUN_BACK_SPEED_CHANGE,
+	SMSG_FORCE_RUN_SPEED_CHANGE,
+	SMSG_FORCE_SEND_QUEUED_PACKETS,
+	SMSG_FORCE_SWIM_BACK_SPEED_CHANGE,
+	SMSG_FORCE_SWIM_SPEED_CHANGE,
+	SMSG_FORCE_TURN_RATE_CHANGE,
+	SMSG_FORCE_UNK1_SPEED_CHANGE,
+	SMSG_FORCE_UNK2_SPEED_CHANGE,
+	SMSG_FORCE_WALK_SPEED_CHANGE,
+	SMSG_FRIEND_STATUS,
+	SMSG_GAMEOBJECT_CUSTOM_ANIM,
+	SMSG_GAMEOBJECT_DESPAWN_ANIM,
+	SMSG_GAMEOBJECT_PAGETEXT,
+	SMSG_GAMEOBJECT_QUERY_RESPONSE,
+	SMSG_GAMEOBJECT_RESET_STATE,
+	SMSG_GAMESPEED_SET,
+	SMSG_GAMETIMEBIAS_SET,
+	SMSG_GAMETIME_SET,
+	SMSG_GAMETIME_UPDATE,
+	SMSG_GHOSTEE_GONE,
+	SMSG_GMRESPONSE_DB_ERROR,
+	SMSG_GMRESPONSE_RECEIVED,
+	SMSG_GMRESPONSE_STATUS_UPDATE,
+	SMSG_GMTICKET_CREATE,
+	SMSG_GMTICKET_DELETETICKET,
+	SMSG_GMTICKET_GETTICKET,
+	SMSG_GMTICKET_SYSTEMSTATUS,
+	SMSG_GMTICKET_UPDATETEXT,
+	SMSG_GM_MESSAGECHAT,
+	SMSG_GM_TICKET_STATUS_UPDATE,
+	SMSG_GODMODE,
+	SMSG_GOGOGO_OBSOLETE,
+	SMSG_GOSSIP_COMPLETE,
+	SMSG_GOSSIP_MESSAGE,
+	SMSG_GOSSIP_POI,
+	SMSG_GROUPACTION_THROTTLED,
+	SMSG_GROUP_CANCEL,
+	SMSG_GROUP_DECLINE,
+	SMSG_GROUP_DESTROYED,
+	SMSG_GROUP_INVITE,
+	SMSG_GROUP_JOINED_BATTLEGROUND,
+	SMSG_GROUP_LIST,
+	SMSG_GROUP_SET_LEADER,
+	SMSG_GROUP_UNINVITE,
+	SMSG_GUILD_BANK_LIST,
+	SMSG_GUILD_COMMAND_RESULT,
+	SMSG_GUILD_DECLINE,
+	SMSG_GUILD_EVENT,
+	SMSG_GUILD_INFO,
+	SMSG_GUILD_INVITE,
+	SMSG_GUILD_MAX_DAILY_XP,
+	SMSG_GUILD_NEWS_UPDATE,
+	SMSG_GUILD_QUERY_RESPONSE,
+	SMSG_GUILD_RANK,
+	SMSG_GUILD_RANKS_UPDATE,
+	SMSG_GUILD_REWARDS_LIST,
+	SMSG_GUILD_ROSTER,
+	SMSG_GUILD_TRADESKILL_UPDATE,
+	SMSG_GUILD_UPDATE_ROSTER,
+	SMSG_GUILD_XP_UPDATE,
+	SMSG_HEALTH_UPDATE,
+	SMSG_HIGHEST_THREAT_UPDATE,
+	SMSG_IGNORE_DIMINISHING_RETURNS_CHEAT,
+	SMSG_IGNORE_REQUIREMENTS_CHEAT,
+	SMSG_INITIALIZE_FACTIONS,
+	SMSG_INITIAL_SPELLS,
+	SMSG_INIT_CURRENCY,
+	SMSG_INIT_EXTRA_AURA_INFO_OBSOLETE,
+	SMSG_INIT_WORLD_STATES,
+	SMSG_INSPECT,
+	SMSG_INSPECT_HONOR_STATS,
+	SMSG_INSPECT_TALENT,
+	SMSG_INSTANCE_DIFFICULTY,
+	SMSG_INSTANCE_LOCK_WARNING_QUERY,
+	SMSG_INSTANCE_RESET,
+	SMSG_INSTANCE_RESET_FAILED,
+	SMSG_INSTANCE_SAVE_CREATED,
+	SMSG_INVALIDATE_DANCE,
+	SMSG_INVALIDATE_PLAYER,
+	SMSG_INVALID_PROMOTION_CODE,
+	SMSG_INVENTORY_CHANGE_FAILURE,
+	SMSG_ITEM_COOLDOWN,
+	SMSG_ITEM_ENCHANT_TIME_UPDATE,
+	SMSG_ITEM_NAME_QUERY_RESPONSE,
+	SMSG_ITEM_PUSH_RESULT,
+	SMSG_ITEM_QUERY_MULTIPLE_RESPONSE,
+	SMSG_ITEM_QUERY_SINGLE_RESPONSE,
+	SMSG_ITEM_REFUND_INFO_RESPONSE,
+	SMSG_ITEM_REFUND_RESULT,
+	SMSG_ITEM_TEXT_QUERY_RESPONSE,
+	SMSG_ITEM_TIME_UPDATE,
+	SMSG_JOINED_BATTLEGROUND_QUEUE,
+	SMSG_KICK_REASON,
+	SMSG_LEARNED_DANCE_MOVES,
+	SMSG_LEARNED_SPELL,
+	SMSG_LEVELUP_INFO,
+	SMSG_LFG_BOOT_PROPOSAL_UPDATE,
+	SMSG_LFG_DISABLED,
+	SMSG_LFG_JOIN_RESULT,
+	SMSG_LFG_OFFER_CONTINUE,
+	SMSG_LFG_OPEN_FROM_GOSSIP,
+	SMSG_LFG_PARTY_INFO,
+	SMSG_LFG_PLAYER_INFO,
+	SMSG_LFG_PLAYER_REWARD,
+	SMSG_LFG_PROPOSAL_UPDATE,
+	SMSG_LFG_QUEUE_STATUS,
+	SMSG_LFG_ROLE_CHECK_UPDATE,
+	SMSG_LFG_ROLE_CHOSEN,
+	SMSG_LFG_TELEPORT_DENIED,
+	SMSG_LFG_UPDATE_LIST,
+	SMSG_LFG_UPDATE_PARTY,
+	SMSG_LFG_UPDATE_PLAYER,
+	SMSG_LIST_INVENTORY,
+	SMSG_LOGIN_SETTIMESPEED,
+	SMSG_LOGIN_VERIFY_WORLD,
+	SMSG_LOGOUT_CANCEL_ACK,
+	SMSG_LOGOUT_COMPLETE,
+	SMSG_LOGOUT_RESPONSE,
+	SMSG_LOG_XPGAIN,
+	SMSG_LOOT_ALL_PASSED,
+	SMSG_LOOT_CLEAR_MONEY,
+	SMSG_LOOT_ITEM_NOTIFY,
+	SMSG_LOOT_LIST,
+	SMSG_LOOT_MASTER_LIST,
+	SMSG_LOOT_MONEY_NOTIFY,
+	SMSG_LOOT_RELEASE_RESPONSE,
+	SMSG_LOOT_REMOVED,
+	SMSG_LOOT_RESPONSE,
+	SMSG_LOOT_ROLL,
+	SMSG_LOOT_ROLL_WON,
+	SMSG_LOOT_SLOT_CHANGED,
+	SMSG_LOOT_START_ROLL,
+	SMSG_LOTTERY_QUERY_RESULT_OBSOLETE,
+	SMSG_LOTTERY_RESULT_OBSOLETE,
+	SMSG_MAIL_LIST_RESULT,
+	SMSG_MEETINGSTONE_COMPLETE,
+	SMSG_MEETINGSTONE_IN_PROGRESS,
+	SMSG_MEETINGSTONE_MEMBER_ADDED,
+	SMSG_MEETINGSTONE_SETQUEUE,
+	SMSG_MESSAGECHAT,
+	SMSG_MINIGAME_MOVE_FAILED,
+	SMSG_MINIGAME_SETUP,
+	SMSG_MINIGAME_STATE,
+	SMSG_MIRRORIMAGE_DATA,
+	SMSG_MODIFY_COOLDOWN,
+	SMSG_MONSTER_MOVE,
+	SMSG_MONSTER_MOVE_TRANSPORT,
+	SMSG_MOTD,
+	SMSG_MOUNTRESULT,
+	SMSG_MOUNTSPECIAL_ANIM,
+	SMSG_MOVE_ABANDON_TRANSPORT,
+	SMSG_MOVE_FEATHER_FALL,
+	SMSG_MOVE_KNOCK_BACK,
+	SMSG_MOVE_LAND_WALK,
+	SMSG_MOVE_LEVITATING,
+	SMSG_MOVE_NORMAL_FALL,
+	SMSG_MOVE_SET_CAN_FLY,
+	SMSG_MOVE_SET_FLIGHT,
+	SMSG_MOVE_SET_HOVER,
+	SMSG_MOVE_SET_WALK_IN_AIR,
+	SMSG_MOVE_UNSET_CAN_FLY,
+	SMSG_MOVE_UNSET_FLIGHT,
+	SMSG_MOVE_UNSET_HOVER,
+	SMSG_MOVE_UNSET_WALK_IN_AIR,
+	SMSG_MOVE_WATER_WALK,
+	SMSG_MULTIPLE_PACKETS,
+	SMSG_NAME_QUERY_RESPONSE,
+	SMSG_NEW_TAXI_PATH,
+	SMSG_NEW_WORLD,
+	SMSG_NOTIFICATION,
+	SMSG_NOTIFY_DANCE,
+	SMSG_NOTIFY_DEST_LOC_SPELL_CAST,
+	SMSG_NPC_TEXT_UPDATE,
+	SMSG_NPC_WONT_TALK,
+	SMSG_OFFER_PETITION_ERROR,
+	SMSG_ON_CANCEL_EXPECTED_RIDE_VEHICLE_AURA,
+	SMSG_OPEN_CONTAINER,
+	SMSG_OVERRIDE_LIGHT,
+	SMSG_PAGE_TEXT_QUERY_RESPONSE,
+	SMSG_PARTYKILLLOG,
+	SMSG_PARTY_COMMAND_RESULT,
+	SMSG_PARTY_MEMBER_STATS,
+	SMSG_PARTY_MEMBER_STATS_FULL,
+	SMSG_PAUSE_MIRROR_TIMER,
+	SMSG_PERIODICAURALOG,
+	SMSG_PETGODMODE,
+	SMSG_PETITION_QUERY_RESPONSE,
+	SMSG_PETITION_SHOWLIST,
+	SMSG_PETITION_SHOW_SIGNATURES,
+	SMSG_PETITION_SIGN_RESULTS,
+	SMSG_PET_ACTION_FEEDBACK,
+	SMSG_PET_ACTION_SOUND,
+	SMSG_PET_BROKEN,
+	SMSG_PET_CAST_FAILED,
+	SMSG_PET_DISMISS_SOUND,
+	SMSG_PET_GUIDS,
+	SMSG_PET_LEARNED_SPELL,
+	SMSG_PET_MODE,
+	SMSG_PET_NAME_INVALID,
+	SMSG_PET_NAME_QUERY_RESPONSE,
+	SMSG_PET_REMOVED_SPELL,
+	SMSG_PET_RENAMEABLE,
+	SMSG_PET_SPELLS,
+	SMSG_PET_TAME_FAILURE,
+	SMSG_PET_UNLEARN_CONFIRM,
+	SMSG_PET_UPDATE_COMBO_POINTS,
+	SMSG_PLAYED_TIME,
+	SMSG_PLAYERBINDERROR,
+	SMSG_PLAYERBOUND,
+	SMSG_PLAYER_DIFFICULTY_CHANGE,
+	SMSG_PLAYER_MOVE,
+	SMSG_PLAYER_SKINNED,
+	SMSG_PLAYER_VEHICLE_DATA,
+	SMSG_PLAY_DANCE,
+	SMSG_PLAY_MUSIC,
+	SMSG_PLAY_OBJECT_SOUND,
+	SMSG_PLAY_SOUND,
+	SMSG_PLAY_SPELL_IMPACT,
+	SMSG_PLAY_SPELL_VISUAL,
+	SMSG_PLAY_TIME_WARNING,
+	SMSG_PONG,
+	SMSG_POWER_UPDATE,
+	SMSG_PRE_RESURRECT,
+	SMSG_PROCRESIST,
+	SMSG_PROPOSE_LEVEL_GRANT,
+	SMSG_PUREMOUNT_CANCELLED_OBSOLETE,
+	SMSG_PVP_CREDIT,
+	SMSG_QUERY_QUESTS_COMPLETED_RESPONSE,
+	SMSG_QUERY_TIME_RESPONSE,
+	SMSG_QUESTGIVER_OFFER_REWARD,
+	SMSG_QUESTGIVER_QUEST_COMPLETE,
+	SMSG_QUESTGIVER_QUEST_DETAILS,
+	SMSG_QUESTGIVER_QUEST_FAILED,
+	SMSG_QUESTGIVER_QUEST_INVALID,
+	SMSG_QUESTGIVER_QUEST_LIST,
+	SMSG_QUESTGIVER_REQUEST_ITEMS,
+	SMSG_QUESTGIVER_STATUS,
+	SMSG_QUESTGIVER_STATUS_MULTIPLE,
+	SMSG_QUESTLOG_FULL,
+	SMSG_QUESTUPDATE_ADD_ITEM,
+	SMSG_QUESTUPDATE_ADD_KILL,
+	SMSG_QUESTUPDATE_ADD_PVP_KILL,
+	SMSG_QUESTUPDATE_COMPLETE,
+	SMSG_QUESTUPDATE_FAILED,
+	SMSG_QUESTUPDATE_FAILEDTIMER,
+	SMSG_QUEST_CONFIRM_ACCEPT,
+	SMSG_QUEST_FORCE_REMOVED,
+	SMSG_QUEST_POI_QUERY_RESPONSE,
+	SMSG_QUEST_QUERY_RESPONSE,
+	SMSG_RAID_GROUP_ONLY,
+	SMSG_RAID_INSTANCE_INFO,
+	SMSG_RAID_INSTANCE_MESSAGE,
+	SMSG_RAID_READY_CHECK_ERROR,
+	SMSG_READ_ITEM_FAILED,
+	SMSG_READ_ITEM_OK,
+	SMSG_REALM_SPLIT,
+	SMSG_REAL_GROUP_UPDATE,
+	SMSG_RECEIVED_MAIL,
+	SMSG_REDIRECT_CLIENT,
+	SMSG_REFER_A_FRIEND_FAILURE,
+	SMSG_REMOVED_SPELL,
+	SMSG_REPORT_PVP_AFK_RESULT,
+	SMSG_RESET_FAILED_NOTIFY,
+	SMSG_RESISTLOG,
+	SMSG_RESPOND_INSPECT_ACHIEVEMENTS,
+	SMSG_RESURRECT_FAILED,
+	SMSG_RESURRECT_REQUEST,
+	SMSG_RESYNC_RUNES,
+	SMSG_RWHOIS,
+	SMSG_SCRIPT_MESSAGE,
+	SMSG_SELL_ITEM,
+	SMSG_SEND_MAIL_RESULT,
+	SMSG_SEND_QUEUED_PACKETS,
+	SMSG_SEND_UNLEARN_SPELLS,
+	SMSG_SERVERTIME,
+	SMSG_SERVER_BUCK_DATA,
+	SMSG_SERVER_BUCK_DATA_START,
+	SMSG_SERVER_FIRST_ACHIEVEMENT,
+	SMSG_SERVER_INFO_RESPONSE,
+	SMSG_SERVER_MESSAGE,
+	SMSG_SET_EXTRA_AURA_INFO_NEED_UPDATE_OBSOLETE,
+	SMSG_SET_EXTRA_AURA_INFO_OBSOLETE,
+	SMSG_SET_FACTION_ATWAR,
+	SMSG_SET_FACTION_STANDING,
+	SMSG_SET_FACTION_VISIBLE,
+	SMSG_SET_FLAT_SPELL_MODIFIER,
+	SMSG_SET_FORCED_REACTIONS,
+	SMSG_SET_PCT_SPELL_MODIFIER,
+	SMSG_SET_PHASE_SHIFT,
+	SMSG_SET_PLAYER_DECLINED_NAMES_RESULT,
+	SMSG_SET_PROFICIENCY,
+	SMSG_SET_PROJECTILE_POSITION,
+	SMSG_SHOWTAXINODES,
+	SMSG_SHOW_BANK,
+	SMSG_SPELLBREAKLOG,
+	SMSG_SPELLDAMAGESHIELD,
+	SMSG_SPELLDISPELLOG,
+	SMSG_SPELLENERGIZELOG,
+	SMSG_SPELLHEALLOG,
+	SMSG_SPELLINSTAKILLLOG,
+	SMSG_SPELLLOGEXECUTE,
+	SMSG_SPELLLOGMISS,
+	SMSG_SPELLNONMELEEDAMAGELOG,
+	SMSG_SPELLORDAMAGE_IMMUNE,
+	SMSG_SPELLSTEALLOG,
+	SMSG_SPELL_CHANCE_PROC_LOG,
+	SMSG_SPELL_CHANCE_RESIST_PUSHBACK,
+	SMSG_SPELL_COOLDOWN,
+	SMSG_SPELL_DELAYED,
+	SMSG_SPELL_FAILED_OTHER,
+	SMSG_SPELL_FAILURE,
+	SMSG_SPELL_GO,
+	SMSG_SPELL_START,
+	SMSG_SPELL_UPDATE_CHAIN_TARGETS,
+	SMSG_SPIRIT_HEALER_CONFIRM,
+	SMSG_SPLINE_MOVE_FEATHER_FALL,
+	SMSG_SPLINE_MOVE_LAND_WALK,
+	SMSG_SPLINE_MOVE_NORMAL_FALL,
+	SMSG_SPLINE_MOVE_ROOT,
+	SMSG_SPLINE_MOVE_SET_FLYING,
+	SMSG_SPLINE_MOVE_SET_HOVER,
+	SMSG_SPLINE_MOVE_SET_RUN_MODE,
+	SMSG_SPLINE_MOVE_SET_WALK_MODE,
+	SMSG_SPLINE_MOVE_START_SWIM,
+	SMSG_SPLINE_MOVE_STOP_SWIM,
+	SMSG_SPLINE_MOVE_UNKNOWN_1235,
+	SMSG_SPLINE_MOVE_UNKNOWN_1236,
+	SMSG_SPLINE_MOVE_UNROOT,
+	SMSG_SPLINE_MOVE_UNSET_FLYING,
+	SMSG_SPLINE_MOVE_UNSET_HOVER,
+	SMSG_SPLINE_MOVE_WATER_WALK,
+	SMSG_SPLINE_SET_FLIGHT_BACK_SPEED,
+	SMSG_SPLINE_SET_FLIGHT_SPEED,
+	SMSG_SPLINE_SET_PITCH_RATE,
+	SMSG_SPLINE_SET_RUN_BACK_SPEED,
+	SMSG_SPLINE_SET_RUN_SPEED,
+	SMSG_SPLINE_SET_SWIM_BACK_SPEED,
+	SMSG_SPLINE_SET_SWIM_SPEED,
+	SMSG_SPLINE_SET_TURN_RATE,
+	SMSG_SPLINE_SET_WALK_SPEED,
+	SMSG_STABLE_RESULT,
+	SMSG_STANDSTATE_CHANGE_FAILURE_OBSOLETE,
+	SMSG_STANDSTATE_UPDATE,
+	SMSG_START_MIRROR_TIMER,
+	SMSG_STOP_DANCE,
+	SMSG_STOP_MIRROR_TIMER,
+	SMSG_SUMMON_CANCEL,
+	SMSG_SUMMON_REQUEST,
+	SMSG_SUPERCEDED_SPELL,
+	SMSG_TALENTS_INFO,
+	SMSG_TALENTS_INVOLUNTARILY_RESET,
+	SMSG_TAXINODE_STATUS,
+	SMSG_TEXT_EMOTE,
+	SMSG_THREAT_CLEAR,
+	SMSG_THREAT_REMOVE,
+	SMSG_THREAT_UPDATE,
+	SMSG_TIME_SYNC_REQ,
+	SMSG_TITLE_EARNED,
+	SMSG_TOGGLE_XP_GAIN,
+	SMSG_TOTEM_CREATED,
+	SMSG_TRADE_STATUS,
+	SMSG_TRADE_STATUS_EXTENDED,
+	SMSG_TRAINER_BUY_RESULT,
+	SMSG_TRAINER_LIST,
+	SMSG_TRANSFER_ABORTED,
+	SMSG_TRANSFER_PENDING,
+	SMSG_TRIGGER_CINEMATIC,
+	SMSG_TRIGGER_MOVIE,
+	SMSG_TURN_IN_PETITION_RESULTS,
+	SMSG_TUTORIAL_FLAGS,
+	SMSG_UNIT_SPELLCAST_START,
+	SMSG_UNKNOWN_1240,
+	SMSG_UNKNOWN_1276,
+	SMSG_UNKNOWN_1295,
+	SMSG_UNKNOWN_1302,
+	SMSG_UNKNOWN_1304,
+	SMSG_UNKNOWN_1308,
+	SMSG_UNKNOWN_1310,
+	SMSG_UNKNOWN_1311,
+	SMSG_UNKNOWN_1312,
+	SMSG_UNKNOWN_1314,
+	SMSG_UNKNOWN_1315,
+	SMSG_UNKNOWN_1316,
+	SMSG_UNKNOWN_1317,
+	SMSG_UNKNOWN_1329,
+	SMSG_UPDATE_ACCOUNT_DATA,
+	SMSG_UPDATE_ACCOUNT_DATA_COMPLETE,
+	SMSG_UPDATE_COMBO_POINTS,
+	SMSG_UPDATE_CURRENCY,
+	SMSG_UPDATE_CURRENCY_WEEK_LIMIT,
+	SMSG_UPDATE_INSTANCE_ENCOUNTER_UNIT,
+	SMSG_UPDATE_INSTANCE_OWNERSHIP,
+	SMSG_UPDATE_ITEM_ENCHANTMENTS,
+	SMSG_UPDATE_LAST_INSTANCE,
+	SMSG_UPDATE_LFG_LIST,
+	SMSG_UPDATE_OBJECT,
+	SMSG_UPDATE_WORLD_STATE,
+	SMSG_USERLIST_ADD,
+	SMSG_USERLIST_REMOVE,
+	SMSG_USERLIST_UPDATE,
+	SMSG_VOICESESSION_FULL,
+	SMSG_VOICE_CHAT_STATUS,
+	SMSG_VOICE_PARENTAL_CONTROLS,
+	SMSG_VOICE_SESSION_ADJUST_PRIORITY,
+	SMSG_VOICE_SESSION_ENABLE,
+	SMSG_VOICE_SESSION_LEAVE,
+	SMSG_VOICE_SESSION_ROSTER_UPDATE,
+	SMSG_VOICE_SET_TALKER_MUTED,
+	SMSG_WARDEN_DATA,
+	SMSG_WEATHER,
+	SMSG_WHO,
+	SMSG_WHOIS,
+	SMSG_WORLD_STATE_UI_TIMER_UPDATE,
+	SMSG_ZONE_UNDER_ATTACK,
+	SMSG_DB_REPLY,
+	CMSG_REQUEST_HOTFIX,
+	CMSG_AUTOSTORE_LOOT_CURRENCY,
+	OBSOLETE_DROP_ITEM,
+	CMSG_GUILD_RANKS,
+	CMSG_GUILD_QUERY_TRADESKILL,
+	SMSG_MOVE_GRAVITY_DISABLE,
+	CMSG_MOVE_GRAVITY_DISABLE_ACK,
+	SMSG_MOVE_GRAVITY_ENABLE,
+	CMSG_MOVE_GRAVITY_ENABLE_ACK,
+	SMSG_SPLINE_MOVE_GRAVITY_DISABLE,
+	SMSG_SPLINE_MOVE_GRAVITY_ENABLE,
+	CMSG_GUILD_UPDATE_PARTY_STATE,
+	CMSG_GUILD_QUERY_NEWS,
+	CMSG_REFORGE_ITEM,
+	MSG_VERIFY_CONNECTIVITY,
+	SMSG_GUILD_ACHIEVEMENT_EARNED,
+	SMSG_GUILD_ACHIEVEMENT_DATA,
+	SMSG_GUILD_CRITERIA_DATA,
+	SMSG_GUILD_PARTY_STATE_UPDATE,
+	SMSG_GUILD_CRITERIA_DELETED,
+	SMSG_REFORGE_OPEN_FROM_GOSSIP,
+	CMSG_RANDOMIZE_CHAR_NAME,
+	SMSG_RANDOMIZE_CHAR_NAME,
+	NUM_OPCODES
 };
 
 extern void InitOpcodeTable();
 
-///- Player state
+/// Player state
 enum SessionStatus
 {
-    STATUS_AUTHED = 0,                                      // Player authenticated (_player == NULL, m_playerRecentlyLogout = false or will be reset before handler call, m_GUID have garbage)
-    STATUS_LOGGEDIN,                                        // Player in game (_player != NULL, m_GUID == _player->GetGUID(), inWorld())
-    STATUS_TRANSFER,                                        // Player transferring to another map (_player != NULL, m_GUID == _player->GetGUID(), !inWorld())
-    STATUS_LOGGEDIN_OR_RECENTLY_LOGGOUT,                    // _player!= NULL or _player == NULL && m_playerRecentlyLogout, m_GUID store last _player guid)
-    STATUS_NEVER,                                           // Opcode not accepted from client (deprecated or server side only)
-    STATUS_UNHANDLED                                        // Opcode not handled yet
+	STATUS_AUTHED = 0,                                      // Player authenticated (_player == NULL, m_playerRecentlyLogout = false or will be reset before handler call, m_GUID have garbage)
+	STATUS_LOGGEDIN,                                        // Player in game (_player != NULL, m_GUID == _player->GetGUID(), inWorld())
+	STATUS_TRANSFER,                                        // Player transferring to another map (_player != NULL, m_GUID == _player->GetGUID(), !inWorld())
+	STATUS_LOGGEDIN_OR_RECENTLY_LOGGOUT,                    // _player!= NULL or _player == NULL && m_playerRecentlyLogout, m_GUID store last _player guid)
+	STATUS_NEVER,                                           // Opcode not accepted from client (deprecated or server side only)
+	STATUS_UNHANDLED                                        // Opcode not handled yet
 };
 
 enum PacketProcessing
 {
-    PROCESS_INPLACE = 0,                                    //process packet whenever we receive it - mostly for non-handled or non-implemented packets
-    PROCESS_THREADUNSAFE,                                   //packet is not thread-safe - process it in World::UpdateSessions()
-    PROCESS_THREADSAFE                                      //packet is thread-safe - process it in Map::Update()
+	PROCESS_INPLACE = 0,                                    //process packet whenever we receive it - mostly for non-handled or non-implemented packets
+	PROCESS_THREADUNSAFE,                                   //packet is not thread-safe - process it in World::UpdateSessions()
+	PROCESS_THREADSAFE                                      //packet is thread-safe - process it in Map::Update()
 };
 
 class WorldPacket;
 
 struct OpcodeHandler
 {
-    char const* name;
-    SessionStatus status;
-    PacketProcessing packetProcessing;
-    void (WorldSession::*handler)(WorldPacket& recvPacket);
+	char const* name;
+	SessionStatus status;
+	PacketProcessing packetProcessing;
+	Opcodes enumValue;
+	void (WorldSession::*handler)(WorldPacket& recvPacket);
 };
 
-extern OpcodeHandler opcodeTable[NUM_MSG_TYPES];
+#define MAX_MSG_TYPES 0xFFFF
+extern OpcodeHandler opcodeTable[MAX_MSG_TYPES];
+extern uint16 opcodesEnumToNumber[NUM_OPCODES];
+extern char const* opcodesEnumToName[NUM_OPCODES];
 
 /// Lookup opcode name for human understandable logging
 inline const char* LookupOpcodeName(uint32 id)
 {
-    if (id >= NUM_MSG_TYPES)
-        return "Received unknown opcode, it's more than max!";
-    return opcodeTable[id].name;
+	if (id >= MAX_MSG_TYPES)
+		return "Received unknown opcode, it's more than max!";
+	return opcodeTable[id].name;
+}
+
+inline const char* LookupOpcodeName(Opcodes enumVal)
+{
+	if (enumVal >= NUM_OPCODES)
+		enumVal = MSG_OPCODE_UNKNOWN;
+	return opcodesEnumToName[enumVal];
+}
+
+inline Opcodes LookupOpcodeEnum(uint32 id)
+{
+	if (id >= MAX_MSG_TYPES)
+		return MSG_OPCODE_UNKNOWN;
+	return opcodeTable[id].enumValue;
+}
+
+inline uint16 LookupOpcodeNumber(Opcodes enumValue)
+{
+	if (enumValue >= NUM_OPCODES)   // check can be removed for performance
+		return 0;
+	return opcodesEnumToNumber[enumValue];
 }
 #endif
 /// @}
