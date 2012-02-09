@@ -11,5 +11,5 @@ ALTER TABLE creature_template ADD unk char(100) AFTER name4;
 ALTER TABLE creature_template ADD unk2 char(100) AFTER unk;
 ALTER TABLE creature_template ADD unk3 char(100) AFTER unk2;
 ALTER TABLE creature_template ADD unk4 char(100) AFTER unk3;
-ALTER TABLE creature_template ADD unk_flags AFTER int(10) speed_run;
+ALTER TABLE creature_template ADD unk_flags int(10) AFTER speed_run;
 
