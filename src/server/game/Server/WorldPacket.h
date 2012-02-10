@@ -50,9 +50,11 @@ class WorldPacket : public ByteBuffer
         Opcodes GetOpcode() const { return m_opcode; }
         void SetOpcode(Opcodes opcode) { m_opcode = opcode; }
         void Compress(Opcodes opcode);
+		Opcodes GetOpcodeEnum() const { return m_opcodeEnum; }
 
     protected:
         Opcodes m_opcode;
+		Opcodes m_opcodeEnum;
         void Compress(void* dst, uint32 *dst_size, const void* src, int src_size);
 };
 #endif
