@@ -26,7 +26,7 @@ void WorldSession::SendAuthResponse(uint8 code, bool shortForm, uint32 queuePos)
     WorldPacket packet(SMSG_AUTH_RESPONSE, 1 + 4 + 1 + 4 + 1 + (shortForm ? 0 : (4 + 1)));
     packet << uint8(code);
 
-	packet.WriteBit(shortForm); // Queue Info
+	packet.WriteBit(!shortForm); // Queue Info
 	packet.WriteBit(1); // hasAccoutInfo
 
     if (!shortForm)    
