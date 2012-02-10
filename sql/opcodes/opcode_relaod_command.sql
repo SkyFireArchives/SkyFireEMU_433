@@ -1,0 +1,1 @@
+INSERT INTO `command` VALUES ('reload opcodes', '4', 'Syntax: .reload opcodes\r\nReload emuopcodes table.');
