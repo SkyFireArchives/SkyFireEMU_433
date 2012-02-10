@@ -1260,13 +1260,13 @@ public:
         return true;
     }
 
-	static bool HandleReloadOpcodes(ChatHandler* handler, const char* /*args*/)
-	{
-		sLog->outString("Re-Loading Opcodes...");
-		InitOpcodeTable();
-		handler->SendGlobalGMSysMessage("Opcodes reloaded.");
-		return true;
-	}
+    static bool HandleReloadOpcodes(ChatHandler* handler, const char* /*args*/)
+    {
+        sLog->outString("Re-Loading Opcodes...");
+        InitOpcodeTable();
+        handler->SendGlobalGMSysMessage("Opcodes reloaded.");
+        return true;
+    }
 
     static bool HandleReloadVehicleAccessoryCommand(ChatHandler* handler, const char* /*args*/)
     {
