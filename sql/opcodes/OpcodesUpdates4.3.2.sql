@@ -71,5 +71,18 @@ UPDATE emuopcodes SET number = 7861 WHERE name = "SMSG_TRANSFER_PENDING" and ver
 UPDATE emuopcodes SET number = 3445 WHERE name = "SMSG_TRANSFER_ABORTED" and version = @ver;
 UPDATE emuopcodes SET number = 28133 WHERE name = "CMSG_PET_NAME_QUERY" and version = @ver;
 UPDATE emuopcodes SET number = 3531 WHERE name = "SMSG_PET_NAME_QUERY_RESPONSE" and version = @ver;
+UPDATE emuopcodes SET number = 3407 WHERE name = "CMSG_GUILD_QUERY" and version = @ver;
+UPDATE emuopcodes SET number = 19743 WHERE name = "CMSG_PAGE_TEXT_QUERY" and version = @ver;
+UPDATE emuopcodes SET number = 3337 WHERE name = "SMSG_PAGE_TEXT_QUERY_RESPONSE" and version = @ver;
+UPDATE emuopcodes SET number = 17717 WHERE name = "CMSG_QUEST_QUERY" and version = @ver;
+UPDATE emuopcodes SET number = 11553 WHERE name = "SMSG_WHO" and version = @ver;
+UPDATE emuopcodes SET number = 22528 WHERE name = "CMSG_LOADING_SCREEN_NOTIFY" and version = @ver;
+UPDATE emuopcodes SET number = 19887 WHERE name = "SMSG_DESTROY_OBJECT" and version = @ver;
+UPDATE emuopcodes SET number = 3427 WHERE name = "SMSG_UPDATE_OBJECT" and version = @ver;
+UPDATE emuopcodes SET number = 11753 WHERE name = "SMSG_WHOIS" and version = @ver;
+UPDATE emuopcodes SET number = 3563 WHERE name = "SMSG_LOGIN_VERIFY_WORLD" and version = @ver;
+UPDATE emuopcodes SET number = 16458 WHERE name = "CMSG_PING" and version = @ver;
+UPDATE emuopcodes SET number = 2 WHERE name = "MSG_VERIFY_CONNECTIVITY" and version = @ver;
+
 
 
