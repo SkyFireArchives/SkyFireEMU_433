@@ -57,3 +57,19 @@ UPDATE emuopcodes SET number = 9569 WHERE name = "SMSG_MONSTER_MOVE" and version
 UPDATE emuopcodes SET number = 25907 WHERE name = "SMSG_FLIGHT_SPLINE_SYNC" and version = @ver;
 UPDATE emuopcodes SET number = 1519 WHERE name = "SMSG_SPELLENERGIZELOG" and version = @ver;
 UPDATE emuopcodes SET number = 9487 WHERE name = "SMSG_SPELLNONMELEEDAMAGELOG" and version = @ver;
+UPDATE emuopcodes SET number = 2113 WHERE name = "CMSG_WORLD_TELEPORT" and version = @ver;
+UPDATE emuopcodes SET number = 19915 WHERE name = "SMSG_PETGODMODE" and version = @ver;
+UPDATE emuopcodes SET number = 25985 WHERE name = "SMSG_GODMODE" and version = @ver;
+UPDATE emuopcodes SET number = 17919 WHERE name = "CMSG_CHAR_CREATE" and version = @ver;
+UPDATE emuopcodes SET number = 1525 WHERE name = "CMSG_CHAR_DELETE" and version = @ver;
+UPDATE emuopcodes SET number = 19919 WHERE name = "SMSG_CHAR_CREATE" and version = @ver;
+UPDATE emuopcodes SET number = 1421 WHERE name = "SMSG_CHAR_DELETE" and version = @ver;
+UPDATE emuopcodes SET number = 22528 WHERE name = "CMSG_LOAD_SCREEN_NOTIFY" and version = @ver;
+UPDATE emuopcodes SET number = 3105 WHERE name = "SMSG_NEW_WORLD" and version = @ver;
+UPDATE emuopcodes SET number = 5269 WHERE name = "SMSG_ABORT_NEW_WORLD" and version = @ver;
+UPDATE emuopcodes SET number = 7861 WHERE name = "SMSG_TRANSFER_PENDING" and version = @ver;
+UPDATE emuopcodes SET number = 3445 WHERE name = "SMSG_TRANSFER_ABORTED" and version = @ver;
+UPDATE emuopcodes SET number = 28133 WHERE name = "CMSG_PET_NAME_QUERY" and version = @ver;
+UPDATE emuopcodes SET number = 3531 WHERE name = "SMSG_PET_NAME_QUERY_RESPONSE" and version = @ver;
+
+
