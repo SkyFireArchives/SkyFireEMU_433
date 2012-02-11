@@ -26,11 +26,11 @@ void WorldSession::SendAuthResponse(uint8 code, bool shortForm, uint32 queuePos)
     WorldPacket packet(SMSG_AUTH_RESPONSE, 1 + 4 + 1 + 4 + 1 + (shortForm ? 0 : (4 + 1)));
     packet << uint8(code);
 
-	packet << uint8(1 << 7);
+    packet << uint8(1 << 7);
 
     if (!shortForm)    
     {
-		packet << uint8(0);                                // Unk 3.3.0
+        packet << uint8(0);                                // Unk 3.3.0
         packet << uint32(queuePos);                        // Queue position
     }
 
