@@ -128,6 +128,7 @@ class WorldSocket : protected WorldHandler
         virtual ~WorldSocket (void);
 
         /// Called on open , the void* is the acceptor.
+        int SendAuthConnection();
         int HandleAuthConnection(WorldPacket& recvPacket);
         virtual int open (void *);
 

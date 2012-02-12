@@ -21,6 +21,19 @@
 #include "WorldSession.h"
 #include "WorldPacket.h"
 
+int WorldSocket::SendAuthConnection()
+{
+	std::string ServerToClient = "RLD OF WARCRAFT CONNECTION - SERVER TO CLIENT";
+	WorldPacket data(MSG_VERIFY_CONNECTIVITY, 46);
+
+	data << ServerToClient;
+
+	if (SendPacket(data) == -1)
+		return -1;
+
+	return 0;
+}
+
 void WorldSession::SendAuthResponse(uint8 code, bool shortForm, uint32 queuePos)
 {
     WorldPacket packet(SMSG_AUTH_RESPONSE, 1 + 4 + 1 + 4 + 1 + (shortForm ? 0 : (4 + 1)));
