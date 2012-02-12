@@ -146,16 +146,10 @@ char const* WorldSession::GetPlayerName() const
 /// Send a packet to the client
 void WorldSession::SendPacket(WorldPacket const* packet)
 {
-    if (!m_Socket)
-        return;
-
-    if (packet->GetOpcode() == MSG_OPCODE_UNKNOWN)
-    {
-        sLog->outError("Sending unknown opcode - prevented. Trace:");
-        ACE_Stack_Trace trace;
-        sLog->outError("%s", trace.c_str());
-        return;
-    }
+	if (!m_Socket)
+		return;
+	if (sWorld->debugOpcode != 0 && packet->GetOpcode() != sWorld->debugOpcode)
+		return;
 
 #ifdef TRINITY_DEBUG
     // Code for network use statistic
@@ -248,7 +242,7 @@ bool WorldSession::Update(uint32 diff, PacketFilter& updater)
         OpcodeHandler const &opHandle = opcodeTable[packet->GetOpcode()];
 
         // Opcode display while only while debugging.
-        sLog->outDebug(LOG_FILTER_OPCODES, "SESSION: Received opcode 0x%.4X (%s)", packet->GetOpcode(), packet->GetOpcode()>OPCODE_NOT_FOUND?"nf":LookupOpcodeName(packet->GetOpcode()));
+        sLog->outString("SESSION: Received opcode 0x%.4X (%s)", packet->GetOpcode(), packet->GetOpcode()>OPCODE_NOT_FOUND?"nf":LookupOpcodeName(packet->GetOpcode()));
 
 		if(packet->GetOpcodeEnum() == MSG_OPCODE_UNKNOWN)
 		{

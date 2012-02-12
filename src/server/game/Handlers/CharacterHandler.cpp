@@ -970,11 +970,21 @@ void WorldSession::HandlePlayerLogin(LoginQueryHolder* holder)
     LoadAccountData(holder->GetPreparedResult(PLAYER_LOGIN_QUERY_LOADACCOUNTDATA), PER_CHARACTER_CACHE_MASK);
     SendAccountDataTimes(PER_CHARACTER_CACHE_MASK);
 
-    data.Initialize(SMSG_FEATURE_SYSTEM_STATUS, 10);        // added in 2.2.0
-    data << uint32(0);   // Unknown
-    data << uint8(2);    // Unknown
-    data << uint32(0);   // Mail related?
-    data << uint8(160);  // Unknown, always 0xA0?
+    // 4.3 <packet date = "344698529" direction"StoC" opcode = "20010">29000000 02 1C 02 0000 A0</packet>
+    data.Initialize(SMSG_FEATURE_SYSTEM_STATUS, 7);         // added in 4.2.2
+    /*data << uint8(2);                                       // unknown value
+    data << uint8(2);                                       // unknown value
+    data << uint8(0);                                       // enable(1)/disable(0) voice chat interface in client
+    data << uint32(0);                                      // mail related*/
+
+    // 4.3 struct
+    data << uint32(0x29);
+    data << uint8(0x02);
+    data << uint8(0x1C);
+    data << uint8(0x02);
+    data << uint16(0x00);
+    data << uint8(0xA0);
+
     SendPacket(&data);
 
     // Send MOTD
