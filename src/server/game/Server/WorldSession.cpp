@@ -146,10 +146,10 @@ char const* WorldSession::GetPlayerName() const
 /// Send a packet to the client
 void WorldSession::SendPacket(WorldPacket const* packet)
 {
-	if (!m_Socket)
-		return;
-	if (sWorld->debugOpcode != 0 && packet->GetOpcode() != sWorld->debugOpcode)
-		return;
+    if (!m_Socket)
+        return;
+    if (sWorld->debugOpcode != 0 && packet->GetOpcode() != sWorld->debugOpcode)
+        return;
 
 #ifdef TRINITY_DEBUG
     // Code for network use statistic
@@ -244,12 +244,12 @@ bool WorldSession::Update(uint32 diff, PacketFilter& updater)
         // Opcode display while only while debugging.
         sLog->outString("SESSION: Received opcode 0x%.4X (%s)", packet->GetOpcode(), packet->GetOpcode()>OPCODE_NOT_FOUND?"nf":LookupOpcodeName(packet->GetOpcode()));
 
-		if(packet->GetOpcodeEnum() == MSG_OPCODE_UNKNOWN)
-		{
-			time_t t = time(NULL);
-			tm* aTm = localtime(&t);
-			sLog->outError("SESSION: Received unknown opcode %02d:%02d 0x%.4X (%d)", aTm->tm_min, aTm->tm_sec, packet->GetOpcode(), packet->GetOpcode());
-		}
+        if(packet->GetOpcodeEnum() == MSG_OPCODE_UNKNOWN)
+        {
+            time_t t = time(NULL);
+            tm* aTm = localtime(&t);
+            sLog->outError("SESSION: Received unknown opcode %02d:%02d 0x%.4X (%d)", aTm->tm_min, aTm->tm_sec, packet->GetOpcode(), packet->GetOpcode());
+        }
 
         // !=NULL checked in WorldSocket
         try
