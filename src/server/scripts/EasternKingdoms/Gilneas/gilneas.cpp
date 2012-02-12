@@ -33,7 +33,7 @@ public:
 
     CreatureAI* GetAI(Creature* creature) const
     {
-        return new npc_panicked_citizenAI (creature);
+        return new npc_panicked_citizenAI(creature);
     }
 
     struct npc_panicked_citizenAI : public ScriptedAI
@@ -79,9 +79,7 @@ public:
                 if (!guid_panicked_nextsay)
                 {
                     if (urand(0, 1))
-                    {
                         guid_panicked_nextsay = me->GetGUIDLow();
-                    }
                 }
 
                 //If this is the selected npc to say
@@ -128,7 +126,7 @@ public:
 
     CreatureAI* GetAI(Creature* creature) const
     {
-        return new npc_panicked_citizen_2AI (creature);
+        return new npc_panicked_citizen_2AI(creature);
     }
 
     struct npc_panicked_citizen_2AI : public ScriptedAI
@@ -232,7 +230,7 @@ public:
 
     CreatureAI* GetAI(Creature* creature) const
     {
-        return new npc_lieutenant_waldenAI (creature);
+        return new npc_lieutenant_waldenAI(creature);
     }
 
     struct npc_lieutenant_waldenAI : public ScriptedAI
@@ -247,237 +245,6 @@ public:
     };
 };
 
-/*######
-## npc_gilneas_city_guard_phase2
-######*/
-
-class npc_gilneas_city_guard_phase2 : public CreatureScript
-{
-public:
-    npc_gilneas_city_guard_phase2() : CreatureScript("npc_gilneas_city_guard_phase2") {}
-
-    CreatureAI* GetAI(Creature* creature) const
-    {
-        return new npc_gilneas_city_guard_phase2AI (creature);
-    }
-
-    struct npc_gilneas_city_guard_phase2AI : public ScriptedAI
-    {
-        npc_gilneas_city_guard_phase2AI(Creature* creature) : ScriptedAI(creature) {}
-
-        uint32 tAnimate, tSound, dmgCount, tSeek;
-        bool playSound;
-
-        void Reset()
-        {
-            tAnimate   = DELAY_ANIMATE;
-            dmgCount   = 0;
-            tSound     = DELAY_SOUND;
-            playSound  = false;
-            tSeek      = urand(1000, 2000);
-        }
-
-        void DamageTaken(Unit* who, uint32 &Damage)
-        {
-            if (who->GetTypeId() == TYPEID_PLAYER)
-            {
-                me->getThreatManager().resetAllAggro();
-                who->AddThreat(me, 1.0f);
-                me->AddThreat(who, 1.0f);
-                me->AI()->AttackStart(who);
-                dmgCount = 0;
-            }
-            else if (who->isPet())
-            {
-                me->getThreatManager().resetAllAggro();
-                me->AddThreat(who, 1.0f);
-                me->AI()->AttackStart(who);
-                dmgCount = 0;
-            }
-        }
-
-        void DamageDealt(Unit* target, uint32& damage, DamageEffectType damageType)
-        {
-            if (target->GetEntry() == NPC_RAMPAGING_WORGEN_1)
-                dmgCount ++;
-        }
-
-        void UpdateAI(const uint32 diff)
-        {
-            if (tSeek <= diff)
-            {
-                if ((me->isAlive()) && (!me->isInCombat() && (me->GetDistance2d(me->GetHomePosition().GetPositionX(), me->GetHomePosition().GetPositionY()) <= 1.0f)))
-                    if (Creature* enemy = me->FindNearestCreature(NPC_RAMPAGING_WORGEN_1, 16.0f, true))
-                        me->AI()->AttackStart(enemy);
-                tSeek = urand(1000, 2000); //optimize cpu load, seeking only sometime between 1 and 2 seconds
-            }
-            else tSeek -= diff;
-
-            if (!UpdateVictim())
-                return;
-
-            if (tSound <= diff)
-            {
-                me->PlayDistanceSound(SOUND_SWORD_FLESH);
-                tSound = DELAY_SOUND;
-                playSound = false;
-            }
-
-            if (playSound == true) tSound -= diff;
-
-            if (dmgCount < 2)
-                DoMeleeAttackIfReady();
-            else if (me->getVictim()->GetTypeId() == TYPEID_PLAYER) dmgCount = 0;
-            else if (me->getVictim()->isPet()) dmgCount = 0;
-            else
-            {
-                if (tAnimate <= diff)
-                {
-                    me->HandleEmoteCommand(EMOTE_ONESHOT_ATTACK1H);
-                    playSound = true;
-                    tAnimate = DELAY_ANIMATE;
-                }
-                else
-                    tAnimate -= diff;
-            }
-        }
-    };
-};
-
-/*######
-## npc_prince_liam_greymane_phase2
-######*/
-
-class npc_prince_liam_greymane_phase2 : public CreatureScript
-{
-public:
-    npc_prince_liam_greymane_phase2() : CreatureScript("npc_prince_liam_greymane_phase2") {}
-
-    CreatureAI* GetAI(Creature* creature) const
-    {
-        return new npc_prince_liam_greymane_phase2AI (creature);
-    }
-
-    struct npc_prince_liam_greymane_phase2AI : public ScriptedAI
-    {
-        npc_prince_liam_greymane_phase2AI(Creature* creature) : ScriptedAI(creature) {}
-
-        uint32 tAnimate, tSound, dmgCount, tYell, tSeek;
-        bool playSound, doYell;
-
-        void Reset()
-        {
-            tAnimate  = DELAY_ANIMATE;
-            dmgCount  = 0;
-            tSound    = DELAY_SOUND;
-            playSound = false;
-            tSeek     = urand(1000, 2000);
-            doYell    = true;
-            tYell     = DELAY_YELL_PRINCE_LIAM_GREYMANE;
-        }
-
-        void sGossipHello(Player* player)
-        {
-            if ((player->GetQuestStatus(14094) == QUEST_STATUS_REWARDED) && (player->GetPhaseMask() == 2))
-                player->SetAuraStack(SPELL_PHASE_4, player, 1); //phaseshift
-        }
-
-        void DamageTaken(Unit * who, uint32 &Damage)
-        {
-            if (who->GetTypeId() == TYPEID_PLAYER)
-            {
-                me->getThreatManager().resetAllAggro();
-                who->AddThreat(me, 1.0f);
-                me->AddThreat(who, 1.0f);
-                me->AI()->AttackStart(who);
-                dmgCount = 0;
-            }
-            else if (who->isPet())
-            {
-                me->getThreatManager().resetAllAggro();
-                me->AddThreat(who, 1.0f);
-                me->AI()->AttackStart(who);
-                dmgCount = 0;
-            }
-        }
-
-        void DamageDealt(Unit* target, uint32& damage, DamageEffectType damageType)
-        {
-            if (target->GetEntry() == NPC_RAMPAGING_WORGEN_1)
-                dmgCount ++;
-        }
-
-        void UpdateAI(const uint32 diff)
-        {
-            //If creature has no target
-            if (!UpdateVictim())
-            {
-                if (tSeek <= diff)
-                {
-                    //Find worgen nearby
-                    if (me->isAlive() && !me->isInCombat() && (me->GetDistance2d(me->GetHomePosition().GetPositionX(), me->GetHomePosition().GetPositionY()) <= 1.0f))
-                        if (Creature* enemy = me->FindNearestCreature(NPC_RAMPAGING_WORGEN_1, 16.0f, true))
-                            me->AI()->AttackStart(enemy);
-                    tSeek = urand(1000, 2000);//optimize cpu load
-                }
-                else tSeek -= diff;
-
-                //Yell only once after Reset()
-                if (doYell)
-                {
-                    //Yell Timer
-                    if (tYell <= diff)
-                    {
-                        //Random yell
-                        DoScriptText(RAND(
-                            YELL_PRINCE_LIAM_GREYMANE_1,
-                            YELL_PRINCE_LIAM_GREYMANE_2,
-                            YELL_PRINCE_LIAM_GREYMANE_3,
-                            YELL_PRINCE_LIAM_GREYMANE_4,
-                            YELL_PRINCE_LIAM_GREYMANE_5),
-                        me);
-
-                        doYell = false;
-                    }
-                    else
-                        tYell -= diff;
-                }
-            }
-            else
-            {
-                //Play sword attack sound
-                if (tSound <= diff)
-                {
-                    me->PlayDistanceSound(SOUND_SWORD_FLESH);
-                    tSound = DELAY_SOUND;
-                    playSound = false;
-                }
-
-                if (playSound == true) tSound -= diff;
-
-                //Attack
-                if (dmgCount < 2)
-                    DoMeleeAttackIfReady();
-                else if (me->getVictim()->GetTypeId() == TYPEID_PLAYER) dmgCount = 0;
-                else if (me->getVictim()->isPet()) dmgCount = 0;
-                else
-                {
-                    if (tAnimate <= diff)
-                    {
-                        me->HandleEmoteCommand(EMOTE_ONESHOT_ATTACK1H);
-                        playSound = true;
-                        tAnimate = DELAY_ANIMATE;
-                    }
-                    else
-                        tAnimate -= diff;
-                }
-
-                //Stop yell timer on combat
-                doYell = false;
-            }
-        }
-    };
-};
 
 /*######
 ## npc_rampaging_worgen
@@ -555,7 +322,8 @@ public:
             else tEnrage -= diff;
 
             //play attack sound
-            if (playSound == true) tSound -= diff;
+            if (playSound == true)
+                tSound -= diff;
 
             if (tSound <= diff)
             {
@@ -566,8 +334,10 @@ public:
 
             if (dmgCount < 2)
                 DoMeleeAttackIfReady();
-            else if (me->getVictim()->GetTypeId() == TYPEID_PLAYER) dmgCount = 0;
-            else if (me->getVictim()->isPet()) dmgCount = 0;
+            else
+                if (me->getVictim()->GetTypeId() == TYPEID_PLAYER) dmgCount = 0;
+            else
+                if (me->getVictim()->isPet()) dmgCount = 0;
             else
             {
                 if (tAnimate <= diff)
@@ -619,7 +389,8 @@ public:
                 me->GetMotionMaster()->MoveCharge(x, y, z, 8);
                 onceRun = false;
             }
-            else tRun -= diff;
+            else
+                tRun -= diff;
 
             if (!UpdateVictim())
                 return;
@@ -633,7 +404,8 @@ public:
                     tEnrage = CD_ENRAGE;
                 }
             }
-            else tEnrage -= diff;
+            else
+                tEnrage -= diff;
 
             DoMeleeAttackIfReady();
         }
@@ -718,7 +490,7 @@ public:
         }
         if (DoorTimer <= diff)
             {
-                if(go->GetGoState() == GO_STATE_ACTIVE)
+                if (go->GetGoState() == GO_STATE_ACTIVE)
                     go->SetGoState(GO_STATE_READY);
 
                 DoorTimer = DOOR_TIMER;
@@ -804,9 +576,7 @@ public:
         void MultiDistanceMeter(Point *p, uint8 pointsCount, float *dist)
         {
             for (uint8 i = 0; i <= (pointsCount-1); i++)
-            {
                 dist[i] = me->GetDistance2d(p[i].x, p[i].y);
-            }
         }
 
         WayPointID GetNearestPoint(Paths paths)
@@ -834,17 +604,17 @@ public:
             for (uint8 i = 0; i < PATHS_COUNT; i++)
             {
                 if (i == 0)
-                    {
-                        lowestDist = lowestDists[i];
-                        nearestPointID.pointID = nearestPointsID[i];
-                        nearestPointID.pathID = i;
-                    }
-                    else if (lowestDist > lowestDists[i])
-                    {
-                        lowestDist = lowestDists[i];
-                        nearestPointID.pointID = nearestPointsID[i];
-                        nearestPointID.pathID = i;
-                    }
+                {
+                    lowestDist = lowestDists[i];
+                    nearestPointID.pointID = nearestPointsID[i];
+                    nearestPointID.pathID = i;
+                }
+                else if (lowestDist > lowestDists[i])
+                {
+                    lowestDist = lowestDists[i];
+                    nearestPointID.pointID = nearestPointsID[i];
+                    nearestPointID.pathID = i;
+                }
             }
             return nearestPointID;
         }
@@ -868,7 +638,8 @@ public:
                 me->GetMotionMaster()->MoveCharge(x, y, z, 8);
                 onceRun = false;
             }
-            else tRun -= diff;
+            else
+                tRun -= diff;
 
             if (tSay <= diff && onceSay)
             {
@@ -1022,7 +793,8 @@ public:
                         in_progress = false;
                     }
                 }
-                else phaseTime -= diff;
+                else
+                    phaseTime -= diff;
             }
 
             DoMeleeAttackIfReady();
@@ -1182,8 +954,6 @@ class spell_keg_placed : public SpellScriptLoader
 
 void AddSC_gilneas()
 {
-    new npc_gilneas_city_guard_phase2();
-    new npc_prince_liam_greymane_phase2();
     new npc_rampaging_worgen();
     new npc_rampaging_worgen2();
     new go_merchant_square_door();

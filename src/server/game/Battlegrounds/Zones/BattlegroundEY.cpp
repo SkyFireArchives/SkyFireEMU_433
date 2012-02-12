@@ -31,8 +31,8 @@
 
 // these variables aren't used outside of this file, so declare them only here
 uint32 BG_EY_HonorScoreTicks[BG_HONOR_MODE_NUM] = {
-    330, // normal honor
-    200  // holiday
+    260, // normal honor
+    160  // holiday
 };
 
 BattlegroundEY::BattlegroundEY()
@@ -197,7 +197,6 @@ void BattlegroundEY::CheckSomeoneLeftPoint()
                     //move not existed player to "free space" - this will cause many error showing in log, but it is a very important bug
                     m_PlayersNearPoint[EY_POINTS_MAX].push_back(m_PlayersNearPoint[i][j]);
                     m_PlayersNearPoint[i].erase(m_PlayersNearPoint[i].begin() + j);
-                    ++j;
                     continue;
                 }
                 if (!player->CanCaptureTowerPoint() || !player->IsWithinDistInMap(obj, BG_EY_POINT_RADIUS))

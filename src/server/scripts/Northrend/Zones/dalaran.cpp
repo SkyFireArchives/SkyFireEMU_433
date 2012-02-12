@@ -35,7 +35,7 @@ enum Spells
 {
     SPELL_TRESPASSER_A      = 54028,
     SPELL_TRESPASSER_H      = 54029,
-    SPELL_DETECTION         = 18950,
+    SPELL_DETECTION         = 70465,
 
     SPELL_SUNREAVER_DISGUISE_FEMALE        = 70973,
     SPELL_SUNREAVER_DISGUISE_MALE          = 70974,
@@ -77,7 +77,7 @@ public:
             if (!who || !who->IsInWorld() || who->GetZoneId() != 4395)
                 return;
 
-            if (!me->IsWithinDist(who, 100.0f, false))
+            if (!me->IsWithinDist(who, 65.0f, false))
                 return;
 
             Player* player = who->GetCharmerOrOwnerPlayerOrPlayerItself();
@@ -91,7 +91,7 @@ public:
             switch (me->GetEntry())
             {
                 case 29254:
-                    if (player->GetTeam() == HORDE)              // Horde unit found in Alliance area
+                if (player->GetTeam() == HORDE)              // Horde unit found in Alliance area
                 {
                     if (GetClosestCreatureWithEntry(me, NPC_APPLEBOUGH_A, 32.0f))
                     {
@@ -103,7 +103,7 @@ public:
                 }
                 break;
                 case 29255:
-                    if (player->GetTeam() == ALLIANCE)           // Alliance unit found in Horde area
+                if (player->GetTeam() == ALLIANCE)           // Alliance unit found in Horde area
                 {
                     if (GetClosestCreatureWithEntry(me, NPC_SWEETBERRY_H, 32.0f))
                     {

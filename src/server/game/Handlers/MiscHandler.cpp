@@ -53,6 +53,7 @@
 #include "GameObjectAI.h"
 #include "Group.h"
 #include "AccountMgr.h"
+#include "Guild.h"
 
 void WorldSession::HandleRepopRequestOpcode(WorldPacket & recv_data)
 {
@@ -124,7 +125,7 @@ void WorldSession::HandleGossipSelectOptionOpcode(WorldPacket & recv_data)
     }
 
     // remove fake death
-    if (GetPlayer()->HasUnitState(UNIT_STAT_DIED))
+    if (GetPlayer()->HasUnitState(UNIT_STATE_DIED))
         GetPlayer()->RemoveAurasByType(SPELL_AURA_FEIGN_DEATH);
 
     if ((unit && unit->GetCreatureInfo()->ScriptID != unit->LastUsedScriptID) || (go && go->GetGOInfo()->ScriptId != go->LastUsedScriptID))
@@ -546,6 +547,7 @@ void WorldSession::HandleAddFriendOpcode(WorldPacket & recv_data)
     stmt->setString(0, friendName);
 
     _addFriendCallback.SetParam(friendNote);
+    _addFriendCallback.SetFutureResult(CharacterDatabase.AsyncQuery(stmt));
 }
 
 void WorldSession::HandleAddFriendOpcodeCallBack(PreparedQueryResult result, std::string friendNote)
@@ -1224,16 +1226,16 @@ void WorldSession::HandleInspectOpcode(WorldPacket& recv_data)
     }
 
     player->BuildEnchantmentsInfoData(&data);
-    /*if (uint32 guildId = player->GetGuildId())
+    if (uint32 guildId = player->GetGuildId())
     {
-        if (Guild* guild = sObjectMgr->GetGuildById(guildId))
+        if (Guild* guild = sGuildMgr->GetGuildById(guildId))
         {
-            data << uint64(guild->GetId()); // not sure
-            data << uint32(guild->GetLevel()); // guild level
-            data << uint64(player->GetGUID()); // not sure
+            data << uint64(guild->GetId());           // guild id
+            data << uint32(guild->GetLevel());        // guild level
+            data << uint64(player->GetGUID());        // not sure
             data << uint32(guild->GetMembersCount()); // number of members
         }
-    }*/
+    }
     SendPacket(&data);
 }
 

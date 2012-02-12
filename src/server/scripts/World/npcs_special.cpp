@@ -1737,6 +1737,12 @@ public:
             if (!UpdateVictim())
                 return;
 
+            if (me->getVictim()->HasBreakableByDamageCrowdControlAura(me))
+            {
+                me->InterruptNonMeleeSpells(false);
+                return;
+            }
+
             if (SpellTimer <= diff)
             {
                 if (IsViper) //Viper
@@ -1909,7 +1915,7 @@ public:
             Unit* owner = me->GetCharmerOrOwner();
 
             me->CombatStop(true);
-            if (owner && !me->HasUnitState(UNIT_STAT_FOLLOW))
+            if (owner && !me->HasUnitState(UNIT_STATE_FOLLOW))
             {
                 me->GetMotionMaster()->Clear(false);
                 me->GetMotionMaster()->MoveFollow(owner, PET_FOLLOW_DIST, me->GetFollowAngle(), MOTION_SLOT_ACTIVE);
@@ -2068,7 +2074,7 @@ public:
 
         void Reset()
         {
-            me->SetControlled(true, UNIT_STAT_STUNNED);//disable rotate
+            me->SetControlled(true, UNIT_STATE_STUNNED);//disable rotate
             me->ApplySpellImmune(0, IMMUNITY_EFFECT, SPELL_EFFECT_KNOCK_BACK, true);//imune to knock aways like blast wave
 
             ResetTimer = 5000;
@@ -2100,8 +2106,8 @@ public:
             if (!UpdateVictim())
                 return;
 
-            if (!me->HasUnitState(UNIT_STAT_STUNNED))
-                me->SetControlled(true, UNIT_STAT_STUNNED);//disable rotate
+            if (!me->HasUnitState(UNIT_STATE_STUNNED))
+                me->SetControlled(true, UNIT_STATE_STUNNED);//disable rotate
 
             if (Entry != NPC_ADVANCED_TARGET_DUMMY && Entry != NPC_TARGET_DUMMY)
             {

@@ -1001,7 +1001,7 @@ public:
         sWaypointMgr->Load();
 
         if (*args != 'a')
-            sLog->outString("DB Table 'waypoint_data' reloaded.");
+            handler->SendGlobalGMSysMessage("DB Table 'waypoint_data' reloaded.");
 
         return true;
     }

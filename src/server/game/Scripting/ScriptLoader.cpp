@@ -44,6 +44,7 @@ void AddSC_mastery_spells();
 void AddSC_quest_spell_scripts();
 void AddSC_item_spell_scripts();
 void AddSC_example_spell_scripts();
+void AddSC_holiday_spell_scripts();
 
 void AddSC_SmartSCripts();
 
@@ -90,7 +91,6 @@ void AddSC_boss_galvangar();
 void AddSC_boss_vanndar();
 void AddSC_instance_baradin_hold();          //Baradin Hold
 void AddSC_boss_argaloth();
-void AddSC_boss_occuthar();
 void AddSC_instance_bastion_of_twilight();   //BastionOfTwilight
 void AddSC_boss_theralion_and_valiona();
 void AddSC_boss_sinestra();
@@ -732,6 +732,7 @@ void AddSpellScripts()
     AddSC_mastery_spells();
     AddSC_quest_spell_scripts();
     AddSC_item_spell_scripts();
+    AddSC_holiday_spell_scripts();    
 }
 
 void AddCommandScripts()
@@ -785,7 +786,6 @@ void AddEasternKingdomsScripts()
     AddSC_boss_vanndar();
     AddSC_instance_baradin_hold();          //Baradin Hold
     AddSC_boss_argaloth();
-    AddSC_boss_occuthar();
     AddSC_instance_bastion_of_twilight();   //BastionOfTwilight
     AddSC_boss_theralion_and_valiona();
     AddSC_boss_sinestra();

@@ -3057,6 +3057,10 @@ void SpellMgr::LoadSpellCustomAttr()
             case 20335: // Heart of the Crusader
             case 20336:
             case 20337:
+            case 26573: // Consecration
+                spellInfo->Effects[1].TriggerSpell = 82366;
+                spellInfo->Effects[2].TriggerSpell = 36946;
+                break;
             case 63320: // Glyph of Life Tap
             // Entries were not updated after spell effect change, we have to do that manually :/
                 spellInfo->AttributesEx3 |= SPELL_ATTR3_CAN_PROC_WITH_TRIGGERED;
@@ -3608,6 +3612,7 @@ void SpellMgr::LoadSpellCustomAttr()
             case 64588: // Thrust (Argent Tournament)
             case 66479: // Thrust (Argent Tournament)
             case 68505: // Thrust (Argent Tournament)
+            case 62709: // Counterattack! (Argent Tournament)
             case 62626: // Break-Shield (Argent Tournament, Player)
             case 64590: // Break-Shield (Argent Tournament, Player)
             case 64342: // Break-Shield (Argent Tournament, NPC)
