@@ -4495,7 +4495,7 @@ bool Player::resetTalents(bool no_cost)
                 continue;
         const SpellInfo* _spellEntry = sSpellMgr->GetSpellInfo(talentInfo->RankID[rank]);
             if (!_spellEntry)
-                continue;                
+                continue;
             removeSpell(talentInfo->RankID[rank], true);
         // search for spells that the talent teaches and unlearn them
             for (uint8 i = 0; i < MAX_SPELL_EFFECTS; ++i)
@@ -4590,6 +4590,8 @@ void Player::InitVisibleBits()
     updateVisualBits.SetBit(OBJECT_FIELD_GUID);
     updateVisualBits.SetBit(OBJECT_FIELD_TYPE);
     updateVisualBits.SetBit(OBJECT_FIELD_ENTRY);
+    updateVisualBits.SetBit(OBJECT_FIELD_DATA + 0);
+    updateVisualBits.SetBit(OBJECT_FIELD_DATA + 1);
     updateVisualBits.SetBit(OBJECT_FIELD_SCALE_X);
     updateVisualBits.SetBit(UNIT_FIELD_CHARM + 0);
     updateVisualBits.SetBit(UNIT_FIELD_CHARM + 1);
@@ -6060,7 +6062,7 @@ void Player::UpdateRating(CombatRating cr)
             }
             break;
         case CR_MASTERY:                                    // Implemented in Player::UpdateMastery
-            UpdateMastery();
+            UpdateMasteryPercentage();
             break;
         case CR_ARMOR_PENETRATION:
             if (affectStats)
@@ -19904,24 +19906,24 @@ void Player::_SaveStats(SQLTransaction& trans)
     ss << "INSERT INTO character_stats (guid, maxhealth, maxpower1, maxpower2, maxpower3, maxpower4, maxpower5, maxpower6, maxpower7, maxpower8, maxpower9, maxpower10, "
     "strength, agility, stamina, intellect, spirit, armor, resHoly, resFire, resNature, resFrost, resShadow, resArcane, "
     "blockPct, dodgePct, parryPct, critPct, rangedCritPct, spellCritPct, attackPower, rangedAttackPower, spellPower, resilience) VALUES ("
-    << GetGUIDLow() << ', '
-    << GetMaxHealth() << ', ';
+    << GetGUIDLow() << ','
+    << GetMaxHealth() << ',';
     for (uint8 i = 0; i < MAX_POWERS; ++i)
-        ss << GetMaxPower(Powers(i)) << ', ';
+        ss << GetMaxPower(Powers(i)) << ',';
     for (uint8 i = 0; i < MAX_STATS; ++i)
-        ss << GetStat(Stats(i)) << ', ';
+        ss << GetStat(Stats(i)) << ',';
     // armor + school resistances
     for (int i = 0; i < MAX_SPELL_SCHOOL; ++i)
-        ss << GetResistance(SpellSchools(i)) << ', ';
-    ss << GetFloatValue(PLAYER_BLOCK_PERCENTAGE) << ', '
-            << GetFloatValue(PLAYER_DODGE_PERCENTAGE) << ', '
-            << GetFloatValue(PLAYER_PARRY_PERCENTAGE) << ', '
-            << GetFloatValue(PLAYER_CRIT_PERCENTAGE) << ', '
-            << GetFloatValue(PLAYER_RANGED_CRIT_PERCENTAGE) << ', '
-            << GetFloatValue(PLAYER_SPELL_CRIT_PERCENTAGE1) << ', '
-            << GetUInt32Value(UNIT_FIELD_ATTACK_POWER) << ', '
-            << GetUInt32Value(UNIT_FIELD_RANGED_ATTACK_POWER) << ', '
-            << GetBaseSpellPowerBonus() << ')';
+        ss << GetResistance(SpellSchools(i)) << ',';
+    ss << GetFloatValue(PLAYER_BLOCK_PERCENTAGE) << ','
+        << GetFloatValue(PLAYER_DODGE_PERCENTAGE) << ','
+        << GetFloatValue(PLAYER_PARRY_PERCENTAGE) << ','
+        << GetFloatValue(PLAYER_CRIT_PERCENTAGE) << ','
+        << GetFloatValue(PLAYER_RANGED_CRIT_PERCENTAGE) << ','
+        << GetFloatValue(PLAYER_SPELL_CRIT_PERCENTAGE1) << ','
+        << GetUInt32Value(UNIT_FIELD_ATTACK_POWER) << ','
+        << GetUInt32Value(UNIT_FIELD_RANGED_ATTACK_POWER) << ','
+        << GetBaseSpellPowerBonus() << ')';
     trans->Append(ss.str().c_str());
 }
 
@@ -21207,8 +21209,6 @@ inline bool Player::_StoreOrEquipNewItem(uint32 vendorslot, uint32 item, uint8 c
         SendEquipError(msg, NULL, NULL, item);
         return false;
     }
-
-    ModifyMoney(-price);
 
     ModifyMoney(-price);
 
@@ -25178,16 +25178,16 @@ void Player::UpdateSpellCooldown(uint32 spell_id, int32 amount)
         else
             curCooldown -= amount;
     }
-    else // if (amount > 0) 
+    else // if (amount > 0)
         curCooldown += amount;
-    
+
     AddSpellCooldown(spell_id, 0, uint32(time(NULL) + curCooldown));
-    
+
     WorldPacket data(SMSG_MODIFY_COOLDOWN, 4+8+4);
     data << uint32(spell_id);               // Spell ID
     data << uint64(GetGUID());              // Player GUID
     data << int32(amount * 1000);           // Cooldown mod in milliseconds
-    GetSession()->SendPacket(&data);   
+    GetSession()->SendPacket(&data);
 }
 
 void Player::ResetMap()

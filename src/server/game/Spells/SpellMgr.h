@@ -43,7 +43,7 @@ enum SpellCategories
     SPELLCATEGORY_DRINK            = 59,
 };
 
-//SpellFamilyFlags
+// SpellFamilyFlags
 enum SpellFamilyFlag
 {
     // SPELLFAMILYFLAG  = SpellFamilyFlags[0]
@@ -104,6 +104,8 @@ enum SpellLinkedType
     SPELL_LINK_AURA     = 2 * 200000,   // +: aura; -: immune
     SPELL_LINK_REMOVE   = 0,
 };
+
+// Unit * GetTriggeredSpellCaster(SpellInfo const * spellInfo, Unit * caster, Unit * target); NYI
 
 // Spell proc event related declarations (accessed using SpellMgr functions)
 enum ProcFlags
