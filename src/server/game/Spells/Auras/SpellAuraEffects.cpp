@@ -1924,7 +1924,8 @@ void AuraEffect::HandleAuraModShapeshift(AuraApplication const* aurApp, uint8 mo
     {
         case FORM_CAT:                                      // 0x01
         case FORM_GHOUL:                                    // 0x07
-        case FORM_CREATURECAT:								// 0x0F
+        case FORM_CREATURECAT:                              // 0x0F
+        case FORM_SHADOW_DANCE:                             // 0x0D
             PowerType = POWER_ENERGY;
             break;
 
@@ -1946,7 +1947,6 @@ void AuraEffect::HandleAuraModShapeshift(AuraApplication const* aurApp, uint8 mo
         case FORM_THARONJA_SKELETON:                        // 0x0A
         case FORM_TEST_OF_STRENGTH:                         // 0x0B
         case FORM_BLB_PLAYER:                               // 0x0C
-        case FORM_SHADOW_DANCE:                             // 0x0D
         case FORM_CREATUREBEAR:                             // 0x0E
         case FORM_GHOSTWOLF:                                // 0x10
 
