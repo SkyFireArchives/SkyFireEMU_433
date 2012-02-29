@@ -85,35 +85,38 @@ void LoadMapMPQFiles()
     char filename[512];
 
     //Locale-xxXX.MPQ
-    sprintf(filename, "%s/Data/world.MPQ", input_path);
-    printf("Loading %s\n", filename);
-    if (!SFileOpenArchive(filename, 0, MPQ_OPEN_READ_ONLY, &WorldMPQ[0]))
+    for (int j = 0; j < 2; j++)
     {
-        printf("%i\n", GetLastError());
-        assert(false && "\nLoad of MPQ failed");
-    }
+        if (j == 0)
+            sprintf(filename, "%s/Data/world.MPQ", input_path);
+        else
+            sprintf(filename, "%s/Data/world2.MPQ", input_path);
 
-    sprintf(filename, "%s/Data/world2.MPQ", input_path);
-    printf("Loading %s\n", filename);
-    if (!SFileOpenArchive(filename, 0, MPQ_OPEN_READ_ONLY, &WorldMPQ[1]))
-    {
-        printf("%i\n", GetLastError());
-        assert(false && "\nLoad of MPQ failed");
-    }
-
-    for (int i = 0; i < PATCH_REV_COUNT; ++i)
-    {
-        char ext[7] = "";
-        sprintf(ext, "-%i", patchRev[i]);
-
-        sprintf(filename, "%s/Data/wow-update-base%s.MPQ", input_path, ext);
-        printf("    -%i\n", patchRev[i]);
-        if (!SFileOpenPatchArchive(WorldMPQ[1], filename, "base", MPQ_OPEN_READ_ONLY))
+        printf("Loading %s\n", filename);
+        if (!SFileOpenArchive(filename, 0, MPQ_OPEN_READ_ONLY, &WorldMPQ[j]))
         {
             printf("%i\n", GetLastError());
-            assert(false && "Load of MPQ patch failed");
+            assert(false && "\nLoad of MPQ failed");
+        }
+
+        for (int i = 0; i < PATCH_REV_COUNT; ++i)
+        {
+            char ext[7] = "";
+            sprintf(ext, "-%i", patchRev[i]);
+
+            sprintf(filename, "%s/Data/wow-update-base%s.MPQ", input_path, ext);
+            printf("    -%i\n", patchRev[i]);
+            if (!SFileOpenPatchArchive(WorldMPQ[j], filename, "base", MPQ_OPEN_READ_ONLY))
+            {
+                printf("%i\n", GetLastError());
+                assert(false && "Load of MPQ patch failed");
+            }
         }
     }
+
+    if (!SFileIsPatchedArchive(WorldMPQ[0]))
+        assert(false && "An error occured");
+
     if (!SFileIsPatchedArchive(WorldMPQ[1]))
         assert(false && "An error occured");
 
