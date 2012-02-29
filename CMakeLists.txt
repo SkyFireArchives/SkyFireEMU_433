@@ -10,7 +10,7 @@
 # implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 
 # Set projectname (must be done AFTER setting configurationtypes)
-project(SkyFireEMU_432)
+project(SkyFireEMU_433)
 
 # CMake policies (can not be handled elsewhere)
 cmake_minimum_required(VERSION 2.6)

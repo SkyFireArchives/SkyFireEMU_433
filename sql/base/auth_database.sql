@@ -197,7 +197,7 @@ CREATE TABLE `realmlist` (
   `timezone` tinyint(3) unsigned NOT NULL default '0',
   `allowedSecurityLevel` tinyint(3) unsigned NOT NULL default '0',
   `population` float unsigned NOT NULL default '0',
-  `gamebuild` int(11) unsigned NOT NULL default '15211',
+  `gamebuild` int(11) unsigned NOT NULL default '15354',
   PRIMARY KEY  (`id`),
   UNIQUE KEY `idx_name` (`name`)
 ) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='Realm System';
@@ -210,7 +210,7 @@ CREATE TABLE `realmlist` (
 LOCK TABLES `realmlist` WRITE;
 /*!40000 ALTER TABLE `realmlist` DISABLE KEYS */;
 INSERT INTO `realmlist` (`id`,`name`,`address`,`port`,`icon`,`color`,`timezone`,`allowedSecurityLevel`,`population`,`gamebuild`) VALUES
-(1,'SkyFire','127.0.0.1',8085,1,0,1,0,0,15211);
+(1,'SkyFire','127.0.0.1',8085,1,0,1,0,0,15354);
 /*!40000 ALTER TABLE `realmlist` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -227,7 +227,7 @@ CREATE TABLE `uptime` (
   `startstring` varchar(64) NOT NULL default '',
   `uptime` bigint(20) unsigned NOT NULL default '0',
   `maxplayers` smallint(5) unsigned NOT NULL default '0',
-  `revision` VARCHAR(255) NOT NULL DEFAULT 'Trinitycore',
+  `revision` VARCHAR(255) NOT NULL DEFAULT 'SkyFireEmu',
   PRIMARY KEY  (`realmid`,`starttime`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='Uptime system';
 /*!40101 SET character_set_client = @saved_cs_client */;
