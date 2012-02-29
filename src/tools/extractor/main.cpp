@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2005-2011 MaNGOS <http://www.getmangos.com/>
  * Copyright (C) 2008-2011 Trinity <http://www.trinitycore.org/>
- * Copyright (C) 2010-2012 Project SkyFire <http://www.projectskyfire.org/>
+ * Copyright (C) 2011-2012 Project SkyFire <http://www.projectskyfire.org/>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -34,7 +34,7 @@
 #include "misc.h"
 
 HANDLE localeMPQ[PATCH_REV_COUNT+1];
-HANDLE WorldMPQ;
+HANDLE WorldMPQ[2];
 HANDLE ExpansionsMPQ[3];
 map_id *map_ids;
 uint16 *areas;

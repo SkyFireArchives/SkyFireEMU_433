@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2005-2011 MaNGOS <http://www.getmangos.com/>
  * Copyright (C) 2008-2011 Trinity <http://www.trinitycore.org/>
- * Copyright (C) 2010-2012 Project SkyFire <http://www.projectskyfire.org/>
+ * Copyright (C) 2011-2012 Project SkyFire <http://www.projectskyfire.org/>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -43,13 +43,13 @@ void ExtractDBCFiles(int locale, bool basicLocale)
         while (pFileEntry < pFileTableEnd)
         {
             // Only take existing files
-            if (pFileEntry->dwFlags & MPQ_FILE_EXISTS &&
+            if ( pFileEntry->dwFlags & MPQ_FILE_EXISTS &&
 			   (pFileEntry->dwFlags & MPQ_FILE_PATCH_FILE) == 0 &&
 			   (pFileEntry->dwFlags & MPQ_FILE_DELETE_MARKER) == 0 &&
 			   pFileEntry->szFileName != NULL)
             {
                 std::string name = pFileEntry->szFileName;
-                if (i != 0 && i < PATCH_REV_COUNT + 1)
+                if (i != 0)
                 {
                     if (name.find(langs[locale]) == 0)
                         name = name.substr(strlen(langs[locale]) + 1);
@@ -107,7 +107,7 @@ void ExtractDBCFiles(int locale, bool basicLocale)
         std::string filename = path;
         filename += (iter->second.c_str() + strlen("DBFilesClient\\"));
 
-        if (ExtractFileToHardDrive(localeMPQ[0], iter->second.c_str(), filename.c_str()) == ERROR_SUCCESS)
+        if (ExtractFileToHardDrive(localeMPQ[iter->first], iter->second.c_str(), filename.c_str()) == ERROR_SUCCESS)
             ++count;
         else
         {

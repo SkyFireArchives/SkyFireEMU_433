@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2005-2011 MaNGOS <http://www.getmangos.com/>
  * Copyright (C) 2008-2011 Trinity <http://www.trinitycore.org/>
- * Copyright (C) 2010-2012 Project SkyFire <http://www.projectskyfire.org/>
+ * Copyright (C) 2011-2012 Project SkyFire <http://www.projectskyfire.org/>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -51,7 +51,7 @@ void ExtractMapsFromMpq(uint32 build)
     std::vector<std::string> not_found;
 
     printf("Convert map files\n");
-    HANDLE actualMPQ = WorldMPQ;
+    HANDLE actualMPQ = WorldMPQ[0];
     for (uint32 z = 0; z < map_count; ++z)
     {
         // Loadup map grid data
@@ -59,7 +59,13 @@ void ExtractMapsFromMpq(uint32 build)
         WDT_file wdt(mpq_map_name, actualMPQ);
         if (wdt.isEof())
         {
-            if (actualMPQ == WorldMPQ)
+            if (actualMPQ == WorldMPQ[0])
+            {
+                z--;
+                actualMPQ = WorldMPQ[1];
+                continue;
+            }
+            if (actualMPQ == WorldMPQ[1])
             {
                 z--;
                 actualMPQ = ExpansionsMPQ[0];
@@ -77,20 +83,22 @@ void ExtractMapsFromMpq(uint32 build)
                 actualMPQ = ExpansionsMPQ[2];
                 continue;
             }
-            actualMPQ = WorldMPQ;
+            actualMPQ = WorldMPQ[0];
             not_found.push_back(map_ids[z].name);
             printf("Extract %s (%d/%d) -- not found\n", map_ids[z].name, z+1, map_count);
             continue;
         }
-        if (actualMPQ == WorldMPQ)
+        if (actualMPQ == WorldMPQ[0])
             printf("Extract %s (%d/%d) -- World.MPQ\n", map_ids[z].name, z+1, map_count);
+        if (actualMPQ == WorldMPQ[1])
+            printf("Extract %s (%d/%d) -- World2.MPQ\n", map_ids[z].name, z+1, map_count);
         if (actualMPQ == ExpansionsMPQ[0])
             printf("Extract %s (%d/%d) -- expansion1.MPQ\n", map_ids[z].name, z+1, map_count);
         if (actualMPQ == ExpansionsMPQ[1])
             printf("Extract %s (%d/%d) -- expansion2.MPQ\n", map_ids[z].name, z+1, map_count);
         if (actualMPQ == ExpansionsMPQ[2])
             printf("Extract %s (%d/%d) -- expansion3.MPQ\n", map_ids[z].name, z+1, map_count);
-        actualMPQ = WorldMPQ;
+        actualMPQ = WorldMPQ[0];
 
         wdt.prepareLoadedData();
 
@@ -102,7 +110,7 @@ void ExtractMapsFromMpq(uint32 build)
                     continue;
                 sprintf(mpq_filename, "World\\Maps\\%s\\%s_%u_%u.adt", map_ids[z].name, map_ids[z].name, x, y);
                 sprintf(output_filename, "./maps/%03u%02u%02u.map", map_ids[z].id, y, x);
-                ConvertADT(mpq_filename, output_filename, y, x, build, WorldMPQ);
+                ConvertADT(mpq_filename, output_filename, y, x, build, WorldMPQ[0]);
             }
             // draw progress bar
             //printf("Processing........................%d%%\r", (100 * (y+1)) / WDT_MAP_SIZE);
@@ -111,6 +119,9 @@ void ExtractMapsFromMpq(uint32 build)
     printf("\n");
     delete [] areas;
     delete [] map_ids;
+    //printf("Map not extracted : %u\n", not_found.size());
+    //for (int i = 0; i < not_found.size(); i++)
+    //    printf("    %s\n", not_found[i].c_str());
 }
 
 // Map file format data
@@ -218,7 +229,9 @@ bool ConvertADT(char *filename, char *filename2, int cell_y, int cell_x, uint32 
 
     if (adt.isEof())
     {
-        if (_mpq == WorldMPQ)
+        if (_mpq == WorldMPQ[0])
+            return ConvertADT(filename, filename2, cell_y, cell_x, build, WorldMPQ[1]);
+        if (_mpq == WorldMPQ[1])
             return ConvertADT(filename, filename2, cell_y, cell_x, build, ExpansionsMPQ[0]);
         if (_mpq == ExpansionsMPQ[0])
             return ConvertADT(filename, filename2, cell_y, cell_x, build, ExpansionsMPQ[1]);
@@ -240,7 +253,7 @@ bool ConvertADT(char *filename, char *filename2, int cell_y, int cell_x, uint32 
     map.buildMagic = build;
 
     // Get area flags data
-    for (int i = 0; i < ADT_CELLS_PER_GRID; i++)
+    for (int i=0;i<ADT_CELLS_PER_GRID;i++)
     {
         for (int j=0;j<ADT_CELLS_PER_GRID;j++)
         {
@@ -266,7 +279,7 @@ bool ConvertADT(char *filename, char *filename2, int cell_y, int cell_x, uint32 
     //============================================
     bool fullAreaData = false;
     uint32 areaflag = area_flags[0][0];
-    for (int y = 0; y < ADT_CELLS_PER_GRID; y++)
+    for (int y=0;y<ADT_CELLS_PER_GRID;y++)
     {
         for (int x=0;x<ADT_CELLS_PER_GRID;x++)
         {
@@ -298,9 +311,9 @@ bool ConvertADT(char *filename, char *filename2, int cell_y, int cell_x, uint32 
     //
     // Get Height map from grid
     //
-    for (int i = 0; i < ADT_CELLS_PER_GRID; i++)
+    for (int i=0;i<ADT_CELLS_PER_GRID;i++)
     {
-        for (int j = 0; j < ADT_CELLS_PER_GRID; j++)
+        for (int j=0;j<ADT_CELLS_PER_GRID;j++)
         {
             adt_MCNK * cell = adt.getMCNK(i, j);
             if (!cell)
@@ -322,16 +335,16 @@ bool ConvertADT(char *filename, char *filename2, int cell_y, int cell_x, uint32 
             // . . . . . . . .
 
             // Set map height as grid height
-            for (int y = 0; y <= ADT_CELL_SIZE; y++)
+            for (int y=0; y <= ADT_CELL_SIZE; y++)
             {
-                int cy = i * ADT_CELL_SIZE + y;
-                for (int x = 0; x <= ADT_CELL_SIZE; x++)
+                int cy = i*ADT_CELL_SIZE + y;
+                for (int x=0; x <= ADT_CELL_SIZE; x++)
                 {
                     int cx = j*ADT_CELL_SIZE + x;
                     V9[cy][cx]=cell->ypos;
                 }
             }
-            for (int y = 0; y < ADT_CELL_SIZE; y++)
+            for (int y=0; y < ADT_CELL_SIZE; y++)
             {
                 int cy = i*ADT_CELL_SIZE + y;
                 for (int x=0; x < ADT_CELL_SIZE; x++)
@@ -345,7 +358,7 @@ bool ConvertADT(char *filename, char *filename2, int cell_y, int cell_x, uint32 
             if (!v)
                 continue;
             // get V9 height map
-            for (int y = 0; y <= ADT_CELL_SIZE; y++)
+            for (int y=0; y <= ADT_CELL_SIZE; y++)
             {
                 int cy = i*ADT_CELL_SIZE + y;
                 for (int x=0; x <= ADT_CELL_SIZE; x++)
@@ -355,10 +368,10 @@ bool ConvertADT(char *filename, char *filename2, int cell_y, int cell_x, uint32 
                 }
             }
             // get V8 height map
-            for (int y = 0; y < ADT_CELL_SIZE; y++)
+            for (int y=0; y < ADT_CELL_SIZE; y++)
             {
                 int cy = i*ADT_CELL_SIZE + y;
-                for (int x = 0; x < ADT_CELL_SIZE; x++)
+                for (int x=0; x < ADT_CELL_SIZE; x++)
                 {
                     int cx = j*ADT_CELL_SIZE + x;
                     V8[cy][cx]+=v->height_map[y*(ADT_CELL_SIZE*2+1)+ADT_CELL_SIZE+1+x];
@@ -371,18 +384,18 @@ bool ConvertADT(char *filename, char *filename2, int cell_y, int cell_x, uint32 
     //============================================
     float maxHeight = -20000;
     float minHeight =  20000;
-    for (int y = 0; y < ADT_GRID_SIZE; y++)
+    for (int y=0; y<ADT_GRID_SIZE; y++)
     {
-        for (int x = 0; x < ADT_GRID_SIZE; x++)
+        for (int x=0;x<ADT_GRID_SIZE;x++)
         {
             float h = V8[y][x];
             if (maxHeight < h) maxHeight = h;
             if (minHeight > h) minHeight = h;
         }
     }
-    for (int y = 0; y <= ADT_GRID_SIZE; y++)
+    for (int y=0; y<=ADT_GRID_SIZE; y++)
     {
-        for (int x = 0; x <= ADT_GRID_SIZE; x++)
+        for (int x=0;x<=ADT_GRID_SIZE;x++)
         {
             float h = V9[y][x];
             if (maxHeight < h) maxHeight = h;
