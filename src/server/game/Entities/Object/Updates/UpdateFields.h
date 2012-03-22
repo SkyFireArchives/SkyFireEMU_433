@@ -178,7 +178,7 @@ enum eUnitFields
     UNIT_FIELD_MAXHEALTHMODIFIER              = OBJECT_END + 0x0086, // Size: 1, Type: FLOAT, Flags: PRIVATE, OWNER
     UNIT_FIELD_HOVERHEIGHT                    = OBJECT_END + 0x0087, // Size: 1, Type: FLOAT, Flags: PUBLIC
     UNIT_FIELD_MAXITEMLEVEL                   = OBJECT_END + 0x0088, // Size: 1, Type: INT, Flags: PUBLIC
-    UNIT_FIELD_PADDING                        = OBJECT_END + 0x0089,    
+    UNIT_FIELD_PADDING                        = OBJECT_END + 0x0089,
     UNIT_END                                  = OBJECT_END + 0x0090,
 };
 
@@ -453,7 +453,7 @@ enum ePlayerFields
     PLAYER_SKILL_RANK_0                       = UNIT_END + 0x0266,
     PLAYER_SKILL_MAX_RANK_0                   = UNIT_END + 0x02A6,
     PLAYER_SKILL_MODIFIER_0                   = UNIT_END + 0x02E6,
-    PLAYER_SKILL_TALENT_0                     = UNIT_END + 0x0326,    
+    PLAYER_SKILL_TALENT_0                     = UNIT_END + 0x0326,
     PLAYER_CHARACTER_POINTS                   = UNIT_END + 0x0366, // Size: 1, Type: INT, Flags: PRIVATE
     PLAYER_TRACK_CREATURES                    = UNIT_END + 0x0367, // Size: 1, Type: INT, Flags: PRIVATE
     PLAYER_TRACK_RESOURCES                    = UNIT_END + 0x0368, // Size: 1, Type: INT, Flags: PRIVATE
@@ -478,11 +478,10 @@ enum ePlayerFields
     PLAYER_FIELD_MOD_HEALING_DONE_POS         = UNIT_END + 0x042F, // Size: 1, Type: INT, Flags: PRIVATE
     PLAYER_FIELD_MOD_HEALING_PCT              = UNIT_END + 0x0430, // Size: 1, Type: FLOAT, Flags: PRIVATE
     PLAYER_FIELD_MOD_HEALING_DONE_PCT         = UNIT_END + 0x0431, // Size: 1, Type: FLOAT, Flags: PRIVATE
-    PLAYER_FIELD_WEAPON_DMG_MULTIPLIERS       = UNIT_END + 0x0432,    
+    PLAYER_FIELD_WEAPON_DMG_MULTIPLIERS       = UNIT_END + 0x0432,
     PLAYER_FIELD_MOD_SPELL_POWER_PCT          = UNIT_END + 0x0435, // Size: 1, Type: FLOAT, Flags: PRIVATE
-    PLAYER_FIELD_MOD_TARGET_RESISTANCE        = UNIT_END + 0x0465, // Size: 1, Type: INT, Flags: PRIVATE
-    PLAYER_FIELD_OVERRIDE_SPELL_POWER_BY_AP_PCT = UNIT_END + 0x0436,   
-    PLAYER_FIELD_MOD_TARGET_RESISTANCE        = UNIT_END + 0x0437,
+    PLAYER_FIELD_MOD_TARGET_RESISTANCE        = UNIT_END + 0x0437, // Size: 1, Type: INT, Flags: PRIVATE
+    PLAYER_FIELD_OVERRIDE_SPELL_POWER_BY_AP_PCT = UNIT_END + 0x0436,
     PLAYER_FIELD_MOD_TARGET_PHYSICAL_RESISTANCE = UNIT_END + 0x0438, // Size: 1, Type: INT, Flags: PRIVATE
     PLAYER_FIELD_BYTES                        = UNIT_END + 0x0439, // Size: 1, Type: BYTES, Flags: PRIVATE
     PLAYER_SELF_RES_SPELL                     = UNIT_END + 0x043A, // Size: 1, Type: INT, Flags: PRIVATE
