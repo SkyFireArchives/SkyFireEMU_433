@@ -30,7 +30,7 @@ public:
     DBCFile(const std::string &filename);
     ~DBCFile();
 
-    // Open database. It must be openened before it can be used.
+    // Open database. It must be opened before it can be used.
     bool open();
 
     // Database exceptions

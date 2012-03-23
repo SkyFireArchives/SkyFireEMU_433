@@ -43,7 +43,8 @@
 
 static int const patchRev[] = {15354, 15211};
 #define PATCH_REV_COUNT 2
-#define CLIENT_BUILD 15050
+#define CLIENT_BUILD 15050 // It extracts 15354 so don't laugh.
+                           // The local still says 15050 in the MPQ. Hope blizz fixes there derp.
 
 static const char* const langs[] = {"enGB", "enUS", "deDE", "esES", "frFR", "koKR", "zhCN", "zhTW", "enCN", "enTW", "esMX", "ruRU" };
 #define LANG_COUNT 12
@@ -55,7 +56,7 @@ typedef struct
     uint32 id;
 } map_id;
 
-extern HANDLE localeMPQ[PATCH_REV_COUNT+1];
+extern HANDLE localeMPQ[PATCH_REV_COUNT + 1];
 extern HANDLE WorldMPQ[2];
 extern HANDLE ExpansionsMPQ[3];
 extern map_id *map_ids;

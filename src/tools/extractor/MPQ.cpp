@@ -47,7 +47,7 @@ void LoadLocaleMPQFiles(int const locale)
         }
     }
     if (!SFileIsPatchedArchive(localeMPQ[0]))
-        assert(false && "An error occured");
+        assert(false && "An error occurred");
 
     //Others
     for (int i = 0; i < PATCH_REV_COUNT; ++i)
@@ -76,7 +76,7 @@ void LoadLocaleMPQFiles(int const locale)
             }
         }
         if (!SFileIsPatchedArchive(localeMPQ[i+1]))
-            assert(false && "An error occured");
+            assert(false && "An error occurred");
     }
 }
 
@@ -115,10 +115,10 @@ void LoadMapMPQFiles()
     }
 
     if (!SFileIsPatchedArchive(WorldMPQ[0]))
-        assert(false && "An error occured");
+        assert(false && "An error occurred");
 
     if (!SFileIsPatchedArchive(WorldMPQ[1]))
-        assert(false && "An error occured");
+        assert(false && "An error occurred");
 
     for (int j = 0; j < 3; j++)
     {
@@ -132,7 +132,7 @@ void LoadMapMPQFiles()
 
         if (!IsValidMpqHandle((TMPQArchive*)ExpansionsMPQ[j]))
         {
-            printf("Load of Expansion%u.MPQ Failed!\n", j+1);
+            printf("Load of Expansion%u.MPQ Failed!\n", j + 1);
             printf("\nPlease verify you downloaded all the MPQs. You should replace\n'SET accountType \"xx\"'\nin your WTF/config.wtf and WTF/launcher.wtf by\n'SET accountType \"CT\"'\nand then restart your launcher\n");
             exit(1);
         }
@@ -168,7 +168,7 @@ int ExtractFileToHardDrive(HANDLE &MPQ_handle, const char * szArchivedFile, cons
     // Create the target file
     if (nError == ERROR_SUCCESS)
     {
-		handle = FileStream_CreateFile(szFileName);
+        handle = FileStream_CreateFile(szFileName);
         if (handle == NULL)
             nError = GetLastError();
     }
@@ -183,13 +183,13 @@ int ExtractFileToHardDrive(HANDLE &MPQ_handle, const char * szArchivedFile, cons
             // Allocate space for the full file
             BYTE * pbFullFile = new BYTE[dwFileSize];
             if (!SFileReadFile(hFile, pbFullFile, dwFileSize))
-			{
-				nError = GetLastError();
-				printf("Failed to read full patched file data \"%s\"\n", szFileName);
-				assert(false);
-			}
-			FileStream_Write(handle, NULL, pbFullFile, dwFileSize);
-			delete [] pbFullFile;
+            {
+                nError = GetLastError();
+                printf("Failed to read full patched file data \"%s\"\n", szFileName);
+                assert(false);
+            }
+            FileStream_Write(handle, NULL, pbFullFile, dwFileSize);
+            delete [] pbFullFile;
         }
     }
 
@@ -224,11 +224,11 @@ char* ExtractFileToMemory(HANDLE &MPQ_handle, const char * szArchivedFile, int &
             // Allocate space for the full file
             pbFullFile = new char[size];
             if (!SFileReadFile(hFile, pbFullFile, size))
-			{
-				nError = GetLastError();
-				printf("Failed to read full patched file data \"%s\"\n", szArchivedFile);
-				assert(false);
-			}
+            {
+                nError = GetLastError();
+                printf("Failed to read full patched file data \"%s\"\n", szArchivedFile);
+                assert(false);
+            }
         }
     }
 
