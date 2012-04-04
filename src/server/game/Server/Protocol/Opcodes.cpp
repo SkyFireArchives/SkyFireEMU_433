@@ -34,7 +34,7 @@ OpcodeNameValueMap OpcodeNameValues;
 
 bool LoadOpcodes()
 {
-    uint16 build = 15211;
+    uint16 build = 15354;
     QueryResult result = WorldDatabase.PQuery("SELECT name, number FROM emuopcodes where version = %u", build);
 
     if (!result)

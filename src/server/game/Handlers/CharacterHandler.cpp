@@ -223,6 +223,7 @@ void WorldSession::HandleCharEnum(PreparedQueryResult result)
 {
     WorldPacket data(SMSG_CHAR_ENUM, 270);                  // we guess size
 
+	data.WriteBits(0, 23);
     data.WriteBits(result ? (*result).GetRowCount() : 0 , 17);
 
     std::vector<charEnumInfo> charInfoList;
@@ -278,25 +279,25 @@ void WorldSession::HandleCharEnum(PreparedQueryResult result)
                 switch(i)
                 {
                     // guidlow[0]
-                case 10:
+                case 0:
                     data.WriteBit(Guid0 ? 1 : 0);
                     break;
                     // guidlow[1]
-                case 12:
+                case 15:
                     data.WriteBit(Guid1 ? 1 : 0);
                     break;
                     // guidlow[2]
-                case 1:
+                case 5:
                     data.WriteBit(Guid2 ? 1 : 0);
                     break;
                     // guidlow[3]
-                case 11:
+                case 2:
                     data.WriteBit(Guid3 ? 1 : 0);
                     break;
-                case 8:
+                case 7:
                     data.WriteBits(charInfoList[counter].nameLenghts, 7);
                     break;
-                case 13:
+                case 4:
                     data.WriteBit(charInfoList[counter].firstLogin ? 1 : 0);
                     break;
                 default:
@@ -307,15 +308,13 @@ void WorldSession::HandleCharEnum(PreparedQueryResult result)
 
             counter++;
         }
-        data.WriteBits(0x0, 23); // unk counter 4.3
         data.WriteBit(1);
-
-        data.FlushBits();
+		data.FlushBits();
         data.append(buffer);
     }
     else
     {
-        data.WriteBits(0x0, 23);
+       
         data.WriteBit(1);
         data.FlushBits();
     }
@@ -907,14 +906,14 @@ void WorldSession::HandlePlayerLoginOpcode(WorldPacket & recv_data)
 
     ByteBuffer bytes(8, true);
 
-    recv_data.ReadXorByte(mask[3], bytes[4]);
-    recv_data.ReadXorByte(mask[7], bytes[1]);
-    recv_data.ReadXorByte(mask[4], bytes[7]);
-    recv_data.ReadXorByte(mask[6], bytes[2]);
-    recv_data.ReadXorByte(mask[5], bytes[6]);
-    recv_data.ReadXorByte(mask[1], bytes[5]);
-    recv_data.ReadXorByte(mask[2], bytes[3]);
-    recv_data.ReadXorByte(mask[0], bytes[0]);
+    recv_data.ReadXorByte(mask[5], bytes[1]);
+    recv_data.ReadXorByte(mask[2], bytes[4]);
+    recv_data.ReadXorByte(mask[1], bytes[7]);
+    recv_data.ReadXorByte(mask[7], bytes[2]);
+    recv_data.ReadXorByte(mask[6], bytes[3]);
+    recv_data.ReadXorByte(mask[0], bytes[6]);
+    recv_data.ReadXorByte(mask[4], bytes[0]);
+    recv_data.ReadXorByte(mask[3], bytes[5]);
 
     playerGuid = BitConverter::ToUInt64(bytes);
 

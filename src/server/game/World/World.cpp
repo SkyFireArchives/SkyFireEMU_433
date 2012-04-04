@@ -1764,8 +1764,8 @@ void World::SetInitialWorldSettings()
     sOutdoorPvPMgr->InitOutdoorPvP();
 
     ///- Initialize Battlefield
-    sLog->outString("Starting Battlefield System");
-    sBattlefieldMgr.InitBattlefield();
+    //sLog->outString("Starting Battlefield System");
+    //sBattlefieldMgr.InitBattlefield();
 
     sLog->outString("Loading Transports...");
     sMapMgr->LoadTransports();
