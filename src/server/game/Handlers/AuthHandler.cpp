@@ -23,29 +23,29 @@
 
 int WorldSocket::SendAuthConnection()
 {
-	std::string ServerToClient = "RLD OF WARCRAFT CONNECTION - SERVER TO CLIENT";
-	WorldPacket data(MSG_VERIFY_CONNECTIVITY, 46);
+    std::string ServerToClient = "RLD OF WARCRAFT CONNECTION - SERVER TO CLIENT";
+    WorldPacket data(MSG_VERIFY_CONNECTIVITY, 46);
 
-	data << ServerToClient;
+    data << ServerToClient;
 
-	if (SendPacket(data) == -1)
-		return -1;
+    if (SendPacket(data) == -1)
+        return -1;
 
-	return 0;
+    return 0;
 }
 
 void WorldSession::SendAuthResponse(uint8 code, bool shortForm, uint32 queuePos)
 {
   
-	WorldPacket packet(SMSG_AUTH_RESPONSE, 1 + 1 + 4 + 1 + 4 + 1 + 4);
+    WorldPacket packet(SMSG_AUTH_RESPONSE, 1 + 1 + 4 + 1 + 4 + 1 + 4);
     packet << uint8(code);
-	packet << uint8(0x80);
-	packet << uint32(0);								   // Unknown - 4.3.2
-	packet << uint32(0);                                   // BillingTimeRemaining
-	packet << uint32(0);                                   // BillingTimeRested
-	packet << uint8(Expansion());                          // | 0 - normal | 1 - TBC | 2 - WOTLK | 3 - CATA |
-	packet << uint8(0);                                    // BillingPlanFlags
-	packet << uint8(Expansion());                          // Server Expansion
+    packet << uint8(0x80);
+    packet << uint32(0);								   // Unknown - 4.3.2
+    packet << uint32(0);                                   // BillingTimeRemaining
+    packet << uint32(0);                                   // BillingTimeRested
+    packet << uint8(Expansion());                          // | 0 - normal | 1 - TBC | 2 - WOTLK | 3 - CATA |
+    packet << uint8(0);                                    // BillingPlanFlags
+    packet << uint8(Expansion());                          // Server Expansion
     if (!shortForm)    
     {
         packet << uint8(0);                                // Unk 3.3.0

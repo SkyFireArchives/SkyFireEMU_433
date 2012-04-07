@@ -1914,7 +1914,7 @@ bool Player::BuildEnumData(PreparedQueryResult result, ByteBuffer* data)
            
             *data << uint32(0);
             *data << uint32(0);
-			*data << uint8(0);
+            *data << uint8(0);
             continue;
         }
 
@@ -1931,9 +1931,9 @@ bool Player::BuildEnumData(PreparedQueryResult result, ByteBuffer* data)
             if (enchant)
                 break;
         }
-		
-		*data << uint32(enchant ? enchant->aura_id : 0);
-		*data << uint32(db2Item->DisplayId);
+        
+        *data << uint32(enchant ? enchant->aura_id : 0);
+        *data << uint32(db2Item->DisplayId);
         *data << uint8(proto->InventoryType);
 
 
@@ -1945,13 +1945,13 @@ bool Player::BuildEnumData(PreparedQueryResult result, ByteBuffer* data)
        
         *data << uint32(0);                                     // displayid
         *data << uint32(0);                                     // enchant
-		*data << uint8(0);                                      // invtype
+        *data << uint8(0);                                      // invtype
     }
 
-	*data << uint32(zone);                                      // Zone id
-	*data << uint32(petLevel);                                  // pet level
-	
-	uint32 charFlags = 0;
+    *data << uint32(zone);                                      // Zone id
+    *data << uint32(petLevel);                                  // pet level
+    
+    uint32 charFlags = 0;
     if (playerFlags & PLAYER_FLAGS_HIDE_HELM)
         charFlags |= CHARACTER_FLAG_HIDE_HELM;
 
@@ -1979,40 +1979,40 @@ bool Player::BuildEnumData(PreparedQueryResult result, ByteBuffer* data)
    //charFlags |= CHARACTER_FLAG_UNK29;
 
     *data << uint32(charFlags);                                 // character flags
-	
-	uint32 playerBytes2 = fields[6].GetUInt32();
-	*data << uint8(playerBytes2 & 0xFF);                        // facial hair
-	
+    
+    uint32 playerBytes2 = fields[6].GetUInt32();
+    *data << uint8(playerBytes2 & 0xFF);                        // facial hair
+    
     if (Guid0)
         *data << uint8(Guid0 ^ 1);
 
-	if (Guid2)
+    if (Guid2)
         *data << uint8(Guid2 ^ 1);
-	
-	*data << uint8(0);                                          // char order id
-	*data << uint32(petFamily);                                 // Pet Family
-	
-	if (Guid3)
+    
+    *data << uint8(0);                                          // char order id
+    *data << uint32(petFamily);                                 // Pet Family
+    
+    if (Guid3)
         *data << uint8(Guid3 ^ 1);
 
-	*data << uint8(playerClass);                                // class
+    *data << uint8(playerClass);                                // class
 
-	*data << fields[10].GetFloat();                             // x
+    *data << fields[10].GetFloat();                             // x
 
-	if (Guid1)
+    if (Guid1)
         *data << uint8(Guid1 ^ 1);
-	
-	*data << uint8(playerRace);                                 // Race
-	*data << uint32(petDisplayId);                              // Pet DisplayID
-	  
+    
+    *data << uint8(playerRace);                                 // Race
+    *data << uint32(petDisplayId);                              // Pet DisplayID
+      
     *data << fields[11].GetFloat();                             // y
 
     *data << uint8(gender);                                     // Gender
-	*data << uint8(playerBytes >> 16);                          // Hair style
- 	*data << uint8(level);                                      // Level
-	*data << fields[12].GetFloat();                             // z
+    *data << uint8(playerBytes >> 16);                          // Hair style
+    *data << uint8(level);                                      // Level
+    *data << fields[12].GetFloat();                             // z
 
-	 // character customize flags
+     // character customize flags
     if (atLoginFlags & AT_LOGIN_CUSTOMIZE)
         *data << uint32(CHAR_CUSTOMIZE_FLAG_CUSTOMIZE);
     else if (atLoginFlags & AT_LOGIN_CHANGE_FACTION)
@@ -2022,14 +2022,14 @@ bool Player::BuildEnumData(PreparedQueryResult result, ByteBuffer* data)
     else
         *data << uint32(CHAR_CUSTOMIZE_FLAG_NONE);
 
-	*data << uint8(playerBytes);                                // skin
-	*data << uint8(playerBytes >> 24);                          // Hair color
+    *data << uint8(playerBytes);                                // skin
+    *data << uint8(playerBytes >> 24);                          // Hair color
     *data << uint8(playerBytes >> 8);                           // face
-	*data << uint32(fields[9].GetUInt32());                     // map
+    *data << uint32(fields[9].GetUInt32());                     // map
 
     data->append(fields[1].GetString().c_str(), fields[1].GetString().size());
 
-	return true;
+    return true;
 }
 
 bool Player::ToggleAFK()

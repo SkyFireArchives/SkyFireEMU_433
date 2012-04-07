@@ -223,7 +223,7 @@ void WorldSession::HandleCharEnum(PreparedQueryResult result)
 {
     WorldPacket data(SMSG_CHAR_ENUM, 270);                  // we guess size
 
-	data.WriteBits(0, 23);
+    data.WriteBits(0, 23);
     data.WriteBits(result ? (*result).GetRowCount() : 0 , 17);
 
     std::vector<charEnumInfo> charInfoList;
@@ -309,7 +309,7 @@ void WorldSession::HandleCharEnum(PreparedQueryResult result)
             counter++;
         }
         data.WriteBit(1);
-		data.FlushBits();
+        data.FlushBits();
         data.append(buffer);
     }
     else
