@@ -272,7 +272,7 @@ int WorldSocket::open (void *a)
 
     m_Address = remote_addr.get_host_addr();
 
-    WorldPacket packet(MSG_VERIFY_CONNECTIVITY); 
+    WorldPacket packet(MSG_VERIFY_CONNECTIVITY, 46); 
     packet << "RLD OF WARCRAFT CONNECTION - SERVER TO CLIENT"; 
 
     if (SendPacket(packet) == -1)
@@ -804,12 +804,14 @@ int WorldSocket::ProcessIncoming (WorldPacket* new_pct)
 int WorldSocket::HandleSendAuthSession() 
 { 
     WorldPacket packet(SMSG_AUTH_CHALLENGE, 37);
-
+	
+	packet << uint8(1);
+	packet << m_Seed;
+   
     for (uint32 i = 0; i < 8; i++)
         packet << uint32(0);
 
-    packet << m_Seed;
-    packet << uint8(1);
+   
     return SendPacket(packet); 
 } 
 
@@ -826,20 +828,22 @@ int WorldSocket::HandleAuthSession(WorldPacket& recvPacket)
     WorldPacket packet;
 
     recvPacket.read_skip<uint32>();
+    recvPacket.read(digest, 4);
+    recvPacket.read_skip<uint8>();
     recvPacket.read(digest, 1);
     recvPacket.read_skip<uint32>();
     recvPacket.read_skip<uint32>();
-    recvPacket.read(digest, 9);
+    recvPacket.read(digest, 2);
+    recvPacket.read_skip<uint8>();
+    recvPacket.read(digest, 3);
     recvPacket >> clientBuild;
     recvPacket.read(digest, 1);
-    recvPacket.read_skip<uint64>();
-    recvPacket.read_skip<uint8>();
-    recvPacket.read_skip<uint8>();
-    recvPacket.read(digest, 2);
     recvPacket.read_skip<uint32>();
-    recvPacket.read(digest, 2);
+    recvPacket.read(digest, 6);
     recvPacket >> clientSeed;
-    recvPacket.read(digest, 5);
+    recvPacket.read(digest, 1);
+    recvPacket.read_skip<uint64>();
+    recvPacket.read(digest, 2);
 
     recvPacket >> m_addonSize;
     uint8 * tableauAddon = new uint8[m_addonSize];
